@@ -1,6 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[ELK: 使用 Docker 搭建 ELK 环境]]></title>
+    <url>%2F2018%2F07%2F20%2FELK-%E4%BD%BF%E7%94%A8-Docker-%E6%90%AD%E5%BB%BA-ELK-%E7%8E%AF%E5%A2%83%2F</url>
+    <content type="text"><![CDATA[这里使用 Docker 直接搭建 ELK 环境, 因为 Docker 有第三方提供了 elk 的包, 减少了配置量.当然也可以用 ELK 提供的官方 Docker 包或者直接安装, 但是因为工作需要就那么折腾了. Docker 安装 Docker 官方安装教程 https://docs.docker.com/v17.09/engine/installation/linux/docker-ce/centos/#prerequisites 123456789101112131415161718192021# 更新yum update# 删除旧版本避免冲突sudo yum remove docker \ docker-common \ docker-selinux \ docker-engine# 安装依赖sudo yum install -y yum-utils \ device-mapper-persistent-data \ lvm2# 安装 Docker 的 yum 源sudo yum-config-manager \ --add-repo \ https://download.docker.com/linux/centos/docker-ce.repo# 安装 Dockersudo yum install docker-ce# 开启 Dockersudo systemctl start docker# 开启 Dockerdocker info 这样 Docker 就安装好了, 一般不会遇到什么问题.需要注意的是这是 CentOS 的安装顺序, 其他系统参考官方教程. ELK 安装 ELK Docker 文档 http://elk-docker.readthedocs.io/ 安装 ELK Docker 镜像 12345678docker pull sebp/elkdocker run -p 5001:5601 -p 9200:9200 -p 5044:5044 -p 9300:9300 \ -v /data/elk/conf.d:/etc/logstash/conf.d -it --name elk sebp/elk# 这个包直接 run 就好了, 需要注意的是端口要映射出来, 如果需要修改配置就要映射配置文件.# 配置文件文件夹在文档中能找到, 相关配置也在里面.# 5601 -&gt; Kibana# 5044 -&gt; Logstash# 9200, 9300 -&gt; Elasticsearch 在文档里面提到一个先决条件, 就是 max_map_count 要大于 262144. Linux 设置 max_map_count 1234# 查看设置的 max_map_count 是多少sysctl vm.max_map_count# 设置 max_map_count 大于300000sysctl -w vm.max_map_count=300000 注意, 必须在主机上更改限制; 不能在容器内更改. Docker for Mac 设置 max_map_count在启动容器时设置环境变量 -e MAX_MAP_COUNT=300000如果没有问题就已经装好了, 可以通过 Kibana 和 Elasticsearch:9200 连接查看是否安装完成.]]></content>
+      <categories>
+        <category>ELK</category>
+      </categories>
+      <tags>
+        <tag>ELK</tag>
+        <tag>Elasticsearch</tag>
+        <tag>Logstash</tag>
+        <tag>Kibana</tag>
+        <tag>Docker</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[流畅的Python]]></title>
     <url>%2F2018%2F05%2F05%2F%E6%B5%81%E7%95%85%E7%9A%84python%2F</url>
     <content type="text"><![CDATA[流畅的python阅读笔记，流畅的python主要是讲了python的进阶特性。 第一章 Python数据模型 在 Python 中使用双下划线开头，双下划线结尾的方法就是 Python 的特殊方法。Python 会在碰到特殊句法的时候，会使用特殊方法去执行一些对象操作。这些特殊方法能让对象支持这些操作： 迭代， 集合类， 属性访问， 运算符重载， 函数和方法的调用， 对象的创建和销毁， 字符串表示形式和格式化， 管理上下文。]]></content>
@@ -63,7 +78,10 @@
   <entry>
     <title><![CDATA[Django HTTPS配置]]></title>
     <url>%2F2018%2F02%2F16%2FDjango-HTTPS%E9%85%8D%E7%BD%AE%2F</url>
-    <content type="text"><![CDATA[title: Django HTTPS配置date: 2018å-02-16 12:23:02tags: - Django - HTTPS categories: - Django Django启动HTTPS服务的配置 在settings.py 中 添加以下配置1234SECURE_PROXY_SSL_HEADER = (&apos;HTTP_X_FORWARDED_PROTO&apos;, &apos;https&apos;)SECURE_SSL_REDIRECT = TrueSESSION_COOKIE_SECURE = TrueCSRF_COOKIE_SECURE = True - Django Django启动HTTPS服务的配置 在settings.py 中 添加以下配置1234SECURE_PROXY_SSL_HEADER = (&apos;HTTP_X_FORWARDED_PROTO&apos;, &apos;https&apos;)SECURE_SSL_REDIRECT = TrueSESSION_COOKIE_SECURE = TrueCSRF_COOKIE_SECURE = True]]></content>
+    <content type="text"><![CDATA[Django启动HTTPS服务的配置 在settings.py 中 添加以下配置1234SECURE_PROXY_SSL_HEADER = (&apos;HTTP_X_FORWARDED_PROTO&apos;, &apos;https&apos;)SECURE_SSL_REDIRECT = TrueSESSION_COOKIE_SECURE = TrueCSRF_COOKIE_SECURE = True - Django Django启动HTTPS服务的配置 在settings.py 中 添加以下配置1234SECURE_PROXY_SSL_HEADER = (&apos;HTTP_X_FORWARDED_PROTO&apos;, &apos;https&apos;)SECURE_SSL_REDIRECT = TrueSESSION_COOKIE_SECURE = TrueCSRF_COOKIE_SECURE = True]]></content>
+      <categories>
+        <category>Django</category>
+      </categories>
       <tags>
         <tag>Django</tag>
         <tag>HTTPS</tag>
