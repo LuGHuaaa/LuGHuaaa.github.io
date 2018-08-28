@@ -1,0 +1,1272 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=6.0.3" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.0.3">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=6.0.3">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=6.0.3">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=6.0.3" color="#222">
+
+
+
+
+
+
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '6.0.3',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  
+  <meta name="keywords" content="ELK,Kibana,ElasticSsearch,LogStash," />
+
+
+<meta name="description" content="Elasticsearch 配置Elasticsearch 配置文件在 elasticsearch/config 文件夹下. 这个文件夹有两个配置文件 elasticsearch.yml 是配置不同模块的配置文件, logging.yml 是配置日志的配置文件. docker 映射配置文件12345678910111213141516/opt/kibana/config/kibana.yml">
+<meta name="keywords" content="ELK,Kibana,ElasticSsearch,LogStash">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ELK: ELK 配置">
+<meta property="og:url" content="http://www.corner.today/2018/07/24/ELK-ELK-配置/index.html">
+<meta property="og:site_name" content="Corner.Today">
+<meta property="og:description" content="Elasticsearch 配置Elasticsearch 配置文件在 elasticsearch/config 文件夹下. 这个文件夹有两个配置文件 elasticsearch.yml 是配置不同模块的配置文件, logging.yml 是配置日志的配置文件. docker 映射配置文件12345678910111213141516/opt/kibana/config/kibana.yml">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2018-08-28T08:10:14.970Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="ELK: ELK 配置">
+<meta name="twitter:description" content="Elasticsearch 配置Elasticsearch 配置文件在 elasticsearch/config 文件夹下. 这个文件夹有两个配置文件 elasticsearch.yml 是配置不同模块的配置文件, logging.yml 是配置日志的配置文件. docker 映射配置文件12345678910111213141516/opt/kibana/config/kibana.yml">
+
+
+
+
+
+
+  <link rel="canonical" href="http://www.corner.today/2018/07/24/ELK-ELK-配置/"/>
+
+
+
+<script type="text/javascript" id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+  <title>ELK: ELK 配置 | Corner.Today</title>
+  
+
+
+
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-114362424-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-114362424-1');
+</script>
+
+
+
+
+
+
+  <noscript>
+  <style type="text/css">
+    .use-motion .motion-element,
+    .use-motion .brand,
+    .use-motion .menu-item,
+    .sidebar-inner,
+    .use-motion .post-block,
+    .use-motion .pagination,
+    .use-motion .comments,
+    .use-motion .post-header,
+    .use-motion .post-body,
+    .use-motion .collection-title { opacity: initial; }
+
+    .use-motion .logo,
+    .use-motion .site-title,
+    .use-motion .site-subtitle {
+      opacity: initial;
+      top: initial;
+    }
+
+    .use-motion {
+      .logo-line-before i { left: initial; }
+      .logo-line-after i { right: initial; }
+    }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"> <div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Corner.Today</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">这是一个无聊的小角落</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            <i class="menu-item-icon fa fa-fw fa-home"></i> <br />Home</a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            <i class="menu-item-icon fa fa-fw fa-user"></i> <br />About</a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />Tags</a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            <i class="menu-item-icon fa fa-fw fa-th"></i> <br />Categories</a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />Archives</a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-commonweal">
+          <a href="/404/" rel="section">
+            <i class="menu-item-icon fa fa-fw fa-heartbeat"></i> <br />Commonweal 404</a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />Search</a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="Searching..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+  
+
+
+
+ </div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://www.corner.today/2018/07/24/ELK-ELK-配置/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="LuGuoHuas">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Corner.Today">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">ELK: ELK 配置</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-07-24T10:00:07+08:00">2018-07-24</time>
+            
+
+            
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/ELK/" itemprop="url" rel="index"><span itemprop="name">ELK</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2018/07/24/ELK-ELK-配置/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2018/07/24/ELK-ELK-配置/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <a id="more"></a>
+<h1 id="Elasticsearch-配置"><a href="#Elasticsearch-配置" class="headerlink" title="Elasticsearch 配置"></a>Elasticsearch 配置</h1><p>Elasticsearch 配置文件在 elasticsearch/config 文件夹下. 这个文件夹有两个配置文件 elasticsearch.yml 是配置不同模块的配置文件, logging.yml 是配置日志的配置文件.</p>
+<p>docker 映射配置文件<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">/opt/kibana/config/kibana.yml    # kibana 的配置文件</span><br><span class="line">/opt/logstash/config/logstash.yml    # logstash 的配置文件</span><br><span class="line">/opt/elasticsearch/config/elasticsearch.yml    # es 的配置文件</span><br><span class="line">/usr/share/elasticsearch/data    # es 存储数据的位置</span><br><span class="line">  </span><br><span class="line">docker run -p 8001:5601 -p 8002:9200 -p 8003:9300 -p 8004:5044 \</span><br><span class="line">  -v /data/elk/logstash/conf.d:/etc/logstash/conf.d \</span><br><span class="line">  -v /data/elk/kibana/config/kibana.yml:/opt/kibana/config/kibana.yml \</span><br><span class="line">  -v /data/elk/logstash/config/logstash.yml:/opt/logstash/config/logstash.yml \</span><br><span class="line">  -v /data/elk/elasticsearch/config/elasticsearch.yml:/opt/elasticsearch/config/elasticsearch.yml \</span><br><span class="line">  -v /data/elk/elasticsearch/data:/usr/share/elasticsearch/data \</span><br><span class="line">  -v /data/elk/elasticsearch/log/:/var/lib/elasticsearch \</span><br><span class="line">  -v /data/elk/kibana/run_log/:/var/log/kibana/ \</span><br><span class="line">  -v /data/elk/logstash/run_log/:/var/log/logstash/ \</span><br><span class="line">  -v /data/elk/elasticsearch/run_log/:/var/log/elasticsearch/ \</span><br><span class="line">  -it --name elk sebp/elk</span><br></pre></td></tr></table></figure></p>
+<h1 id="LogStash-配置"><a href="#LogStash-配置" class="headerlink" title="LogStash 配置"></a>LogStash 配置</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line">input &#123;</span><br><span class="line">  beats &#123;</span><br><span class="line">    port =&gt; 5044</span><br><span class="line">    ssl =&gt; true</span><br><span class="line">    ssl_certificate =&gt; &quot;/etc/pki/tls/certs/logstash-beats.crt&quot;</span><br><span class="line">    ssl_key =&gt; &quot;/etc/pki/tls/private/logstash-beats.key&quot;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">filter &#123;</span><br><span class="line">    grok &#123;</span><br><span class="line">      match =&gt; &#123; &quot;message&quot; =&gt; &quot;%&#123;SYSLOGTIMESTAMP:syslog_timestamp&#125; %&#123;SYSLOGHOST:syslog_hostname&#125; %&#123;DATA:syslog_program&#125;(?:\[%&#123;POSINT:syslog_pid&#125;\])?: %&#123;GREEDYDATA:syslog_message&#125;&quot; &#125;</span><br><span class="line">      add_field =&gt; [ &quot;received_at&quot;, &quot;%&#123;@timestamp&#125;&quot; ]</span><br><span class="line">      add_field =&gt; [ &quot;received_from&quot;, &quot;%&#123;host&#125;&quot; ]</span><br><span class="line">    &#125;</span><br><span class="line">    syslog_pri &#123; &#125;</span><br><span class="line">    date &#123;</span><br><span class="line">      match =&gt; [ &quot;syslog_timestamp&quot;, &quot;MMM  d HH:mm:ss&quot;, &quot;MMM dd HH:mm:ss&quot; ]</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">filter &#123;</span><br><span class="line">    grok &#123;</span><br><span class="line">      match =&gt; &#123; &quot;message&quot; =&gt; &quot;%&#123;NGINXACCESS&#125;&quot; &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">filter &#123;</span><br><span class="line">        json &#123;</span><br><span class="line">            source =&gt; &quot;message&quot;</span><br><span class="line">            #target =&gt; &quot;doc&quot;</span><br><span class="line">            #remove_field =&gt; [&quot;message&quot;]</span><br><span class="line">        &#125;   </span><br><span class="line">&#125;</span><br><span class="line">output &#123;</span><br><span class="line">  elasticsearch &#123;</span><br><span class="line">    hosts =&gt; [&quot;localhost&quot;]</span><br><span class="line">    manage_template =&gt; false</span><br><span class="line">    index =&gt; &quot;%&#123;[@metadata][beat]&#125;-%&#123;+YYYY.MM.dd&#125;&quot;</span><br><span class="line">    document_type =&gt; &quot;%&#123;[@metadata][type]&#125;&quot;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="其他示例配置"><a href="#其他示例配置" class="headerlink" title="其他示例配置"></a>其他示例配置</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br></pre></td><td class="code"><pre><span class="line"># ======================== Elasticsearch Configuration =========================</span><br><span class="line">#</span><br><span class="line"># NOTE: Elasticsearch comes with reasonable defaults for most settings.</span><br><span class="line">#       Before you set out to tweak and tune the configuration, make sure you</span><br><span class="line">#       understand what are you trying to accomplish and the consequences.</span><br><span class="line">#</span><br><span class="line"># The primary way of configuring a node is via this file. This template lists</span><br><span class="line"># the most important settings you may want to configure for a production cluster.</span><br><span class="line">#</span><br><span class="line"># Please consult the documentation for further information on configuration options:</span><br><span class="line"># https://www.elastic.co/guide/en/elasticsearch/reference/index.html</span><br><span class="line">#</span><br><span class="line"># ---------------------------------- Cluster -----------------------------------</span><br><span class="line">#</span><br><span class="line"># Use a descriptive name for your cluster:</span><br><span class="line">#</span><br><span class="line"># cluster.name: aoemo</span><br><span class="line">#</span><br><span class="line"># ------------------------------------ Node ------------------------------------</span><br><span class="line">#</span><br><span class="line"># Use a descriptive name for the node:</span><br><span class="line">#</span><br><span class="line"># node.name: node-1</span><br><span class="line">#</span><br><span class="line"># Add custom attributes to the node:</span><br><span class="line">#</span><br><span class="line">#node.attr.rack: r1</span><br><span class="line">#</span><br><span class="line"># ----------------------------------- Paths ------------------------------------</span><br><span class="line">#</span><br><span class="line"># Path to directory where to store the data (separate multiple locations by comma):</span><br><span class="line">#</span><br><span class="line">path.data: /usr/share/elasticsearch/data</span><br><span class="line">#</span><br><span class="line"># Path to log files:</span><br><span class="line">#</span><br><span class="line">path.logs: /var/lib/elasticsearch</span><br><span class="line">#</span><br><span class="line"># ----------------------------------- Memory -----------------------------------</span><br><span class="line">#</span><br><span class="line"># Lock the memory on startup:</span><br><span class="line">#</span><br><span class="line">#bootstrap.memory_lock: true</span><br><span class="line">#</span><br><span class="line"># Make sure that the heap size is set to about half the memory available</span><br><span class="line"># on the system and that the owner of the process is allowed to use this</span><br><span class="line"># limit.</span><br><span class="line">#</span><br><span class="line"># Elasticsearch performs poorly when the system is swapping the memory.</span><br><span class="line">#</span><br><span class="line"># ---------------------------------- Network -----------------------------------</span><br><span class="line">#</span><br><span class="line"># Set the bind address to a specific IP (IPv4 or IPv6):</span><br><span class="line">#</span><br><span class="line">#network.host: 192.168.0.1</span><br><span class="line">#</span><br><span class="line"># Set a custom port for HTTP:</span><br><span class="line">#</span><br><span class="line">#http.port: 9200</span><br><span class="line">#</span><br><span class="line"># For more information, consult the network module documentation.</span><br><span class="line">#</span><br><span class="line"># --------------------------------- Discovery ----------------------------------</span><br><span class="line">#</span><br><span class="line"># Pass an initial list of hosts to perform discovery when new node is started:</span><br><span class="line"># The default list of hosts is [&quot;127.0.0.1&quot;, &quot;[::1]&quot;]</span><br><span class="line">#</span><br><span class="line">#discovery.zen.ping.unicast.hosts: [&quot;host1&quot;, &quot;host2&quot;]</span><br><span class="line">#</span><br><span class="line"># Prevent the &quot;split brain&quot; by configuring the majority of nodes (total number of master-eligible nodes / 2 + 1):</span><br><span class="line">#</span><br><span class="line">#discovery.zen.minimum_master_nodes:</span><br><span class="line">#</span><br><span class="line"># For more information, consult the zen discovery module documentation.</span><br><span class="line">#</span><br><span class="line"># ---------------------------------- Gateway -----------------------------------</span><br><span class="line">#</span><br><span class="line"># Block initial recovery after a full cluster restart until N nodes are started:</span><br><span class="line">#</span><br><span class="line">#gateway.recover_after_nodes: 3</span><br><span class="line">#</span><br><span class="line"># For more information, consult the gateway module documentation.</span><br><span class="line">#</span><br><span class="line"># ---------------------------------- Various -----------------------------------</span><br><span class="line">#</span><br><span class="line"># Require explicit names when deleting indices:</span><br><span class="line">#</span><br><span class="line">#action.destructive_requires_name: true</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br></pre></td><td class="code"><pre><span class="line"># Default Kibana 5 file from https://github.com/elastic/kibana/blob/master/config/kibana.yml</span><br><span class="line">#</span><br><span class="line"># Kibana is served by a back end server. This setting specifies the port to use.</span><br><span class="line">#server.port: 5601</span><br><span class="line"></span><br><span class="line"># Specifies the address to which the Kibana server will bind. IP addresses and host names are both valid values.</span><br><span class="line"># The default is &apos;localhost&apos;, which usually means remote machines will not be able to connect.</span><br><span class="line"># To allow connections from remote users, set this parameter to a non-loopback address.</span><br><span class="line">server.host: &quot;0.0.0.0&quot;</span><br><span class="line"></span><br><span class="line"># Enables you to specify a path to mount Kibana at if you are running behind a proxy. This only affects</span><br><span class="line"># the URLs generated by Kibana, your proxy is expected to remove the basePath value before forwarding requests</span><br><span class="line"># to Kibana. This setting cannot end in a slash.</span><br><span class="line">#server.basePath: &quot;&quot;</span><br><span class="line"></span><br><span class="line"># The maximum payload size in bytes for incoming server requests.</span><br><span class="line">#server.maxPayloadBytes: 1048576</span><br><span class="line"></span><br><span class="line"># The Kibana server&apos;s name.  This is used for display purposes.</span><br><span class="line">#server.name: &quot;your-hostname&quot;</span><br><span class="line"></span><br><span class="line"># The URL of the Elasticsearch instance to use for all your queries.</span><br><span class="line">#elasticsearch.url: &quot;http://localhost:9200&quot;</span><br><span class="line"></span><br><span class="line"># When this setting’s value is true Kibana uses the hostname specified in the server.host</span><br><span class="line"># setting. When the value of this setting is false, Kibana uses the hostname of the host</span><br><span class="line"># that connects to this Kibana instance.</span><br><span class="line">#elasticsearch.preserveHost: true</span><br><span class="line"></span><br><span class="line"># Kibana uses an index in Elasticsearch to store saved searches, visualizations and</span><br><span class="line"># dashboards. Kibana creates a new index if the index doesn’t already exist.</span><br><span class="line">#kibana.index: &quot;.kibana&quot;</span><br><span class="line"></span><br><span class="line"># The default application to load.</span><br><span class="line">#kibana.defaultAppId: &quot;discover&quot;</span><br><span class="line"></span><br><span class="line"># If your Elasticsearch is protected with basic authentication, these settings provide</span><br><span class="line"># the username and password that the Kibana server uses to perform maintenance on the Kibana</span><br><span class="line"># index at startup. Your Kibana users still need to authenticate with Elasticsearch, which</span><br><span class="line"># is proxied through the Kibana server.</span><br><span class="line">elasticsearch.username: &quot;elastic&quot;</span><br><span class="line">elasticsearch.password: &quot;changeme&quot;</span><br><span class="line"></span><br><span class="line"># Paths to the PEM-format SSL certificate and SSL key files, respectively. These</span><br><span class="line"># files enable SSL for outgoing requests from the Kibana server to the browser.</span><br><span class="line">#server.ssl.cert: /path/to/your/server.crt</span><br><span class="line">#server.ssl.key: /path/to/your/server.key</span><br><span class="line"></span><br><span class="line"># Optional settings that provide the paths to the PEM-format SSL certificate and key files.</span><br><span class="line"># These files validate that your Elasticsearch backend uses the same key files.</span><br><span class="line">#elasticsearch.ssl.cert: /path/to/your/client.crt</span><br><span class="line">#elasticsearch.ssl.key: /path/to/your/client.key</span><br><span class="line"></span><br><span class="line"># Optional setting that enables you to specify a path to the PEM file for the certificate</span><br><span class="line"># authority for your Elasticsearch instance.</span><br><span class="line">#elasticsearch.ssl.ca: /path/to/your/CA.pem</span><br><span class="line"></span><br><span class="line"># To disregard the validity of SSL certificates, change this setting’s value to false.</span><br><span class="line">#elasticsearch.ssl.verify: true</span><br><span class="line"></span><br><span class="line"># Time in milliseconds to wait for Elasticsearch to respond to pings. Defaults to the value of</span><br><span class="line"># the elasticsearch.requestTimeout setting.</span><br><span class="line">#elasticsearch.pingTimeout: 1500</span><br><span class="line"></span><br><span class="line"># Time in milliseconds to wait for responses from the back end or Elasticsearch. This value</span><br><span class="line"># must be a positive integer.</span><br><span class="line">#elasticsearch.requestTimeout: 30000</span><br><span class="line"></span><br><span class="line"># List of Kibana client-side headers to send to Elasticsearch. To send *no* client-side</span><br><span class="line"># headers, set this value to [] (an empty list).</span><br><span class="line">#elasticsearch.requestHeadersWhitelist: [ authorization ]</span><br><span class="line"></span><br><span class="line"># Header names and values that are sent to Elasticsearch. Any custom headers cannot be overwritten</span><br><span class="line"># by client-side headers, regardless of the elasticsearch.requestHeadersWhitelist configuration.</span><br><span class="line">#elasticsearch.customHeaders: &#123;&#125;</span><br><span class="line"></span><br><span class="line"># Time in milliseconds for Elasticsearch to wait for responses from shards. Set to 0 to disable.</span><br><span class="line">#elasticsearch.shardTimeout: 0</span><br><span class="line"></span><br><span class="line"># Time in milliseconds to wait for Elasticsearch at Kibana startup before retrying.</span><br><span class="line">#elasticsearch.startupTimeout: 5000</span><br><span class="line"></span><br><span class="line"># Specifies the path where Kibana creates the process ID file.</span><br><span class="line">#pid.file: /var/run/kibana.pid</span><br><span class="line"></span><br><span class="line"># Enables you specify a file where Kibana stores log output.</span><br><span class="line">#logging.dest: stdout</span><br><span class="line"></span><br><span class="line"># Set the value of this setting to true to suppress all logging output.</span><br><span class="line">#logging.silent: false</span><br><span class="line"></span><br><span class="line"># Set the value of this setting to true to suppress all logging output other than error messages.</span><br><span class="line">#logging.quiet: false</span><br><span class="line"></span><br><span class="line"># Set the value of this setting to true to log all events, including system usage information</span><br><span class="line"># and all requests.</span><br><span class="line">#logging.verbose: false</span><br><span class="line"></span><br><span class="line"># Set the interval in milliseconds to sample system and process performance</span><br><span class="line"># metrics. Minimum is 100ms. Defaults to 5000.</span><br><span class="line">#ops.interval: 5000</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br><span class="line">197</span><br><span class="line">198</span><br><span class="line">199</span><br><span class="line">200</span><br><span class="line">201</span><br><span class="line">202</span><br><span class="line">203</span><br><span class="line">204</span><br><span class="line">205</span><br><span class="line">206</span><br><span class="line">207</span><br><span class="line">208</span><br><span class="line">209</span><br><span class="line">210</span><br><span class="line">211</span><br><span class="line">212</span><br><span class="line">213</span><br><span class="line">214</span><br><span class="line">215</span><br><span class="line">216</span><br><span class="line">217</span><br><span class="line">218</span><br><span class="line">219</span><br><span class="line">220</span><br><span class="line">221</span><br><span class="line">222</span><br><span class="line">223</span><br><span class="line">224</span><br><span class="line">225</span><br><span class="line">226</span><br><span class="line">227</span><br><span class="line">228</span><br><span class="line">229</span><br><span class="line">230</span><br><span class="line">231</span><br><span class="line">232</span><br><span class="line">233</span><br><span class="line">234</span><br><span class="line">235</span><br><span class="line">236</span><br><span class="line">237</span><br><span class="line">238</span><br><span class="line">239</span><br><span class="line">240</span><br><span class="line">241</span><br><span class="line">242</span><br><span class="line">243</span><br><span class="line">244</span><br><span class="line">245</span><br><span class="line">246</span><br></pre></td><td class="code"><pre><span class="line"># Settings file in YAML</span><br><span class="line">#</span><br><span class="line"># Settings can be specified either in hierarchical form, e.g.:</span><br><span class="line">#</span><br><span class="line">#   pipeline:</span><br><span class="line">#     batch:</span><br><span class="line">#       size: 125</span><br><span class="line">#       delay: 5</span><br><span class="line">#</span><br><span class="line"># Or as flat keys:</span><br><span class="line">#</span><br><span class="line">#   pipeline.batch.size: 125</span><br><span class="line">#   pipeline.batch.delay: 5</span><br><span class="line">#</span><br><span class="line"># ------------  Node identity ------------</span><br><span class="line">#</span><br><span class="line"># Use a descriptive name for the node:</span><br><span class="line">#</span><br><span class="line"># node.name: test</span><br><span class="line">#</span><br><span class="line"># If omitted the node name will default to the machine&apos;s host name</span><br><span class="line">#</span><br><span class="line"># ------------ Data path ------------------</span><br><span class="line">#</span><br><span class="line"># Which directory should be used by logstash and its plugins</span><br><span class="line"># for any persistent needs. Defaults to LOGSTASH_HOME/data</span><br><span class="line">#</span><br><span class="line"># path.data:</span><br><span class="line">#</span><br><span class="line"># ------------ Pipeline Settings --------------</span><br><span class="line">#</span><br><span class="line"># The ID of the pipeline.</span><br><span class="line">#</span><br><span class="line"># pipeline.id: main</span><br><span class="line">#</span><br><span class="line"># Set the number of workers that will, in parallel, execute the filters+outputs</span><br><span class="line"># stage of the pipeline.</span><br><span class="line">#</span><br><span class="line"># This defaults to the number of the host&apos;s CPU cores.</span><br><span class="line">#</span><br><span class="line"># pipeline.workers: 2</span><br><span class="line">#</span><br><span class="line"># How many events to retrieve from inputs before sending to filters+workers</span><br><span class="line">#</span><br><span class="line"># pipeline.batch.size: 125</span><br><span class="line">#</span><br><span class="line"># How long to wait in milliseconds while polling for the next event</span><br><span class="line"># before dispatching an undersized batch to filters+outputs</span><br><span class="line">#</span><br><span class="line"># pipeline.batch.delay: 50</span><br><span class="line">#</span><br><span class="line"># Force Logstash to exit during shutdown even if there are still inflight</span><br><span class="line"># events in memory. By default, logstash will refuse to quit until all</span><br><span class="line"># received events have been pushed to the outputs.</span><br><span class="line">#</span><br><span class="line"># WARNING: enabling this can lead to data loss during shutdown</span><br><span class="line">#</span><br><span class="line"># pipeline.unsafe_shutdown: false</span><br><span class="line">#</span><br><span class="line"># ------------ Pipeline Configuration Settings --------------</span><br><span class="line">#</span><br><span class="line"># Where to fetch the pipeline configuration for the main pipeline</span><br><span class="line">#</span><br><span class="line"># path.config:</span><br><span class="line">#</span><br><span class="line"># Pipeline configuration string for the main pipeline</span><br><span class="line">#</span><br><span class="line"># config.string:</span><br><span class="line">#</span><br><span class="line"># At startup, test if the configuration is valid and exit (dry run)</span><br><span class="line">#</span><br><span class="line"># config.test_and_exit: false</span><br><span class="line">#</span><br><span class="line"># Periodically check if the configuration has changed and reload the pipeline</span><br><span class="line"># This can also be triggered manually through the SIGHUP signal</span><br><span class="line">#</span><br><span class="line"># config.reload.automatic: false</span><br><span class="line">#</span><br><span class="line"># How often to check if the pipeline configuration has changed (in seconds)</span><br><span class="line">#</span><br><span class="line"># config.reload.interval: 3s</span><br><span class="line">#</span><br><span class="line"># Show fully compiled configuration as debug log message</span><br><span class="line"># NOTE: --log.level must be &apos;debug&apos;</span><br><span class="line">#</span><br><span class="line"># config.debug: false</span><br><span class="line">#</span><br><span class="line"># When enabled, process escaped characters such as \n and \&quot; in strings in the</span><br><span class="line"># pipeline configuration files.</span><br><span class="line">#</span><br><span class="line"># config.support_escapes: false</span><br><span class="line">#</span><br><span class="line"># ------------ Module Settings ---------------</span><br><span class="line"># Define modules here.  Modules definitions must be defined as an array.</span><br><span class="line"># The simple way to see this is to prepend each `name` with a `-`, and keep</span><br><span class="line"># all associated variables under the `name` they are associated with, and</span><br><span class="line"># above the next, like this:</span><br><span class="line">#</span><br><span class="line"># modules:</span><br><span class="line">#   - name: MODULE_NAME</span><br><span class="line">#     var.PLUGINTYPE1.PLUGINNAME1.KEY1: VALUE</span><br><span class="line">#     var.PLUGINTYPE1.PLUGINNAME1.KEY2: VALUE</span><br><span class="line">#     var.PLUGINTYPE2.PLUGINNAME1.KEY1: VALUE</span><br><span class="line">#     var.PLUGINTYPE3.PLUGINNAME3.KEY1: VALUE</span><br><span class="line">#</span><br><span class="line"># Module variable names must be in the format of</span><br><span class="line">#</span><br><span class="line"># var.PLUGIN_TYPE.PLUGIN_NAME.KEY</span><br><span class="line">#</span><br><span class="line"># modules:</span><br><span class="line">#</span><br><span class="line"># ------------ Cloud Settings ---------------</span><br><span class="line"># Define Elastic Cloud settings here.</span><br><span class="line"># Format of cloud.id is a base64 value e.g. dXMtZWFzdC0xLmF3cy5mb3VuZC5pbyRub3RhcmVhbCRpZGVudGlmaWVy</span><br><span class="line"># and it may have an label prefix e.g. staging:dXMtZ...</span><br><span class="line"># This will overwrite &apos;var.elasticsearch.hosts&apos; and &apos;var.kibana.host&apos;</span><br><span class="line"># cloud.id: &lt;identifier&gt;</span><br><span class="line">#</span><br><span class="line"># Format of cloud.auth is: &lt;user&gt;:&lt;pass&gt;</span><br><span class="line"># This is optional</span><br><span class="line"># If supplied this will overwrite &apos;var.elasticsearch.username&apos; and &apos;var.elasticsearch.password&apos;</span><br><span class="line"># If supplied this will overwrite &apos;var.kibana.username&apos; and &apos;var.kibana.password&apos;</span><br><span class="line"># cloud.auth: elastic:&lt;password&gt;</span><br><span class="line">#</span><br><span class="line"># ------------ Queuing Settings --------------</span><br><span class="line">#</span><br><span class="line"># Internal queuing model, &quot;memory&quot; for legacy in-memory based queuing and</span><br><span class="line"># &quot;persisted&quot; for disk-based acked queueing. Defaults is memory</span><br><span class="line">#</span><br><span class="line"># queue.type: memory</span><br><span class="line">#</span><br><span class="line"># If using queue.type: persisted, the directory path where the data files will be stored.</span><br><span class="line"># Default is path.data/queue</span><br><span class="line">#</span><br><span class="line"># path.queue:</span><br><span class="line">#</span><br><span class="line"># If using queue.type: persisted, the page data files size. The queue data consists of</span><br><span class="line"># append-only data files separated into pages. Default is 64mb</span><br><span class="line">#</span><br><span class="line"># queue.page_capacity: 64mb</span><br><span class="line">#</span><br><span class="line"># If using queue.type: persisted, the maximum number of unread events in the queue.</span><br><span class="line"># Default is 0 (unlimited)</span><br><span class="line">#</span><br><span class="line"># queue.max_events: 0</span><br><span class="line">#</span><br><span class="line"># If using queue.type: persisted, the total capacity of the queue in number of bytes.</span><br><span class="line"># If you would like more unacked events to be buffered in Logstash, you can increase the</span><br><span class="line"># capacity using this setting. Please make sure your disk drive has capacity greater than</span><br><span class="line"># the size specified here. If both max_bytes and max_events are specified, Logstash will pick</span><br><span class="line"># whichever criteria is reached first</span><br><span class="line"># Default is 1024mb or 1gb</span><br><span class="line">#</span><br><span class="line"># queue.max_bytes: 1024mb</span><br><span class="line">#</span><br><span class="line"># If using queue.type: persisted, the maximum number of acked events before forcing a checkpoint</span><br><span class="line"># Default is 1024, 0 for unlimited</span><br><span class="line">#</span><br><span class="line"># queue.checkpoint.acks: 1024</span><br><span class="line">#</span><br><span class="line"># If using queue.type: persisted, the maximum number of written events before forcing a checkpoint</span><br><span class="line"># Default is 1024, 0 for unlimited</span><br><span class="line">#</span><br><span class="line"># queue.checkpoint.writes: 1024</span><br><span class="line">#</span><br><span class="line"># If using queue.type: persisted, the interval in milliseconds when a checkpoint is forced on the head page</span><br><span class="line"># Default is 1000, 0 for no periodic checkpoint.</span><br><span class="line">#</span><br><span class="line"># queue.checkpoint.interval: 1000</span><br><span class="line">#</span><br><span class="line"># ------------ Dead-Letter Queue Settings --------------</span><br><span class="line"># Flag to turn on dead-letter queue.</span><br><span class="line">#</span><br><span class="line"># dead_letter_queue.enable: false</span><br><span class="line"></span><br><span class="line"># If using dead_letter_queue.enable: true, the maximum size of each dead letter queue. Entries</span><br><span class="line"># will be dropped if they would increase the size of the dead letter queue beyond this setting.</span><br><span class="line"># Default is 1024mb</span><br><span class="line"># dead_letter_queue.max_bytes: 1024mb</span><br><span class="line"></span><br><span class="line"># If using dead_letter_queue.enable: true, the directory path where the data files will be stored.</span><br><span class="line"># Default is path.data/dead_letter_queue</span><br><span class="line">#</span><br><span class="line"># path.dead_letter_queue:</span><br><span class="line">#</span><br><span class="line"># ------------ Metrics Settings --------------</span><br><span class="line">#</span><br><span class="line"># Bind address for the metrics REST endpoint</span><br><span class="line">#</span><br><span class="line"># http.host: &quot;127.0.0.1&quot;</span><br><span class="line">#</span><br><span class="line"># Bind port for the metrics REST endpoint, this option also accept a range</span><br><span class="line"># (9600-9700) and logstash will pick up the first available ports.</span><br><span class="line">#</span><br><span class="line"># http.port: 9600-9700</span><br><span class="line">#</span><br><span class="line"># ------------ Debugging Settings --------------</span><br><span class="line">#</span><br><span class="line"># Options for log.level:</span><br><span class="line">#   * fatal</span><br><span class="line">#   * error</span><br><span class="line">#   * warn</span><br><span class="line">#   * info (default)</span><br><span class="line">#   * debug</span><br><span class="line">#   * trace</span><br><span class="line">#</span><br><span class="line"># log.level: info</span><br><span class="line"># path.logs:</span><br><span class="line">#</span><br><span class="line"># ------------ Other Settings --------------</span><br><span class="line">#</span><br><span class="line"># Where to find custom plugins</span><br><span class="line"># path.plugins: []</span><br><span class="line">#</span><br><span class="line"># ------------ X-Pack Settings (not applicable for OSS build)--------------</span><br><span class="line">#</span><br><span class="line"># X-Pack Monitoring</span><br><span class="line"># https://www.elastic.co/guide/en/logstash/current/monitoring-logstash.html</span><br><span class="line">#xpack.monitoring.enabled: false</span><br><span class="line">#xpack.monitoring.elasticsearch.username: logstash_system</span><br><span class="line">#xpack.monitoring.elasticsearch.password: password</span><br><span class="line">#xpack.monitoring.elasticsearch.url: [&quot;https://es1:9200&quot;, &quot;https://es2:9200&quot;]</span><br><span class="line">#xpack.monitoring.elasticsearch.ssl.ca: [ &quot;/path/to/ca.crt&quot; ]</span><br><span class="line">#xpack.monitoring.elasticsearch.ssl.truststore.path: path/to/file</span><br><span class="line">#xpack.monitoring.elasticsearch.ssl.truststore.password: password</span><br><span class="line">#xpack.monitoring.elasticsearch.ssl.keystore.path: /path/to/file</span><br><span class="line">#xpack.monitoring.elasticsearch.ssl.keystore.password: password</span><br><span class="line">#xpack.monitoring.elasticsearch.ssl.verification_mode: certificate</span><br><span class="line">#xpack.monitoring.elasticsearch.sniffing: false</span><br><span class="line">#xpack.monitoring.collection.interval: 10s</span><br><span class="line">#xpack.monitoring.collection.pipeline.details.enabled: true</span><br><span class="line">#</span><br><span class="line"># X-Pack Management</span><br><span class="line"># https://www.elastic.co/guide/en/logstash/current/logstash-centralized-pipeline-management.html</span><br><span class="line">#xpack.management.enabled: false</span><br><span class="line">#xpack.management.pipeline.id: [&quot;main&quot;, &quot;apache_logs&quot;]</span><br><span class="line">#xpack.management.elasticsearch.username: logstash_admin_user</span><br><span class="line">#xpack.management.elasticsearch.password: password</span><br><span class="line">#xpack.management.elasticsearch.url: [&quot;https://es1:9200&quot;, &quot;https://es2:9200&quot;]</span><br><span class="line">#xpack.management.elasticsearch.ssl.ca: [ &quot;/path/to/ca.crt&quot; ]</span><br><span class="line">#xpack.management.elasticsearch.ssl.truststore.path: /path/to/file</span><br><span class="line">#xpack.management.elasticsearch.ssl.truststore.password: password</span><br><span class="line">#xpack.management.elasticsearch.ssl.keystore.path: /path/to/file</span><br><span class="line">#xpack.management.elasticsearch.ssl.keystore.password: password</span><br><span class="line">#xpack.management.elasticsearch.sniffing: false</span><br><span class="line">#xpack.management.logstash.poll_interval: 5s</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">docker run -p 8001:5601 -p 8002:9200 -p 8003:9300 -p 8004:5044 \</span><br><span class="line">-v /data/elk/logstash/conf.d:/etc/logstash/conf.d \</span><br><span class="line">-v /data/elk/kibana/config/kibana.yml:/opt/kibana/config/kibana.yml \</span><br><span class="line">-v /data/elk/logstash/config/logstash.yml:/opt/logstash/config/logstash.yml \</span><br><span class="line">-v /data/elk/elasticsearch/config/elasticsearch.yml:/opt/elasticsearch/config/elasticsearch.yml \</span><br><span class="line">-v /data/elk/elasticsearch/data:/usr/share/elasticsearch/data \</span><br><span class="line">-v /data/elk/elasticsearch/log/:/var/lib/elasticsearch \</span><br><span class="line">-v /data/elk/kibana/run_log/:/var/log/kibana/ \</span><br><span class="line">-v /data/elk/logstash/run_log/:/var/log/logstash/ \</span><br><span class="line">-v /data/elk/elasticsearch/run_log/:/var/log/elasticsearch/   -it --name elk sebp/elk</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/ELK/" rel="tag"># ELK</a>
+          
+            <a href="/tags/Kibana/" rel="tag"># Kibana</a>
+          
+            <a href="/tags/ElasticSsearch/" rel="tag"># ElasticSsearch</a>
+          
+            <a href="/tags/LogStash/" rel="tag"># LogStash</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/07/20/ELK-使用-Docker-搭建-ELK-环境/" rel="next" title="ELK: 使用 Docker 搭建 ELK 环境">
+                <i class="fa fa-chevron-left"></i> ELK: 使用 Docker 搭建 ELK 环境
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/07/26/硬盘使用情况查看/" rel="prev" title="硬盘使用情况查看">
+                硬盘使用情况查看 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/avatar.png"
+                alt="LuGuoHuas" />
+            
+              <p class="site-author-name" itemprop="name">LuGuoHuas</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">13</span>
+                    <span class="site-state-item-name">posts</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  <a href="/categories/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">8</span>
+                    <span class="site-state-item-name">categories</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  <a href="/tags/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">22</span>
+                    <span class="site-state-item-name">tags</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+            <div class="links-of-author motion-element">
+              
+                <span class="links-of-author-item">
+                  <a href="https://github.com/LuGuoHuas" target="_blank" title="GitHub"><i class="fa fa-fw fa-github"></i>GitHub</a>
+                  
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="mailto:lu_guohua@163.com" target="_blank" title="E-Mail"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  
+                </span>
+              
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Elasticsearch-配置"><span class="nav-text">Elasticsearch 配置</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#LogStash-配置"><span class="nav-text">LogStash 配置</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#其他示例配置"><span class="nav-text">其他示例配置</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">LuGuoHuas</span>
+
+  
+
+  
+</div>
+
+
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/theme-next/hexo-theme-next">NexT.Gemini</a> v6.0.3</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/three/three.min.js"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/three/three-waves.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=6.0.3"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=6.0.3"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=6.0.3"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=6.0.3"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.0.3"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.0.3"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=6.0.3"></script>
+
+
+
+  
+
+  
+    <script id="dsq-count-scr" src="https://cornertodays.disqus.com/count.js" async></script>
+  
+
+  
+    <script type="text/javascript">
+      var disqus_config = function () {
+        this.page.url = 'http://www.corner.today/2018/07/24/ELK-ELK-配置/';
+        this.page.identifier = '2018/07/24/ELK-ELK-配置/';
+        this.page.title = 'ELK: ELK 配置';
+      };
+      function loadComments () {
+        var d = document, s = d.createElement('script');
+        s.src = 'https://cornertodays.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', '' + +new Date());
+        (d.head || d.body).appendChild(s);
+      }
+      
+        loadComments();
+      
+    </script>
+  
+
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
