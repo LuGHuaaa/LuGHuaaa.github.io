@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://www.corner.today/about/index.html</loc>
+    
+    <lastmod>2018-08-28T11:36:56.704Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://www.corner.today/2018/08/26/cluster-block-exception/</loc>
     
     <lastmod>2018-08-28T08:11:43.000Z</lastmod>
@@ -131,13 +138,6 @@
     <loc>http://www.corner.today/schedule/index.html</loc>
     
     <lastmod>2018-02-05T05:50:28.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://www.corner.today/about/index.html</loc>
-    
-    <lastmod>2018-02-05T05:49:34.000Z</lastmod>
     
   </url>
   
