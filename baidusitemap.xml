@@ -4,11 +4,11 @@
 
     
   <url>
-    <loc>http://www.corner.today/2018/08/29/%E7%9A%84%E9%97%AD%E5%8C%85/</loc>
-    <lastmod>2018-08-29T02:51:00.298Z</lastmod>
+    <loc>http://www.corner.today/2018/08/29/%E6%88%91%E4%B8%80%E7%9B%B4%E4%B8%8D%E7%90%86%E8%A7%A3%20JavaScript%20%E7%9A%84%E9%97%AD%E5%8C%85/</loc>
+    <lastmod>2018-09-04T08:29:42.660Z</lastmod>
     <data>
         <display>
-        <title>的闭包</title>
+        <title>我一直不理解 JavaScript 的闭包是什么</title>
         <pubTime>2018-08-29T02:50:21.000Z</pubTime>
         
          
@@ -18,6 +18,28 @@
     </url>
 
     
+    
+  <url>
+    <loc>http://www.corner.today/2018/08/28/ElasticSearch%20%E4%BF%AE%E6%94%B9%20mapping/</loc>
+    <lastmod>2018-08-29T02:56:50.807Z</lastmod>
+    <data>
+        <display>
+        <title>ElasticSearch 修改 mapping</title>
+        <pubTime>2018-08-28T08:07:34.000Z</pubTime>
+        
+        <tag>ELK</tag>
+         
+        <tag>ElasticSsearch</tag>
+         
+         
+           
+             
+              <breadCrumb title="ELK" url="http://www.corner.today/categories/ELK/"/>
+          
+        </display>
+    </data>
+    </url>
+
     
   <url>
     <loc>http://www.corner.today/2018/08/26/cluster-block-exception/</loc>
@@ -96,28 +118,6 @@
         <tag>ElasticSsearch</tag>
          
         <tag>LogStash</tag>
-         
-         
-           
-             
-              <breadCrumb title="ELK" url="http://www.corner.today/categories/ELK/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://www.corner.today/2018/08/28/mapping/</loc>
-    <lastmod>2018-08-28T08:10:03.118Z</lastmod>
-    <data>
-        <display>
-        <title>mapping</title>
-        <pubTime>2018-08-28T08:07:34.000Z</pubTime>
-        
-        <tag>ELK</tag>
-         
-        <tag>ElasticSsearch</tag>
          
          
            

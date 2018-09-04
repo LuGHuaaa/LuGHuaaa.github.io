@@ -100,27 +100,28 @@
 
 
   
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="ELK,ElasticSsearch," />
 
 
-<meta name="description" content="直到有人向我解释这样……">
+<meta name="description" content="https://www.elastic.co/blog/logstash_lesson_elasticsearch_mapping">
+<meta name="keywords" content="ELK,ElasticSsearch">
 <meta property="og:type" content="article">
-<meta property="og:title" content="的闭包">
-<meta property="og:url" content="http://www.corner.today/2018/08/29/的闭包/index.html">
+<meta property="og:title" content="ElasticSearch 修改 mapping">
+<meta property="og:url" content="http://www.corner.today/2018/08/28/ElasticSearch 修改 mapping/index.html">
 <meta property="og:site_name" content="Corner.Today">
-<meta property="og:description" content="直到有人向我解释这样……">
+<meta property="og:description" content="https://www.elastic.co/blog/logstash_lesson_elasticsearch_mapping">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-08-29T02:51:00.298Z">
+<meta property="og:updated_time" content="2018-08-29T02:56:50.807Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="的闭包">
-<meta name="twitter:description" content="直到有人向我解释这样……">
+<meta name="twitter:title" content="ElasticSearch 修改 mapping">
+<meta name="twitter:description" content="https://www.elastic.co/blog/logstash_lesson_elasticsearch_mapping">
 
 
 
 
 
 
-  <link rel="canonical" href="http://www.corner.today/2018/08/29/的闭包/"/>
+  <link rel="canonical" href="http://www.corner.today/2018/08/28/ElasticSearch 修改 mapping/"/>
 
 
 
@@ -129,7 +130,7 @@
     sidebar: "",
   };
 </script>
-  <title>的闭包 | Corner.Today</title>
+  <title>ElasticSearch 修改 mapping | Corner.Today</title>
   
 
 
@@ -201,7 +202,7 @@
       </a>
     </div>
       
-        <p class="site-subtitle">这是一个无聊的小角落</p>
+        <p class="site-subtitle">这是一个无聊的小角落, 随缘更新</p>
       
   </div>
 
@@ -328,7 +329,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://www.corner.today/2018/08/29/的闭包/">
+    <link itemprop="mainEntityOfPage" href="http://www.corner.today/2018/08/28/ElasticSearch 修改 mapping/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="LuGuoHuas">
@@ -345,7 +346,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">的闭包</h1>
+          <h1 class="post-title" itemprop="name headline">ElasticSearch 修改 mapping</h1>
         
 
         <div class="post-meta">
@@ -357,7 +358,7 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-08-29T10:50:21+08:00">2018-08-29</time>
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-08-28T16:07:34+08:00">2018-08-28</time>
             
 
             
@@ -367,6 +368,24 @@
           </span>
 
           
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/ELK/" itemprop="url" rel="index"><span itemprop="name">ELK</span></a></span>
+
+                
+                
+              
+            </span>
+          
 
           
             
@@ -375,9 +394,9 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2018/08/29/的闭包/#comments" itemprop="discussionUrl">
+                <a href="/2018/08/28/ElasticSearch 修改 mapping/#comments" itemprop="discussionUrl">
                   <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="2018/08/29/的闭包/" itemprop="commentCount"></span>
+                        data-disqus-identifier="2018/08/28/ElasticSearch 修改 mapping/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -405,42 +424,9 @@
       
 
       
-        <p>直到有人向我解释这样……<br><a id="more"></a></p>
-<p>正如标题所述，JavaScript封闭对我来说一直是个谜。我已经阅读了 多 篇文章，我在工作中使用了闭包，有时我甚至使用了闭包而没有意识到我正在使用闭包。</p>
-<p>最近我去了一个谈话，有人真的以最终点击给我的方式解释了它。我将尝试用这种方法来解释本文中的闭包。让我赞扬CodeSmith的优秀人才和他们的JavaScript The Hard Parts系列。</p>
-<p>在我们开始之前<br>在你可以理解闭包之前，一些概念很重要。其中之一是执行上下文。</p>
-<p>本文对执行上下文有一个很好的入门。引用文章：</p>
-<p>当代码在JavaScript中运行时，执行它的环境非常重要，并被评估为以下1之一：<br>全局代码  - 首次执行代码的默认环境。<br>功能代码  - 每当执行流程进入函数体时。<br>（……）<br>（…），让我们将该术语execution context视为正在评估当前代码的环境/范围。<br>换句话说，当我们启动程序时，我们从全局执行上下文开始。一些变量在全局执行上下文中声明。我们称这些全局变量。当程序调用函数时，会发生什么？几个步骤：</p>
-<p>JavaScript创建一个新的执行上下文，一个本地执行上下文<br>该本地执行上下文将具有其自己的变量集，这些变量将是该执行上下文的本地变量。<br>新的执行上下文被抛到执行堆栈上。将执行堆栈视为一种机制，用于跟踪程序执行的位置<br>功能什么时候结束？当遇到return声明或遇到结束括号时}。函数结束时，会发生以下情况：</p>
-<p>本地执行上下文从执行堆栈中弹出<br>函数将返回值发送回调用上下文。调用上下文是调用此函数的执行上下文，它可以是全局执行上下文或另一个本地执行上下文。由调用执行上下文来处理该点的返回值。返回的值可以是对象，数组，函数，布尔值，任何东西。如果函数没有return语句，undefined则返回。<br>本地执行上下文被销毁。这个很重要。销毁。在本地执行上下文中声明的所有变量都将被删除。他们不再可用。这就是他们被称为局部变量的原因。<br>一个非常基本的例子<br>在我们开始关闭之前，让我们看一下下面这段代码。这看起来非常简单，任何读这篇文章的人都可能确切知道它的作用。</p>
-<p>1：让a = 3<br>2：function addTwo（x）{<br>3：let ret = x + 2<br>4：return ret<br>5：}<br>6：let b = addTwo（a）<br>7：console.log（b）<br>为了理解JavaScript引擎的真正工作原理，让我们详细介绍一下。</p>
-<p>在第1行，我们a在全局执行上下文中声明一个新变量，并为其分配数字3。<br>接下来它变得棘手。第2到第5行真的在一起。这里发生了什么？我们声明一个addTwo在全局执行上下文中命名的新变量。我们分配给它的是什么？功能定义。两个括号之间的任何内容{ }都分配给addTwo。函数内部的代码不会被评估，也不会执行，只是存储到变量中以备将来使用。<br>所以现在我们排在第6行。它看起来很简单，但在这里解压缩很多。首先，我们在全局执行上下文中声明一个新变量并标记它b。声明变量后，它的值为undefined。<br>接下来，仍然在第6行，我们看到一个赋值运算符。我们正准备为变量分配一个新值b。接下来我们看到一个被调用的函数。当您看到变量后跟圆括号时(…)，这就是调用函数的信号。向前闪存，每个函数返回一些东西（值，对象或undefined）。从函数返回的任何内容都将分配给变量b。<br>但首先我们需要调用标记的函数addTwo。JavaScript将在其全局执行上下文内存中查找名为的变量addTwo。哦，它找到了一个，它在步骤2（或第2-5行）中定义。并且lo和behold变量addTwo包含函数定义。请注意，变量a作为参数传递给函数。JavaScript a在其全局执行上下文内存中搜索变量，找到它，发现它的值是3并将该数字3作为参数传递给函数。准备执行该功能。<br>现在执行上下文将切换。创建一个新的本地执行上下文，我们将其命名为“addTwo执行上下文”。执行上下文被推送到调用堆栈。我们在本地执行上下文中做的第一件事是什么？<br>您可能会想说，“ ret在本地执行上下文中声明了一个新变量”。这不是答案。正确的答案是，我们首先需要查看函数的参数。x在本地执行上下文中声明了一个新变量。并且由于该值3作为参数传递，因此变量x被赋予数字3。<br>下一步是：ret在本地执行上下文中声明一个新变量。其值设置为undefined。（第3行）<br>仍然是第3行，需要进行添加。首先，我们需要价值x。JavaScript将查找变量x。它将首先查看本地执行上下文。它找到了一个，价值就是3。第二个操作数就是数字2。将addition（5）的结果赋给变量ret。<br>第4行。我们返回变量的内容ret。本地执行上下文中的另一个查找。ret包含值5。该函数返回数字5。功能结束。<br>第4-5行。功能结束。本地执行上下文被销毁。变量x并被ret消灭。它们不再存在。上下文弹出调用堆栈，返回值返回到调用上下文。在这种情况下，调用上下文是全局执行上下文，因为该函数addTwo是从全局执行上下文调用的。<br>现在我们在步骤4中选择我们停止的位置。返回的值（数字5）将分配给变量b。我们仍然在小程序的第6行。<br>我不会详细介绍，但在第7行中，变量的内容b会在控制台中打印出来。在我们的例子中的数字5。<br>对于一个非常简单的程序来说，这是一个非常冗长的解释，我们甚至还没有涉及到闭包。我保证会到达那里。但首先我们需要再绕一两次。</p>
-<p>词汇范围。<br>我们需要了解词法范围的某些方面。看一下下面的例子。</p>
-<p>1：令val1 = 2<br>2：函数multiplyThis（n）{<br>3：let ret = n * val1<br>4：return ret<br>5：}<br>6：let multiplied = multiplyThis（6）<br>7：console.log（’范围示例：’ ，乘以）<br>这里的想法是我们在本地执行上下文中有变量，在全局执行上下文中有变量。JavaScript的一个复杂之处在于它如何查找变量。如果它在本地执行上下文中找不到变量，它将在其调用上下文中查找它。如果没有在其调用上下文中找到它。反复地，直到它查看全局执行上下文。（如果它没有找到它，那就是undefined）。按照上面的例子，它将澄清它。如果您了解范围的工作原理，则可以跳过此步骤。</p>
-<p>val1 在全局执行上下文中声明一个新变量并为其分配数字2。<br>第2-5行。声明一个新变量multiplyThis 并为其分配一个函数定义。<br>第6行。multiplied 在全局执行上下文中声明一个新变量。<br>multiplyThis 从全局执行上下文内存中检索变量并将其作为函数执行。将数字6 作为参数传递。<br>新函数调用=新执行上下文。创建新的本地执行上下文。<br>在本地执行上下文中，声明一个变量n 并为其分配数字6。<br>第3行。在本地执行上下文中，声明一个变量ret。<br>第3行（续）。用两个操作数执行乘法运算; 变量的内容n和val1。n在本地执行上下文中查找变量。我们在第6步中声明了它。它的内容是数字6。val1在本地执行上下文中查找变量。本地执行上下文没有标记的变量val1。我们来检查调用上下文。调用上下文是全局执行上下文。让我们val1在全局执行上下文中寻找。哦，是的，它就在那里。它在步骤1中定义。值是数字2。<br>第3行（续）。将两个操作数相乘并将其分配给ret变量。6 * 2 = 12. ret现在是12。<br>返回ret变量。本地执行上下文及其变量ret和n。变量val1 不会被销毁，因为它是全局执行上下文的一部分。<br>返回第6行。在调用上下文中，将数字12分配给multiplied 变量。<br>最后在第7行，我们multiplied在控制台中显示变量的值。<br>所以在这个例子中，我们需要记住一个函数可以访问在其调用上下文中定义的变量。这种现象的正式名称是词汇范围。</p>
-<p>一个返回函数的函数<br>在第一个示例中，函数addTwo返回一个数字。请记住，之前函数可以返回任何内容。让我们看一个返回函数的函数示例，因为这对理解闭包很重要。以下是我们要分析的示例。</p>
-<p>1：let val = 7<br>2：function createAdder（）{<br>3：function addNumbers（a，b）{<br>4：let ret = a + b<br>5：return ret<br>6：}<br>7：return addNumbers<br>8：}<br>9：let adder = createAdder（）<br>10：let sum = adder（val，8）<br>11：console.log（’返回函数的函数示例：’，sum）<br>让我们回到逐步细分。</p>
-<p>第1行。我们val在全局执行上下文中声明一个变量，并为该7变量赋值。<br>第2-8行。我们声明一个createAdder在全局执行上下文中命名的变量，并为其分配一个函数定义。第3至7行描述了所述功能定义。和以前一样，在这一点上，我们并没有跳进那个功能。我们只是将函数定义存储到该变量（createAdder）中。<br>第9行。我们adder在全局执行上下文中声明一个名为的新变量。暂时undefined分配给adder。<br>仍然是第9行。我们看到括号(); 我们需要执行或调用函数。让我们查询全局执行上下文的内存并查找名为的变量createAdder。它是在第2步创建的。好吧，我们来称呼它。<br>调用一个函数。现在我们在第2行。创建了一个新的本地执行上下文。我们可以在新的执行上下文中创建局部变量。引擎将新上下文添加到调用堆栈。该函数没有参数，让我们直接进入它的主体。<br>仍然是3-6行。我们有一个新的函数声明。我们addNumbers在本地执行上下文中创建一个变量。这很重要。addNumbers仅存在于本地执行上下文中。我们将函数定义存储在名为的局部变量中addNumbers。<br>现在我们在第7行。我们返回变量的内容addNumbers。引擎查找名为的变量addNumbers并找到它。这是一个功能定义。很好，一个函数可以返回任何东西，包括函数定义。所以我们返回的定义addNumbers。第4行和第5行的括号之间的任何内容构成了函数定义。我们还从调用堆栈中删除了本地执行上下文。<br>在return，本地执行上下文被销毁。该addNumbers变量是没有更多的。函数定义仍然存在，它从函数返回并分配给变量adder; 这是我们在第3步中创建的变量。<br>现在我们在第10行。我们sum在全局执行上下文中定义一个新变量。临时任务是undefined。<br>我们需要接下来执行一个函数。哪个功能？在名为的变量中定义的函数adder。我们在全局执行环境中查找它，我们确实找到了它。这是一个带两个参数的函数。<br>让我们检索两个参数，这样我们就可以调用函数并传递正确的参数。第一个是val我们在步骤1中定义的变量，它表示数字7，第二个是数字8。<br>现在我们必须执行该功能。功能定义概述为第3-5行。创建新的本地执行上下文。在本地上下文中，创建了两个新变量：a和b。它们分别被赋值，7并且8因为那些是我们在上一步中传递给函数的参数。<br>第4行ret。声明了一个名为的新变量。它在本地执行上下文中声明。<br>第4行。执行添加，我们在其中添加变量a的内容和变量的内容b。将addition（15）的结果赋给ret变量。<br>该ret变量从该函数返回。本地执行上下文被销毁，它从调用堆栈，变量中删除a，b并且ret不再存在。<br>返回的值将分配给sum我们在步骤9中定义的变量。<br>我们打印出sum控制台的值。<br>正如预期的那样，控制台将打印15.我们真的经历了一堆箍。我想在这里说明几点。首先，函数定义可以存储在变量中，函数定义对程序是不可见的，直到被调用。其次，每次调用函数时，（临时）创建本地执行上下文。当函数完成时，执行上下文消失。函数在遇到return或关闭括号时完成}。</p>
-<p>最后，关闭<br>看看下一个代码，并试着弄清楚会发生什么。</p>
-<p>1：function createCounter（）{<br>2：let counter = 0<br>3：const myFunction = function（）{<br>4：counter = counter + 1<br>5：return counter<br>6：}<br>7：return myFunction<br>8：}<br>9：const increment = createCounter（）<br>10：const c1 = increment（）<br>11：const c2 = increment（）<br>12：const c3 = increment（）<br>13：console.log（’example increment’，c1，c2，c3）<br>现在我们从之前的两个例子中得到了它，让我们按照我们期望它运行的方式执行此操作。</p>
-<p>第1-8行。我们createCounter在全局执行上下文中创建一个新变量，并获得已分配的函数定义。<br>第9行。我们声明一个increment在全局执行上下文中命名的新变量。<br>第9行。我们需要调用createCounter函数并将其返回值increment赋给变量。<br>第1-8行。调用函数。创建新的本地执行上下文。<br>第2行。在本地执行上下文中，声明一个名为的新变量counter。编号0分配给counter。<br>3-6行。声明名为的新变量myFunction。该变量在本地执行上下文中声明。变量的内容是另一个函数定义。如第4和第5行所定义。<br>第7行。返回myFunction变量的内容。删除本地执行上下文。myFunction并且counter不再存在。控制返回到调用上下文。<br>第9行。在调用上下文中，全局执行上下文，返回的值createCounter被赋值给increment。变量增量现在包含一个函数定义。返回的函数定义createCounter。它不再被标记myFunction，但它的定义相同。在全球范围内，它被标记increment。<br>第10行。声明一个新变量（c1）。<br>第10行（续）。查找变量increment，它是一个函数，调用它。它包含从前面返回的函数定义，如第4-5行中所定义。<br>创建一个新的执行上下文。没有参数。开始执行该功能。<br>第4行counter = counter + 1。counter在本地执行上下文中查找值。我们刚刚创建了上下文，并且从不声明任何局部变量。让我们看看全局执行上下文。counter此处没有标记变量。Javascript会将其评估为counter = undefined + 1，声明一个标记的新局部变量counter并为其分配数字1，就像undefined它的类型一样0。<br>第5行。我们返回内容counter或数字1。我们销毁本地执行上下文和counter变量。<br>返回第10行。返回的值（1）被赋值给c1。<br>第11行。我们重复步骤10-14，也c2被分配1。<br>第12行。我们重复步骤10-14，也c3被分配1。<br>第13行。我们记录变量的内容c1，c2和c3。<br>亲自尝试一下，看看会发生什么。您会注意到它没有记录1，1并且1正如您在上面的解释中所期望的那样。相反，它是记录1，2和3。什么赋予了什么？</p>
-<p>不知何故，增量函数会记住该counter 值。那怎么样？</p>
-<p>是counter 全球执行环境的一部分吗？试试吧console.log(counter)，你会得到的undefined。所以那不是它。</p>
-<p>也许，当你打电话时increment，它会以某种方式回到创建它的函数（createCounter）？怎么会这样呢？变量increment包含函数定义，而不是它来自何处。所以那不是它。</p>
-<p>所以必须有另一种机制。关闭。我们终于得到了它，失踪的一块。</p>
-<p>下面是它的工作原理。每当声明一个新函数并将其赋值给变量时，都会存储函数定义以及闭包。闭包包含创建函数时范围内的所有变量。它类似于背包。功能定义附带一个小背包。在它的包中，它存储了创建函数定义时范围内的所有变量。</p>
-<p>所以我们上面的解释都是错误的，让我们再试一次，但这次是正确的。</p>
-<p>1：function createCounter（）{<br>2：let counter = 0<br>3：const myFunction = function（）{<br>4：counter = counter + 1<br>5：return counter<br>6：}<br>7：return myFunction<br>8：}<br>9：const increment = createCounter（）<br>10：const c1 = increment（）<br>11：const c2 = increment（）<br>12：const c3 = increment（）<br>13：console.log（’example increment’，c1，c2，c3）<br>第1-8行。我们createCounter在全局执行上下文中创建一个新变量，并获得已分配的函数定义。与上面相同。<br>第9行。我们声明一个increment在全局执行上下文中命名的新变量。与上面相同。<br>第9行。我们需要调用createCounter函数并将其返回值increment赋给变量。与上面相同。<br>第1-8行。调用函数。创建新的本地执行上下文。与上面相同。<br>第2行。在本地执行上下文中，声明一个名为的新变量counter。编号0分配给counter。与上面相同。<br>3-6行。声明名为的新变量myFunction。该变量在本地执行上下文中声明。变量的内容是另一个函数定义。如第4行和第5行所定义。现在我们还创建一个闭包并将其作为函数定义的一部分包含在内。闭包含包含范围内的变量，在本例中为变量counter（值为0）。<br>第7行。返回myFunction变量的内容。删除本地执行上下文。myFunction并且counter不再存在。控制返回到调用上下文。所以我们返回函数定义及其闭包，背包中包含创建时范围内的变量。<br>第9行。在调用上下文中，全局执行上下文，返回的值createCounter被赋值给increment。变量增量现在包含一个函数定义（和闭包）。返回的函数定义createCounter。它不再被标记myFunction，但它的定义相同。在全球范围内，它被称为increment。<br>第10行。声明一个新变量（c1）。<br>第10行（续）。查找变量increment，它是一个函数，调用它。它包含从前面返回的函数定义，如第4-5行中所定义。（还有一个带变量的背包）<br>创建一个新的执行上下文。没有参数。开始执行该功能。<br>第4行counter = counter + 1。我们需要寻找变量counter。在我们查看本地或全局执行环境之前，让我们看看我们的背包。我们来检查关闭。瞧，闭包含一个名为的变量counter，其值为0。在第4行表达式之后，其值设置为1。它再次存放在背包里。闭包现在包含counter值为的变量1。<br>第5行。我们返回内容counter或数字1。我们破坏了本地执行上下文。<br>返回第10行。返回的值（1）被赋值给c1。<br>第11行。我们重复步骤10-14。这次，当我们查看闭包时，我们看到counter变量的值为1.它是在程序的第12步或第4行中设置的。它的值递增并存储2在增量函数的闭包中。并c2获得分配2。<br>第12行。我们重复步骤10-14，c3分配3。<br>第13行。我们记录变量的内容c1，c2和c3。<br>所以现在我们了解这是如何工作的。要记住的关键是当声明一个函数时，它包含一个函数定义和一个闭包。闭包是函数创建时范围内所有变量的集合。</p>
-<p>您可能会问，任何函数是否都有闭包，甚至是在全局范围内创建的函数？答案是肯定的。在全局范围中创建的函数会创建一个闭包。但由于这些函数是在全局范围内创建的，因此它们可以访问全局范围内的所有变量。封闭概念并不真正相关。</p>
-<p>当函数返回一个函数时，就是闭包的概念变得更加相关。返回的函数可以访问不在全局范围内的变量，但它们仅存在于其闭包中。</p>
-<p>不是那么微不足道的关闭<br>当你甚至没有注意到它时，有时会出现关闭。您可能已经看到了我们称之为部分应用程序的示例。如下面的代码。</p>
-<p>设c = 4<br>const addX = x =&gt; n =&gt; n + x<br>const addThree = addX（3）<br>let d = addThree（c）<br>console.log（’example partial application’，d）<br>如果箭头函数抛出你，这是等效的。</p>
-<p>令c = 4<br>函数addX（x）{<br>  return function（n）{<br>     return n + x<br>  }<br>}<br>const addThree = addX（3）<br>let d = addThree（c）<br>console.log（’example partial application’，d）<br>我们声明了一个通用加法器函数addX，它接受一个参数（x）并返回另一个函数。</p>
-<p>返回的函数也接受一个参数并将其添加到变量中x。</p>
-<p>变量x是闭包的一部分。当变量addThree在本地上下文中声明时，它被赋予一个函数定义和一个闭包。闭包包含变量x。</p>
-<p>所以现在当addThree调用并执行它时，它可以x从其闭包中获取变量，并且该变量n作为参数传递并且能够返回总和。</p>
-<p>在此示例中，控制台将打印该号码7。</p>
-<p>结论<br>我永远记得关闭的方式是通过背包类比。当一个函数被创建并传递或从另一个函数返回时，它带有一个背包。并且在背包中是声明函数时范围内的所有变量。</p>
+        <p><a href="https://www.elastic.co/blog/logstash_lesson_elasticsearch_mapping" target="_blank" rel="noopener">https://www.elastic.co/blog/logstash_lesson_elasticsearch_mapping</a></p>
+<a id="more"></a>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">POST imore-2018.07.25/doc/_search</span><br><span class="line">&#123;</span><br><span class="line"> &quot;query&quot;:&#123;&quot;match_all&quot;: &#123;&#125;&#125;,</span><br><span class="line"> &quot;aggs&quot;: &#123;</span><br><span class="line">   &quot;e_terms&quot;: &#123;</span><br><span class="line">     &quot;terms&quot;: &#123;&quot;field&quot;: &quot;e.keyword&quot;&#125;,</span><br><span class="line">     &quot;aggs&quot;: &#123;</span><br><span class="line">       &quot;f_terms&quot;: &#123;</span><br><span class="line">         &quot;terms&quot;: &#123;&quot;field&quot;: &quot;f.keyword&quot;&#125;,</span><br><span class="line">         &quot;aggs&quot;: &#123;</span><br><span class="line">           &quot;g_terms&quot;: &#123;</span><br><span class="line">             &quot;terms&quot;: &#123;&quot;field&quot;: &quot;g.keyword&quot;&#125;</span><br><span class="line">           &#125;</span><br><span class="line">         &#125;  </span><br><span class="line">       &#125;</span><br><span class="line">     &#125;</span><br><span class="line">   &#125;</span><br><span class="line"> &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
       
     </div>
@@ -456,6 +442,14 @@
 
     <footer class="post-footer">
       
+        <div class="post-tags">
+          
+            <a href="/tags/ELK/" rel="tag"># ELK</a>
+          
+            <a href="/tags/ElasticSsearch/" rel="tag"># ElasticSsearch</a>
+          
+        </div>
+      
 
       
       
@@ -465,8 +459,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/08/28/mapping/" rel="next" title="mapping">
-                <i class="fa fa-chevron-left"></i> mapping
+              <a href="/2018/08/26/cluster-block-exception/" rel="next" title="cluster_block_exception">
+                <i class="fa fa-chevron-left"></i> cluster_block_exception
               </a>
             
           </div>
@@ -474,6 +468,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/08/29/我一直不理解 JavaScript 的闭包/" rel="prev" title="我一直不理解 JavaScript 的闭包是什么">
+                我一直不理解 JavaScript 的闭包是什么 <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -852,9 +850,9 @@
   
     <script type="text/javascript">
       var disqus_config = function () {
-        this.page.url = 'http://www.corner.today/2018/08/29/的闭包/';
-        this.page.identifier = '2018/08/29/的闭包/';
-        this.page.title = '的闭包';
+        this.page.url = 'http://www.corner.today/2018/08/28/ElasticSearch 修改 mapping/';
+        this.page.identifier = '2018/08/28/ElasticSearch 修改 mapping/';
+        this.page.title = 'ElasticSearch 修改 mapping';
       };
       function loadComments () {
         var d = document, s = d.createElement('script');

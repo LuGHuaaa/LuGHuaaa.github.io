@@ -1,0 +1,1364 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=6.0.3" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.0.3">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=6.0.3">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=6.0.3">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=6.0.3" color="#222">
+
+
+
+
+
+
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '6.0.3',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+<meta name="description" content="我一直不理解 JavaScript 的闭包是什么直到有人这样向我解释……  原文:https://medium.com/dailyjs/i-never-understood-javascript-closures-9663703368e8  施工未完成, 有空再填坑">
+<meta property="og:type" content="article">
+<meta property="og:title" content="我一直不理解 JavaScript 的闭包是什么">
+<meta property="og:url" content="http://www.corner.today/2018/08/29/我一直不理解 JavaScript 的闭包/index.html">
+<meta property="og:site_name" content="Corner.Today">
+<meta property="og:description" content="我一直不理解 JavaScript 的闭包是什么直到有人这样向我解释……  原文:https://medium.com/dailyjs/i-never-understood-javascript-closures-9663703368e8  施工未完成, 有空再填坑">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2018-09-04T08:29:42.660Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="我一直不理解 JavaScript 的闭包是什么">
+<meta name="twitter:description" content="我一直不理解 JavaScript 的闭包是什么直到有人这样向我解释……  原文:https://medium.com/dailyjs/i-never-understood-javascript-closures-9663703368e8  施工未完成, 有空再填坑">
+
+
+
+
+
+
+  <link rel="canonical" href="http://www.corner.today/2018/08/29/我一直不理解 JavaScript 的闭包/"/>
+
+
+
+<script type="text/javascript" id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+  <title>我一直不理解 JavaScript 的闭包是什么 | Corner.Today</title>
+  
+
+
+
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-114362424-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-114362424-1');
+</script>
+
+
+
+
+
+
+  <noscript>
+  <style type="text/css">
+    .use-motion .motion-element,
+    .use-motion .brand,
+    .use-motion .menu-item,
+    .sidebar-inner,
+    .use-motion .post-block,
+    .use-motion .pagination,
+    .use-motion .comments,
+    .use-motion .post-header,
+    .use-motion .post-body,
+    .use-motion .collection-title { opacity: initial; }
+
+    .use-motion .logo,
+    .use-motion .site-title,
+    .use-motion .site-subtitle {
+      opacity: initial;
+      top: initial;
+    }
+
+    .use-motion {
+      .logo-line-before i { left: initial; }
+      .logo-line-after i { right: initial; }
+    }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"> <div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Corner.Today</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">这是一个无聊的小角落, 随缘更新</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            <i class="menu-item-icon fa fa-fw fa-home"></i> <br />Home</a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            <i class="menu-item-icon fa fa-fw fa-user"></i> <br />About</a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />Tags</a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            <i class="menu-item-icon fa fa-fw fa-th"></i> <br />Categories</a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />Archives</a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-commonweal">
+          <a href="/404/" rel="section">
+            <i class="menu-item-icon fa fa-fw fa-heartbeat"></i> <br />Commonweal 404</a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />Search</a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="Searching..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+  
+
+
+
+ </div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://www.corner.today/2018/08/29/我一直不理解 JavaScript 的闭包/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="LuGuoHuas">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Corner.Today">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">我一直不理解 JavaScript 的闭包是什么</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-08-29T10:50:21+08:00">2018-08-29</time>
+            
+
+            
+            
+
+            
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2018/08/29/我一直不理解 JavaScript 的闭包/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2018/08/29/我一直不理解 JavaScript 的闭包/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>我一直不理解 JavaScript 的闭包是什么<br>直到有人这样向我解释……</p>
+<blockquote>
+<p>原文:<br><a href="https://medium.com/dailyjs/i-never-understood-javascript-closures-9663703368e8" target="_blank" rel="noopener">https://medium.com/dailyjs/i-never-understood-javascript-closures-9663703368e8</a></p>
+</blockquote>
+<p><code>施工未完成, 有空再填坑</code><br><a id="more"></a></p>
+<p>正如标题所述，JavaScript 的闭包对我来说一直是个谜一样的存在。我看过很多篇讲闭包的文章，也在工作中用过闭包，有时甚至在我没有意识到到的情况下使用了闭包.即使这样我还是不太明白 JavaScript 的闭包是什么.</p>
+<p>最近我去了一个演讲，终于有人让我明白了什么是闭包。我会尝试用这种方法来解释本文中的闭包。让我们赞扬 CodeSmith 的优秀人才和他们的 JavaScript The Hard Parts 系列。</p>
+<h1 id="在开始之前"><a href="#在开始之前" class="headerlink" title="在开始之前"></a>在开始之前</h1><p>在你开始理解闭包之前，有些很重要的概念需要讲一下。其中之一是 执行上下文(execution context)。</p>
+<p><a href="http://davidshariff.com/blog/what-is-the-execution-context-in-javascript/" target="_blank" rel="noopener">这是一篇很好对执行上下文入门的文章。</a>引用这篇文章：</p>
+<blockquote>
+<p>在运行 JavaScript 代码时，它的执行上下文非常重要，并被判断为以下的其中一个：<br>全局代码  - 首次执行代码的默认环境。<br>功能代码  - 每当执行流程进入函数体时。<br>（……）<br>（…），让我们将该术语 <code>execution context</code>视为正在解析当前代码的环境/范围。</p>
+</blockquote>
+<p>换句话说，当我们启动程序时，我们从 全局执行上下文(global execution context) 开始。一些变量在全局执行上下文中声明。我们称这些变量为全局变量。当程序调用函数时，会发生什么？几个步骤：</p>
+<ol>
+<li>JavaScript 创建一个新的执行上下文，一个 局部执行上下文(local execution context)</li>
+<li>这个局部执行上下文将具有其自己的变量集，这些变量将是该执行上下文的局部变量。</li>
+<li>新的执行上下文被抛到 执行堆栈(execution stack) 上。可以将执行堆栈视为一种机制，用于跟踪程序执行的位置</li>
+</ol>
+<p>什么时候函数会结束执行？当遇到 return 声明或遇到结束括号 } 时。函数结束时，会发生以下情况：</p>
+<ol>
+<li>局部执行上下文 从执行堆栈中弹出</li>
+<li>函数将返回值发送回 调用上下文(calling context)。调用上下文是调用此函数的执行上下文，它可以是全局执行上下文或另一个局部执行上下文。由调用上下文来处理这个函数的返回值。返回的值可以是对象，数组，函数，布尔值，任何东西。如果函数没有return语句，则返回undefined。</li>
+<li>局部执行上下文会被销毁。这里很重要。在局部执行上下文中声明的所有变量都将被删除。他们不再可用。这就是他们被称为局部变量的原因。</li>
+</ol>
+<h1 id="举一个非常基本的例子"><a href="#举一个非常基本的例子" class="headerlink" title="举一个非常基本的例子"></a>举一个非常基本的例子</h1><p>在我们开始理解闭包之前，让我们看一下下面这段代码。这个例子看起来非常简单，任何读这篇文章的人都可能知道它的作用。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">1：let a = 3 </span><br><span class="line">2：function addTwo（x）&#123; </span><br><span class="line">3：  let ret = x + 2 </span><br><span class="line">4：  return ret </span><br><span class="line">5：&#125; </span><br><span class="line">6：let b = addTwo（a）</span><br><span class="line">7：console.log（b）</span><br></pre></td></tr></table></figure></p>
+<p>为了理解 JavaScript 真正工作原理，让我们详细介绍一下。</p>
+<ol>
+<li>在第1行我们在全局执行上下文中声明一个新变量 a，并为其分配数字 3。</li>
+<li>接下来它变得有点复杂。第 2 到第 5 行被包含在一起。这里发生了什么？我们在全局执行上下文中声明了一个以 addTwo 命名的新变量。我们分配给它的是什么？函数定义。两个括号之间{ }的任何内容都分配给 addTwo。函数内部的代码不会被解析，也不会执行，只是存储到变量中以备将来使用。</li>
+<li>所以现在我们来看看第6行。它看起来很简单，但在这里解析了很多。首先，我们在全局执行上下文中声明一个新变量并命名它为 b。声明变量后，它的值为undefined。</li>
+<li>接下来仍然是第6行，我们看到一个赋值运算符 =。我们正准备为变量 b 分配一个新值。我们可以看到一个函数被调用。当你看到变量后跟圆括号时(…)就明白，这就是调用函数的信号。向前闪存( Flash forward ???)，每个函数都会返回一些东西（值，对象或undefined）。从函数返回的所有内容都会分配给变量 b。</li>
+<li>但首先我们需要调用命名为 addTwo 的函数。JavaScript 将在其全局执行上下文内存中查找名为的变量 addTwo 。哦，它找到了一个，它在步骤2（或第2-5行）中定义。并且查看变量 addTwo 包含的函数定义。需要注意的是变量 a 作为参数传递给函数。JavaScript 在其全局执行上下文内存中搜索变量 a，找到它然后发现它的值是 3 并将该数字 3 作为参数传递给函数。然后准备执行该函数。</li>
+<li>现在 执行上下文 将切换。创建一个新的 局部执行上下文 ，我们将其命名为“addTwo execution context”。 执行上下文 被推送到调用堆栈。我们在 局部执行上下文 中做的第一件事是什么？</li>
+<li>您可能会想说，“ ret 在 局部执行上下文 中声明了一个新变量”。但是这不是答案。正确的答案是，我们首先需要查看函数的参数。x 在本地执行上下文中声明了一个新变量。并且由于该值 3 作为参数传递，因此变量 x 被赋予数字 3。</li>
+<li>下一步是：ret 在 局部执行上下文 中声明一个新变量。其值设置为undefined。（第3行）</li>
+<li>仍然是第3行，需要进行加法。首先，我们需要 x 的值。JavaScript 将查找变量 x。它将首先查看 局部执行上下文 。它找到了一个变量 x 的值是3。第二个操作数就是数字2。将 addition（5）的结果赋给变量ret。</li>
+<li>第4行。我们返回变量的内容 ret. 局部执行上下文 中的另一个查找。ret 包含值 5。该函数返回数字 5。功能结束。</li>
+<li>第4-5行。功能结束。 局部执行上下文 被销毁。变量 x 和 ret 被销毁。它们不再存在。上下文弹出调用堆栈，返回值返回到调用上下文。在这种情况下，调用上下文是全局执行上下文，因为该函数addTwo是从全局执行上下文调用的。</li>
+<li>现在我们在步骤4中选择我们停止的位置。返回的值（数字5）将分配给变量b。我们仍然在小程序的第6行。<br>我不会详细介绍，但在第7行中，变量的内容b会在控制台中打印出来。在我们的例子中的数字5。<br>对于一个非常简单的程序来说，这是一个非常冗长的解释，我们甚至还没有涉及到闭包。我保证会讲到那里。但首先我们需要再绕一两次。</li>
+</ol>
+<h1 id="命名空间-lexical-scope"><a href="#命名空间-lexical-scope" class="headerlink" title="命名空间(lexical scope)"></a>命名空间(lexical scope)</h1><p>我们需要了解词法范围的某些方面。看一下下面的例子。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">1：let val1 = 2 </span><br><span class="line">2：function multiplyThis（n）&#123; </span><br><span class="line">3：  let ret = n * val1 </span><br><span class="line">4：  return ret </span><br><span class="line">5：&#125; </span><br><span class="line">6：let multiplied = multiplyThis（6）</span><br><span class="line">7：console.log（&apos;example of scope：&apos; ，multiplied）</span><br></pre></td></tr></table></figure>
+<p>这里的关注点是我们在 局部执行上下文 中有变量，在全局执行上下文中有变量。JavaScript 的一个复杂之处在于它如何查找变量。如果它在 局部执行上下文 中找不到变量，它将在其 调用上下文 中查找它。如果没有在其 调用上下文 中找到它。它会一直循环点查找, 直到它查看全局执行上下文。（如果它没有找到它，那就是undefined）。按照上面的例子，它将说明它。如果您了解空间(scope)的工作原理，则可以跳过此步骤。</p>
+<ol>
+<li>val1 在全局执行上下文中声明一个新变量并为其分配数字2。</li>
+<li>第2-5行。声明一个新变量 multiplyThis 并为其分配一个函数定义。</li>
+<li>第6行。multiplied 在全局执行上下文中声明一个新变量。</li>
+<li>multiplyThis 从全局执行上下文内存中检索变量并将其作为函数执行。将数字 6 作为参数传递。</li>
+<li>新函数调用 = 新 执行上下文 。创建新的 局部执行上下文 。</li>
+<li>在 局部执行上下文 中，声明一个变量 n 并为其分配数字 6。</li>
+<li>第3行。在 局部执行上下文 中，声明一个变量 ret。</li>
+<li>第3行（续）。用两个操作数执行乘法运算; 变量的内容为 n 和 val1。n 在 局部执行上下文 中查找变量。我们在第6步中声明了它。它的内容是数字6。val1 在 局部执行上下文 中查找变量。 局部执行上下文 没有标记的变量 val1。然后我们来检查 调用上下文 。 调用上下文 是全局执行上下文。让我们 val1 在全局执行上下文中寻找。它在第一行中定义。值是数字2。</li>
+<li>第3行（续）。将两个操作数相乘并将其分配给 ret 变量。6 * 2 = 12. ret 现在是12。</li>
+<li>返回 ret 变量。 局部执行上下文 及其变量 ret 和 n 会被销毁 。变量val1 不会被销毁，因为它是全局执行上下文的一部分。</li>
+<li>返回第6行。在 调用上下文 中，将数字12分配给multiplied 变量。</li>
+<li>最后在第7行，我们 multiplied 在控制台中显示变量的值。<br>所以在这个例子中，我们需要记住一个函数可以访问在其 调用上下文 中定义的变量。这种现象的正式名称是命名空间(lexical scope)。</li>
+</ol>
+<h1 id="一个返回函数的函数"><a href="#一个返回函数的函数" class="headerlink" title="一个返回函数的函数"></a>一个返回函数的函数</h1><p>在第一个示例中，函数 addTwo 返回一个数字。要记住的是之前函数可以返回任何内容。现在让我们来看一个返回函数的函数示例，因为这对理解闭包很重要。以下是我们要分析的示例。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"> 1: let val = 7</span><br><span class="line"> 2: function createAdder() &#123;</span><br><span class="line"> 3:   function addNumbers(a, b) &#123;</span><br><span class="line"> 4:     let ret = a + b</span><br><span class="line"> 5:     return ret</span><br><span class="line"> 6:   &#125;</span><br><span class="line"> 7:   return addNumbers</span><br><span class="line"> 8: &#125;</span><br><span class="line"> 9: let adder = createAdder()</span><br><span class="line">10: let sum = adder(val, 8)</span><br><span class="line">11: console.log(&apos;example of function returning a function: &apos;, sum)</span><br></pre></td></tr></table></figure>
+<p>让我们回来进行逐步细分。<br><!------------------------------------------------------------------></p>
+<ol>
+<li>第1行。我们val在全局执行上下文中声明一个变量，并为该7变量赋值。</li>
+<li>第2-8行。我们声明一个createAdder在全局执行上下文中命名的变量，并为其分配一个函数定义。第3至7行描述了所述功能定义。和以前一样，在这一点上，我们并没有跳进那个功能。我们只是将函数定义存储到该变量（createAdder）中。</li>
+<li>第9行。我们adder在全局执行上下文中声明一个名为的新变量。暂时undefined分配给adder。</li>
+<li>仍然是第9行。我们看到括号(); 我们需要执行或调用函数。让我们查询全局执行上下文的内存并查找名为的变量createAdder。它是在第2步创建的。好吧，我们来称呼它。</li>
+<li>调用一个函数。现在我们在第2行。创建了一个新的本地执行上下文。我们可以在新的 执行上下文 中创建局部变量。引擎将新上下文添加到调用堆栈。该函数没有参数，让我们直接进入它的主体。</li>
+<li>仍然是3-6行。我们有一个新的函数声明。我们addNumbers在本地执行上下文中创建一个变量。这很重要。addNumbers仅存在于本地执行上下文中。我们将函数定义存储在名为的局部变量中addNumbers。</li>
+<li>现在我们在第7行。我们返回变量的内容addNumbers。引擎查找名为的变量addNumbers并找到它。这是一个功能定义。很好，一个函数可以返回任何东西，包括函数定义。所以我们返回的定义addNumbers。第4行和第5行的括号之间的任何内容构成了函数定义。我们还从调用堆栈中删除了本地执行上下文。</li>
+<li>在return，本地执行上下文被销毁。该addNumbers变量是没有更多的。函数定义仍然存在，它从函数返回并分配给变量adder; 这是我们在第3步中创建的变量。</li>
+<li>现在我们在第10行。我们sum在全局执行上下文中定义一个新变量。临时任务是undefined。</li>
+<li>我们需要接下来执行一个函数。哪个功能？在名为的变量中定义的函数adder。我们在全局执行环境中查找它，我们确实找到了它。这是一个带两个参数的函数。</li>
+<li>让我们检索两个参数，这样我们就可以调用函数并传递正确的参数。第一个是val我们在步骤1中定义的变量，它表示数字7，第二个是数字8。</li>
+<li>现在我们必须执行该功能。功能定义概述为第3-5行。创建新的本地执行上下文。在本地上下文中，创建了两个新变量：a和b。它们分别被赋值，7并且8因为那些是我们在上一步中传递给函数的参数。</li>
+<li>第4行ret。声明了一个名为的新变量。它在本地执行上下文中声明。<br>第4行。执行添加，我们在其中添加变量a的内容和变量的内容b。将addition（15）的结果赋给ret变量。</li>
+<li>该ret变量从该函数返回。本地执行上下文被销毁，它从调用堆栈，变量中删除a，b并且ret不再存在。</li>
+<li>返回的值将分配给sum我们在步骤9中定义的变量。</li>
+<li>我们打印出sum控制台的值。<br>正如预期的那样，控制台将打印15.我们真的经历了一堆箍。我想在这里说明几点。首先，函数定义可以存储在变量中，函数定义对程序是不可见的，直到被调用。其次，每次调用函数时，（临时）创建本地执行上下文。当函数完成时， 执行上下文 消失。函数在遇到return或关闭括号时完成}。</li>
+</ol>
+<h1 id="最后，闭包"><a href="#最后，闭包" class="headerlink" title="最后，闭包"></a>最后，闭包</h1><p>看看下一个代码，并试着弄清楚会发生什么。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">1：function createCounter（）&#123; </span><br><span class="line">2：let counter = 0 </span><br><span class="line">3：const myFunction = function（）&#123; </span><br><span class="line">4：counter = counter + 1 </span><br><span class="line">5：return counter </span><br><span class="line">6：&#125; </span><br><span class="line">7：return myFunction </span><br><span class="line">8：&#125; </span><br><span class="line">9：const increment = createCounter（）</span><br><span class="line">10：const c1 = increment（）</span><br><span class="line">11：const c2 = increment（）</span><br><span class="line">12：const c3 = increment（）</span><br><span class="line">13：console.log（&apos;example increment&apos;，c1，c2，c3）</span><br></pre></td></tr></table></figure></p>
+<p>现在我们从之前的两个例子中得到了它，让我们按照我们期望它运行的方式执行此操作。</p>
+<ol>
+<li>第1-8行。我们createCounter在全局执行上下文中创建一个新变量，并获得已分配的函数定义。</li>
+<li>第9行。我们声明一个increment在全局执行上下文中命名的新变量。</li>
+<li>第9行。我们需要调用createCounter函数并将其返回值increment赋给变量。</li>
+<li>第1-8行。调用函数。创建新的本地执行上下文。</li>
+<li>第2行。在本地执行上下文中，声明一个名为的新变量counter。编号0分配给counter。</li>
+<li>3-6行。声明名为的新变量myFunction。该变量在本地执行上下文中声明。变量的内容是另一个函数定义。如第4和第5行所定义。</li>
+<li>第7行。返回myFunction变量的内容。删除本地执行上下文。myFunction并且counter不再存在。控制返回到调用上下文。</li>
+<li>第9行。在调用上下文中，全局执行上下文，返回的值createCounter被赋值给increment。变量增量现在包含一个函数定义。返回的函数定义createCounter。它不再被标记myFunction，但它的定义相同。在全球范围内，它被标记increment。</li>
+<li>第10行。声明一个新变量（c1）。</li>
+<li>第10行（续）。查找变量increment，它是一个函数，调用它。它包含从前面返回的函数定义，如第4-5行中所定义。</li>
+<li>创建一个新的 执行上下文 。没有参数。开始执行该功能。</li>
+<li>第4行counter = counter + 1。counter在本地执行上下文中查找值。我们刚刚创建了上下文，并且从不声明任何局部变量。让我们看看全局执行上下文。counter此处没有标记变量。Javascript会将其评估为counter = undefined + 1，声明一个标记的新局部变量counter并为其分配数字1，就像undefined它的类型一样0。</li>
+<li>第5行。我们返回内容counter或数字1。我们销毁本地执行上下文和counter变量。</li>
+<li>返回第10行。返回的值（1）被赋值给c1。</li>
+<li>第11行。我们重复步骤10-14，也c2被分配1。</li>
+<li>第12行。我们重复步骤10-14，也c3被分配1。</li>
+<li>第13行。我们记录变量的内容c1，c2和c3。</li>
+<li>亲自尝试一下，看看会发生什么。您会注意到它没有记录1，1并且1正如您在上面的解释中所期望的那样。相反，它是记录1，2和3。什么赋予了什么？</li>
+</ol>
+<p>不知何故，增量函数会记住该counter 值。那怎么样？</p>
+<p>是counter 全球执行环境的一部分吗？试试吧console.log(counter)，你会得到的undefined。所以那不是它。</p>
+<p>也许，当你打电话时increment，它会以某种方式回到创建它的函数（createCounter）？怎么会这样呢？变量increment包含函数定义，而不是它来自何处。所以那不是它。</p>
+<p>所以必须有另一种机制。关闭。我们终于得到了它，失踪的一块。</p>
+<p>下面是它的工作原理。每当声明一个新函数并将其赋值给变量时，都会存储函数定义以及闭包。闭包包含创建函数时范围内的所有变量。它类似于背包。功能定义附带一个小背包。在它的包中，它存储了创建函数定义时范围内的所有变量。</p>
+<p>所以我们上面的解释都是错误的，让我们再试一次，但这次是正确的。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">1：function createCounter（）&#123; </span><br><span class="line">2：let counter = 0 </span><br><span class="line">3：const myFunction = function（）&#123; </span><br><span class="line">4：counter = counter + 1 </span><br><span class="line">5：return counter </span><br><span class="line">6：&#125; </span><br><span class="line">7：return myFunction </span><br><span class="line">8：&#125; </span><br><span class="line">9：const increment = createCounter（）</span><br><span class="line">10：const c1 = increment（）</span><br><span class="line">11：const c2 = increment（）</span><br><span class="line">12：const c3 = increment（）</span><br><span class="line">13：console.log（&apos;example increment&apos;，c1，c2，c3）</span><br></pre></td></tr></table></figure></p>
+<ol>
+<li>第1-8行。我们createCounter在全局执行上下文中创建一个新变量，并获得已分配的函数定义。与上面相同。</li>
+<li>第9行。我们声明一个increment在全局执行上下文中命名的新变量。与上面相同。</li>
+<li>第9行。我们需要调用createCounter函数并将其返回值increment赋给变量。与上面相同。</li>
+<li>第1-8行。调用函数。创建新的本地执行上下文。与上面相同。</li>
+<li>第2行。在本地执行上下文中，声明一个名为的新变量counter。编号0分配给counter。与上面相同。</li>
+<li>3-6行。声明名为的新变量myFunction。该变量在本地执行上下文中声明。变量的内容是另一个函数定义。如第4行和第5行所定义。现在我们还创建一个闭包并将其作为函数定义的一部分包含在内。闭包含包含范围内的变量，在本例中为变量counter（值为0）。</li>
+<li>第7行。返回myFunction变量的内容。删除本地执行上下文。myFunction并且counter不再存在。控制返回到调用上下文。所以我们返回函数定义及其闭包，背包中包含创建时范围内的变量。</li>
+<li>第9行。在调用上下文中，全局执行上下文，返回的值createCounter被赋值给increment。变量增量现在包含一个函数定义（和闭包）。返回的函数定义createCounter。它不再被标记myFunction，但它的定义相同。在全球范围内，它被称为increment。</li>
+<li>第10行。声明一个新变量（c1）。</li>
+<li>第10行（续）。查找变量increment，它是一个函数，调用它。它包含从前面返回的函数定义，如第4-5行中所定义。（还有一个带变量的背包）</li>
+<li>创建一个新的 执行上下文 。没有参数。开始执行该功能。</li>
+<li>第4行counter = counter + 1。我们需要寻找变量counter。在我们查看本地或全局执行环境之前，让我们看看我们的背包。我们来检查关闭。瞧，闭包含一个名为的变量counter，其值为0。在第4行表达式之后，其值设置为1。它再次存放在背包里。闭包现在包含counter值为的变量1。</li>
+<li>第5行。我们返回内容counter或数字1。我们破坏了本地执行上下文。</li>
+<li>返回第10行。返回的值（1）被赋值给c1。</li>
+<li>第11行。我们重复步骤10-14。这次，当我们查看闭包时，我们看到counter变量的值为1.它是在程序的第12步或第4行中设置的。它的值递增并存储2在增量函数的闭包中。并c2获得分配2。</li>
+<li>第12行。我们重复步骤10-14，c3分配3。</li>
+<li>第13行。我们记录变量的内容c1，c2和c3。</li>
+<li>所以现在我们了解这是如何工作的。要记住的关键是当声明一个函数时，它包含一个函数定义和一个闭包。闭包是函数创建时范围内所有变量的集合。</li>
+</ol>
+<p>您可能会问，任何函数是否都有闭包，甚至是在全局范围内创建的函数？答案是肯定的。在全局范围中创建的函数会创建一个闭包。但由于这些函数是在全局范围内创建的，因此它们可以访问全局范围内的所有变量。封闭概念并不真正相关。</p>
+<p>当函数返回一个函数时，就是闭包的概念变得更加相关。返回的函数可以访问不在全局范围内的变量，但它们仅存在于其闭包中。</p>
+<p>不是那么微不足道的关闭<br>当你甚至没有注意到它时，有时会出现关闭。您可能已经看到了我们称之为部分应用程序的示例。如下面的代码。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">set c = 4 </span><br><span class="line">const addX = x =&gt; n =&gt; n + x </span><br><span class="line">const addThree = addX（3）</span><br><span class="line">let d = addThree（c）</span><br><span class="line">console.log（&apos;example partial application&apos;，d）</span><br></pre></td></tr></table></figure></p>
+<p>如果箭头函数抛出你，这是等效的。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">let c = 4 </span><br><span class="line">function addX（x）&#123; </span><br><span class="line">  return function（n）&#123; </span><br><span class="line">     return n + x </span><br><span class="line">  &#125; </span><br><span class="line">&#125; </span><br><span class="line">const addThree = addX（3）</span><br><span class="line">let d = addThree（c）</span><br><span class="line">console.log（&apos;example partial application&apos;，d）</span><br><span class="line">我们声明了一个通用加法器函数addX，它接受一个参数（x）并返回另一个函数。</span><br></pre></td></tr></table></figure></p>
+<p>返回的函数也接受一个参数并将其添加到变量中x。</p>
+<p>变量x是闭包的一部分。当变量addThree在本地上下文中声明时，它被赋予一个函数定义和一个闭包。闭包包含变量x。</p>
+<p>所以现在当addThree调用并执行它时，它可以x从其闭包中获取变量，并且该变量n作为参数传递并且能够返回总和。</p>
+<p>在此示例中，控制台将打印该号码7。</p>
+<p>结论<br>我永远记得关闭的方式是通过背包类比。当一个函数被创建并传递或从另一个函数返回时，它带有一个背包。并且在背包中是声明函数时范围内的所有变量。</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/08/28/ElasticSearch 修改 mapping/" rel="next" title="ElasticSearch 修改 mapping">
+                <i class="fa fa-chevron-left"></i> ElasticSearch 修改 mapping
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/avatar.png"
+                alt="LuGuoHuas" />
+            
+              <p class="site-author-name" itemprop="name">LuGuoHuas</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">14</span>
+                    <span class="site-state-item-name">posts</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  <a href="/categories/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">8</span>
+                    <span class="site-state-item-name">categories</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  <a href="/tags/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">22</span>
+                    <span class="site-state-item-name">tags</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+            <div class="links-of-author motion-element">
+              
+                <span class="links-of-author-item">
+                  <a href="https://github.com/LuGuoHuas" target="_blank" title="GitHub"><i class="fa fa-fw fa-github"></i>GitHub</a>
+                  
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="mailto:lu_guohua@163.com" target="_blank" title="E-Mail"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  
+                </span>
+              
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#在开始之前"><span class="nav-text">在开始之前</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#举一个非常基本的例子"><span class="nav-text">举一个非常基本的例子</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#命名空间-lexical-scope"><span class="nav-text">命名空间(lexical scope)</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#一个返回函数的函数"><span class="nav-text">一个返回函数的函数</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#最后，闭包"><span class="nav-text">最后，闭包</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">LuGuoHuas</span>
+
+  
+
+  
+</div>
+
+
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/theme-next/hexo-theme-next">NexT.Gemini</a> v6.0.3</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/three/three.min.js"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/three/three-waves.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=6.0.3"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=6.0.3"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=6.0.3"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=6.0.3"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.0.3"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.0.3"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=6.0.3"></script>
+
+
+
+  
+
+  
+    <script id="dsq-count-scr" src="https://cornertodays.disqus.com/count.js" async></script>
+  
+
+  
+    <script type="text/javascript">
+      var disqus_config = function () {
+        this.page.url = 'http://www.corner.today/2018/08/29/我一直不理解 JavaScript 的闭包/';
+        this.page.identifier = '2018/08/29/我一直不理解 JavaScript 的闭包/';
+        this.page.title = '我一直不理解 JavaScript 的闭包是什么';
+      };
+      function loadComments () {
+        var d = document, s = d.createElement('script');
+        s.src = 'https://cornertodays.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', '' + +new Date());
+        (d.head || d.body).appendChild(s);
+      }
+      
+        loadComments();
+      
+    </script>
+  
+
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

@@ -2,16 +2,23 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>http://www.corner.today/2018/08/29/%E7%9A%84%E9%97%AD%E5%8C%85/</loc>
+    <loc>http://www.corner.today/2018/08/29/%E6%88%91%E4%B8%80%E7%9B%B4%E4%B8%8D%E7%90%86%E8%A7%A3%20JavaScript%20%E7%9A%84%E9%97%AD%E5%8C%85/</loc>
     
-    <lastmod>2018-08-29T02:51:00.298Z</lastmod>
+    <lastmod>2018-09-04T08:29:42.660Z</lastmod>
     
   </url>
   
   <url>
     <loc>http://www.corner.today/about/index.html</loc>
     
-    <lastmod>2018-08-28T11:36:56.704Z</lastmod>
+    <lastmod>2018-09-04T08:29:00.115Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://www.corner.today/2018/08/28/ElasticSearch%20%E4%BF%AE%E6%94%B9%20mapping/</loc>
+    
+    <lastmod>2018-08-29T02:56:50.807Z</lastmod>
     
   </url>
   
@@ -40,13 +47,6 @@
     <loc>http://www.corner.today/2018/07/24/ELK-ELK-%E9%85%8D%E7%BD%AE/</loc>
     
     <lastmod>2018-08-28T08:10:14.970Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://www.corner.today/2018/08/28/mapping/</loc>
-    
-    <lastmod>2018-08-28T08:10:03.118Z</lastmod>
     
   </url>
   
