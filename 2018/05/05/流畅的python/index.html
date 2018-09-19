@@ -111,7 +111,7 @@
 <meta property="og:site_name" content="Corner.Today">
 <meta property="og:description" content="流畅的python阅读笔记，流畅的python主要是讲了python的进阶特性。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-08-28T08:11:32.000Z">
+<meta property="og:updated_time" content="2018-09-19T11:44:17.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="流畅的Python">
 <meta name="twitter:description" content="流畅的python阅读笔记，流畅的python主要是讲了python的进阶特性。">
@@ -425,7 +425,153 @@
 
       
         <p>流畅的python阅读笔记，流畅的python主要是讲了python的进阶特性。<br><a id="more"></a></p>
-<h1 id="第一章-Python数据模型"><a href="#第一章-Python数据模型" class="headerlink" title="第一章 Python数据模型"></a>第一章 Python数据模型</h1><p>  在 Python 中使用双下划线开头，双下划线结尾的方法就是 Python 的特殊方法。Python 会在碰到特殊句法的时候，会使用特殊方法去执行一些对象操作。<br>这些特殊方法能让对象支持这些操作： 迭代， 集合类， 属性访问， 运算符重载， 函数和方法的调用， 对象的创建和销毁， 字符串表示形式和格式化， 管理<br>上下文。</p>
+<h1 id="第一章-Python数据模型"><a href="#第一章-Python数据模型" class="headerlink" title="第一章 Python数据模型"></a>第一章 Python数据模型</h1><p>  在 Python 中使用双下划线开头，双下划线结尾的方法就是 Python 的特殊方法。Python 会在碰到特殊句法的时候，会使用特殊方法去执行一些对象操作。这些特殊方法能让对象支持这些操作： 迭代， 集合类， 属性访问， 运算符重载， 函数和方法的调用， 对象的创建和销毁， 字符串表示形式和格式化， 管理上下文。</p>
+<p>  这些特殊方法的存在是为了被 Python 解释器调用的, 并不需要自己去调用它们. 即 没有 xxx.<strong>len</strong>() 这种写法, 而是应该使用 len(xxx). 在执行len(xxx) 的时候, 如果 xxx 是一个自定义的类对象, 那么 Python 解释器会去调用 <strong>len</strong> 方法. 而如果是 Python 内置的数据类型, 如 list, str 等, 那么 CPython 会直接返回 PyVarObject 里等 ob_size 属性. PyVarObject 是表示内存中长度可变的内置对象的C语言结构体, 这样会比调用方法更快.</p>
+<p>  这些特殊方法的调用通常是隐式的, 如 for i in x 这个语句调用的是 iter(x), 而这个 iter(x) 函数是调用的 x.<strong>iter</strong>() 方法.</p>
+<h2 id="特殊方法一览"><a href="#特殊方法一览" class="headerlink" title="特殊方法一览:"></a>特殊方法一览:</h2><ul>
+<li>与运算符无关的特殊方法<ol>
+<li>字符串表示形式 <ul>
+<li>__repr__</li>
+<li>__str__</li>
+<li>__format__</li>
+<li>__bytes__</li>
+</ul>
+</li>
+<li>数值转换<ul>
+<li>__abs__</li>
+<li>__bool__</li>
+<li>__complex__</li>
+<li>__int__</li>
+<li>__float__</li>
+<li>__hash__</li>
+<li>__index__</li>
+</ul>
+</li>
+<li>集合模拟<ul>
+<li>__len__</li>
+<li>__getitem__</li>
+<li>__setitem__</li>
+<li>__delitem__</li>
+<li>__contains__</li>
+</ul>
+</li>
+<li>迭代枚举<ul>
+<li>__iter__</li>
+<li>__reversed__</li>
+<li>__next__</li>
+</ul>
+</li>
+<li>可调用模拟<ul>
+<li>__call__</li>
+</ul>
+</li>
+<li>上下文管理<ul>
+<li>__enter__</li>
+<li>__exit__</li>
+</ul>
+</li>
+<li>实力创建和销毁<ul>
+<li>__new__</li>
+<li>__init__</li>
+<li>__del__</li>
+</ul>
+</li>
+<li>属性管理<ul>
+<li>__getattr__</li>
+<li>__getattribute__</li>
+<li>__setattr__</li>
+<li>__delatr__</li>
+<li>__dir__</li>
+</ul>
+</li>
+<li>属性描述符<ul>
+<li>__get__</li>
+<li>__set__</li>
+<li>__delete__</li>
+</ul>
+</li>
+<li>和类相关的服务<ul>
+<li>__prepare__</li>
+<li>__instancecheck__</li>
+<li>__subclasscheck__</li>
+</ul>
+</li>
+</ol>
+</li>
+<li>与运算符相关的特殊方法<ol>
+<li>一元运算符<ul>
+<li>__neg__</li>
+<li>__pos__</li>
+<li>__abs__</li>
+</ul>
+</li>
+<li>比较运算符<ul>
+<li>__lt__</li>
+<li>__le__</li>
+<li>__eq__</li>
+<li>__ne__</li>
+<li>__gt__</li>
+<li>__ge__<br>3. 算术运算符</li>
+<li>__add__</li>
+<li>__sub__</li>
+<li>__mul__</li>
+<li>__truediv__</li>
+<li>__floordiv__</li>
+<li>__mod__</li>
+<li>__divmod__</li>
+<li>__pow__</li>
+<li>__round__</li>
+</ul>
+</li>
+<li>反向运算符<ul>
+<li>__radd__</li>
+<li>__rsub__</li>
+<li>__rmul__</li>
+<li>__rtruediv__</li>
+<li>__rfloordiv__</li>
+<li>__rmod__</li>
+<li>__rdivmod__</li>
+<li>__rpow__</li>
+</ul>
+</li>
+<li>增量赋值算术运算符<ul>
+<li>__iadd__</li>
+<li>__isub__</li>
+<li>__imul__</li>
+<li>__itruediv__</li>
+<li>__ifloordiv__</li>
+<li>__imod__</li>
+<li>__ipow__</li>
+</ul>
+</li>
+<li>位运算符<ul>
+<li>__invert__</li>
+<li>__lshift__</li>
+<li>__rshift__</li>
+<li>__and__</li>
+<li>__or__</li>
+<li>__xor__</li>
+</ul>
+</li>
+<li>反向位运算符<ul>
+<li>__rlshift__</li>
+<li>__rrshift__</li>
+<li>__rand__</li>
+<li>____rxor__</li>
+<li>__ror__</li>
+</ul>
+</li>
+<li>增量赋值位运算符<ul>
+<li>__ilshift__</li>
+<li>__irshift__</li>
+<li>__iand__</li>
+<li>__ixor__</li>
+<li>__ior__</li>
+</ul>
+</li>
+</ol>
+</li>
+</ul>
 
       
     </div>
@@ -556,7 +702,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">14</span>
+                    <span class="site-state-item-count">16</span>
                     <span class="site-state-item-name">posts</span>
                   </a>
                 </div>
@@ -585,7 +731,11 @@
                     
                       
                     
-                    <span class="site-state-item-count">8</span>
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">10</span>
                     <span class="site-state-item-name">categories</span>
                   </a>
                 </div>
@@ -642,7 +792,13 @@
                     
                       
                     
-                    <span class="site-state-item-count">22</span>
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">25</span>
                     <span class="site-state-item-name">tags</span>
                   </a>
                 </div>
@@ -692,7 +848,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#第一章-Python数据模型"><span class="nav-text">第一章 Python数据模型</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#第一章-Python数据模型"><span class="nav-text">第一章 Python数据模型</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#特殊方法一览"><span class="nav-text">特殊方法一览:</span></a></li></ol></li></ol></div>
             
 
           </div>

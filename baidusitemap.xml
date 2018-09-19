@@ -4,6 +4,75 @@
 
     
   <url>
+    <loc>http://luguohuas.online/2018/09/19/Python-%E6%97%A5%E5%BF%97%E6%A8%A1%E5%9D%97-logging-%E7%9A%84%E5%BA%94%E7%94%A8/</loc>
+    <lastmod>2018-09-19T13:02:07.816Z</lastmod>
+    <data>
+        <display>
+        <title>Python 日志模块 logging 的应用</title>
+        <pubTime>2018-09-19T13:02:07.000Z</pubTime>
+        
+        <tag>Python</tag>
+         
+        <tag>Tutorial</tag>
+         
+         
+           
+             
+              <breadCrumb title="Python" url="http://luguohuas.online/categories/Python/"/>
+          
+             
+              <breadCrumb title="Tutorial" url="http://luguohuas.online/categories/Python/Tutorial/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://luguohuas.online/2018/05/05/%E6%B5%81%E7%95%85%E7%9A%84python/</loc>
+    <lastmod>2018-09-19T11:44:17.000Z</lastmod>
+    <data>
+        <display>
+        <title>流畅的Python</title>
+        <pubTime>2018-05-05T07:45:53.000Z</pubTime>
+        
+        <tag>Python</tag>
+         
+         
+           
+             
+              <breadCrumb title="Python" url="http://luguohuas.online/categories/Python/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://luguohuas.online/2018/09/09/Flask%20%E6%BA%90%E7%A0%81%E9%98%85%E8%AF%BB%20%E8%AF%B7%E6%B1%82%E6%B5%81%E7%A8%8B/</loc>
+    <lastmod>2018-09-12T07:38:38.357Z</lastmod>
+    <data>
+        <display>
+        <title>Flask 源码阅读: 请求流程</title>
+        <pubTime>2018-09-09T06:58:15.000Z</pubTime>
+        
+        <tag>Flask</tag>
+         
+        <tag>Python</tag>
+         
+        <tag>源码</tag>
+         
+         
+           
+             
+              <breadCrumb title="Flask" url="http://luguohuas.online/categories/Flask/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>http://luguohuas.online/2018/08/29/%E6%88%91%E4%B8%80%E7%9B%B4%E4%B8%8D%E7%90%86%E8%A7%A3%20JavaScript%20%E7%9A%84%E9%97%AD%E5%8C%85/</loc>
     <lastmod>2018-09-04T08:29:42.660Z</lastmod>
     <data>
@@ -62,26 +131,6 @@
 
     
   <url>
-    <loc>http://luguohuas.online/2018/05/05/%E6%B5%81%E7%95%85%E7%9A%84python/</loc>
-    <lastmod>2018-08-28T08:11:32.000Z</lastmod>
-    <data>
-        <display>
-        <title>流畅的Python</title>
-        <pubTime>2018-05-05T07:45:53.000Z</pubTime>
-        
-        <tag>Python</tag>
-         
-         
-           
-             
-              <breadCrumb title="Python" url="http://luguohuas.online/categories/Python/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
     <loc>http://luguohuas.online/2018/07/26/%E7%A1%AC%E7%9B%98%E4%BD%BF%E7%94%A8%E6%83%85%E5%86%B5%E6%9F%A5%E7%9C%8B/</loc>
     <lastmod>2018-08-28T08:11:30.000Z</lastmod>
     <data>
@@ -113,9 +162,9 @@
         
         <tag>ELK</tag>
          
-        <tag>Kibana</tag>
-         
         <tag>ElasticSsearch</tag>
+         
+        <tag>Kibana</tag>
          
         <tag>LogStash</tag>
          
