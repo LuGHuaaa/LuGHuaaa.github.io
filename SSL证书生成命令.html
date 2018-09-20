@@ -100,28 +100,28 @@
 
 
   
-  <meta name="keywords" content="ELK,ElasticSsearch," />
+  <meta name="keywords" content="SSL,commond," />
 
 
-<meta name="description" content="https://www.elastic.co/blog/logstash_lesson_elasticsearch_mapping">
-<meta name="keywords" content="ELK,ElasticSsearch">
+<meta name="description" content="SSL证书的生成">
+<meta name="keywords" content="SSL,commond">
 <meta property="og:type" content="article">
-<meta property="og:title" content="ElasticSearch 修改 mapping">
-<meta property="og:url" content="http://luguohuas.online/2018/08/28/ElasticSearch 修改 mapping/index.html">
+<meta property="og:title" content="SSL证书生成命令">
+<meta property="og:url" content="http://luguohuas.online/SSL证书生成命令.html">
 <meta property="og:site_name" content="Corner.Today">
-<meta property="og:description" content="https://www.elastic.co/blog/logstash_lesson_elasticsearch_mapping">
+<meta property="og:description" content="SSL证书的生成">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-08-29T02:56:50.807Z">
+<meta property="og:updated_time" content="2018-02-15T20:29:16.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="ElasticSearch 修改 mapping">
-<meta name="twitter:description" content="https://www.elastic.co/blog/logstash_lesson_elasticsearch_mapping">
+<meta name="twitter:title" content="SSL证书生成命令">
+<meta name="twitter:description" content="SSL证书的生成">
 
 
 
 
 
 
-  <link rel="canonical" href="http://luguohuas.online/2018/08/28/ElasticSearch 修改 mapping/"/>
+  <link rel="canonical" href="http://luguohuas.online/SSL证书生成命令.html"/>
 
 
 
@@ -130,7 +130,7 @@
     sidebar: "",
   };
 </script>
-  <title>ElasticSearch 修改 mapping | Corner.Today</title>
+  <title>SSL证书生成命令 | Corner.Today</title>
   
 
 
@@ -329,7 +329,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://luguohuas.online/2018/08/28/ElasticSearch 修改 mapping/">
+    <link itemprop="mainEntityOfPage" href="http://luguohuas.online/SSL证书生成命令.html">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="LuGuoHuas">
@@ -346,7 +346,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">ElasticSearch 修改 mapping</h1>
+          <h1 class="post-title" itemprop="name headline">SSL证书生成命令</h1>
         
 
         <div class="post-meta">
@@ -358,7 +358,7 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-08-28T16:07:34+08:00">2018-08-28</time>
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-02-16T12:26:20+08:00">2018-02-16</time>
             
 
             
@@ -379,7 +379,7 @@
                 <span class="post-meta-item-text">In</span>
               
               
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/ELK/" itemprop="url" rel="index"><span itemprop="name">ELK</span></a></span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/commond/" itemprop="url" rel="index"><span itemprop="name">commond</span></a></span>
 
                 
                 
@@ -394,9 +394,9 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2018/08/28/ElasticSearch 修改 mapping/#comments" itemprop="discussionUrl">
+                <a href="/SSL证书生成命令.html#comments" itemprop="discussionUrl">
                   <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="2018/08/28/ElasticSearch 修改 mapping/" itemprop="commentCount"></span>
+                        data-disqus-identifier="SSL证书生成命令.html" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -424,9 +424,8 @@
       
 
       
-        <p><a href="https://www.elastic.co/blog/logstash_lesson_elasticsearch_mapping" target="_blank" rel="noopener">https://www.elastic.co/blog/logstash_lesson_elasticsearch_mapping</a></p>
-<a id="more"></a>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">POST imore-2018.07.25/doc/_search</span><br><span class="line">&#123;</span><br><span class="line"> &quot;query&quot;:&#123;&quot;match_all&quot;: &#123;&#125;&#125;,</span><br><span class="line"> &quot;aggs&quot;: &#123;</span><br><span class="line">   &quot;e_terms&quot;: &#123;</span><br><span class="line">     &quot;terms&quot;: &#123;&quot;field&quot;: &quot;e.keyword&quot;&#125;,</span><br><span class="line">     &quot;aggs&quot;: &#123;</span><br><span class="line">       &quot;f_terms&quot;: &#123;</span><br><span class="line">         &quot;terms&quot;: &#123;&quot;field&quot;: &quot;f.keyword&quot;&#125;,</span><br><span class="line">         &quot;aggs&quot;: &#123;</span><br><span class="line">           &quot;g_terms&quot;: &#123;</span><br><span class="line">             &quot;terms&quot;: &#123;&quot;field&quot;: &quot;g.keyword&quot;&#125;</span><br><span class="line">           &#125;</span><br><span class="line">         &#125;  </span><br><span class="line">       &#125;</span><br><span class="line">     &#125;</span><br><span class="line">   &#125;</span><br><span class="line"> &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+        <p>SSL证书的生成<br><a id="more"></a></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"># 生成一个RSA密钥</span><br><span class="line">$ openssl genrsa -des3 -out 33iq.key 1024</span><br><span class="line"></span><br><span class="line"># 拷贝一个不需要输入密码的密钥文件</span><br><span class="line">$ openssl rsa -in 33iq.key -out 33iq_nopass.key</span><br><span class="line"></span><br><span class="line"># 生成一个证书请求</span><br><span class="line">$ openssl req -new -key 33iq.key -out 33iq.csr</span><br><span class="line"></span><br><span class="line"># 自己签发证书</span><br><span class="line">$ openssl x509 -req -days 365 -in 33iq.csr -signkey 33iq.key -out 33iq.crt</span><br></pre></td></tr></table></figure>
 
       
     </div>
@@ -444,9 +443,9 @@
       
         <div class="post-tags">
           
-            <a href="/tags/ELK/" rel="tag"># ELK</a>
+            <a href="/tags/SSL/" rel="tag"># SSL</a>
           
-            <a href="/tags/ElasticSsearch/" rel="tag"># ElasticSsearch</a>
+            <a href="/tags/commond/" rel="tag"># commond</a>
           
         </div>
       
@@ -459,8 +458,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/08/26/cluster-block-exception/" rel="next" title="cluster_block_exception">
-                <i class="fa fa-chevron-left"></i> cluster_block_exception
+              <a href="/Django-HTTPS配置.html" rel="next" title="Django HTTPS配置">
+                <i class="fa fa-chevron-left"></i> Django HTTPS配置
               </a>
             
           </div>
@@ -469,8 +468,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2018/08/29/我一直不理解 JavaScript 的闭包/" rel="prev" title="我一直不理解 JavaScript 的闭包是什么">
-                我一直不理解 JavaScript 的闭包是什么 <i class="fa fa-chevron-right"></i>
+              <a href="/MySQL-存储过程实例.html" rel="prev" title="MySQL 存储过程实例">
+                MySQL 存储过程实例 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -860,9 +859,9 @@
   
     <script type="text/javascript">
       var disqus_config = function () {
-        this.page.url = 'http://luguohuas.online/2018/08/28/ElasticSearch 修改 mapping/';
-        this.page.identifier = '2018/08/28/ElasticSearch 修改 mapping/';
-        this.page.title = 'ElasticSearch 修改 mapping';
+        this.page.url = 'http://luguohuas.online/SSL证书生成命令.html';
+        this.page.identifier = 'SSL证书生成命令.html';
+        this.page.title = 'SSL证书生成命令';
       };
       function loadComments () {
         var d = document, s = d.createElement('script');

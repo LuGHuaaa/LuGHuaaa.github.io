@@ -100,28 +100,31 @@
 
 
   
-  <meta name="keywords" content="Nginx,HTTP," />
+  <meta name="keywords" content="Python,Django,TDD," />
 
 
-<meta name="description" content="HTTP Nginx配置的记录,和一些解析注释">
-<meta name="keywords" content="Nginx,HTTP">
+<meta name="description" content="Python Web开发测试驱动方法的笔记django version: 1.11.7Python version: 3.6.2">
+<meta name="keywords" content="Python,Django,TDD">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Nginx-HTTP-配置">
-<meta property="og:url" content="http://luguohuas.online/2018/02/16/Nginx-HTTP-配置/index.html">
+<meta property="og:title" content="Python Web开发测试驱动方法 笔记">
+<meta property="og:url" content="http://luguohuas.online/Python-Web开发测试驱动方法笔记.html">
 <meta property="og:site_name" content="Corner.Today">
-<meta property="og:description" content="HTTP Nginx配置的记录,和一些解析注释">
+<meta property="og:description" content="Python Web开发测试驱动方法的笔记django version: 1.11.7Python version: 3.6.2">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-04-19T22:49:16.000Z">
+<meta property="og:image" content="http://luguohuas.online/Python-Web开发测试驱动方法笔记/单元测试TDD流程.jpg">
+<meta property="og:image" content="http://luguohuas.online/Python-Web开发测试驱动方法笔记/功能测试TDD流程.jpg">
+<meta property="og:updated_time" content="2018-03-07T07:13:46.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Nginx-HTTP-配置">
-<meta name="twitter:description" content="HTTP Nginx配置的记录,和一些解析注释">
+<meta name="twitter:title" content="Python Web开发测试驱动方法 笔记">
+<meta name="twitter:description" content="Python Web开发测试驱动方法的笔记django version: 1.11.7Python version: 3.6.2">
+<meta name="twitter:image" content="http://luguohuas.online/Python-Web开发测试驱动方法笔记/单元测试TDD流程.jpg">
 
 
 
 
 
 
-  <link rel="canonical" href="http://luguohuas.online/2018/02/16/Nginx-HTTP-配置/"/>
+  <link rel="canonical" href="http://luguohuas.online/Python-Web开发测试驱动方法笔记.html"/>
 
 
 
@@ -130,7 +133,7 @@
     sidebar: "",
   };
 </script>
-  <title>Nginx-HTTP-配置 | Corner.Today</title>
+  <title>Python Web开发测试驱动方法 笔记 | Corner.Today</title>
   
 
 
@@ -329,7 +332,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://luguohuas.online/2018/02/16/Nginx-HTTP-配置/">
+    <link itemprop="mainEntityOfPage" href="http://luguohuas.online/Python-Web开发测试驱动方法笔记.html">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="LuGuoHuas">
@@ -346,7 +349,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">Nginx-HTTP-配置</h1>
+          <h1 class="post-title" itemprop="name headline">Python Web开发测试驱动方法 笔记</h1>
         
 
         <div class="post-meta">
@@ -358,7 +361,7 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-02-16T12:04:33+08:00">2018-02-16</time>
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-02-26T15:52:11+08:00">2018-02-26</time>
             
 
             
@@ -379,7 +382,7 @@
                 <span class="post-meta-item-text">In</span>
               
               
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Nginx/" itemprop="url" rel="index"><span itemprop="name">Nginx</span></a></span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Django/" itemprop="url" rel="index"><span itemprop="name">Django</span></a></span>
 
                 
                 
@@ -394,9 +397,9 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2018/02/16/Nginx-HTTP-配置/#comments" itemprop="discussionUrl">
+                <a href="/Python-Web开发测试驱动方法笔记.html#comments" itemprop="discussionUrl">
                   <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="2018/02/16/Nginx-HTTP-配置/" itemprop="commentCount"></span>
+                        data-disqus-identifier="Python-Web开发测试驱动方法笔记.html" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -424,9 +427,37 @@
       
 
       
-        <p>HTTP Nginx配置的记录,和一些解析注释</p>
-<a id="more"></a>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">user LuGH LuGH;    # 指定nginx worker进程运行用户以及用户组</span><br><span class="line">worker_processes  2;    # 指定了nginx要开启的进程数</span><br><span class="line">error_log  /home/LuGH/logs/nginx_log/error.log crit;    # 用来定义全局错误日志文件</span><br><span class="line">pid        /usr/local/nginx/logs/nginx.pid;    # 用来指定进程id的存储文件位置</span><br><span class="line"></span><br><span class="line">events &#123;    # 用来指定nginx的工作模式及连接数上限</span><br><span class="line">    worker_connections  1024;    # 定义nginx每个进程的最大连接数</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">http &#123;</span><br><span class="line">    include       mime.types;    # 对配置文件所包含的文件设定</span><br><span class="line">    default_type  application/octet-stream;    # 为标准MIME映射未指定任何内容的文件指定默认的mime类型</span><br><span class="line">    sendfile        on;    # 用于开启高效文件传输模式</span><br><span class="line">    keepalive_timeout  65;    # 指定了客户端与服务器长连接的超时时间</span><br><span class="line">    server &#123;</span><br><span class="line">        listen       80;    # 监听端口</span><br><span class="line">        server_name  localhost;    # 服务器名称</span><br><span class="line">        location / &#123;</span><br><span class="line">                proxy_pass http://localhost:9000;    # 忽略代理</span><br><span class="line">                proxy_redirect default;    # 默认重定向</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+        <p>Python Web开发测试驱动方法的笔记<br>django version: 1.11.7<br>Python version: 3.6.2<br><a id="more"></a></p>
+<h1 id="第一部分-第-1-6章-基础知识"><a href="#第一部分-第-1-6章-基础知识" class="headerlink" title="第一部分 (第 1~6章 ): 基础知识"></a>第一部分 (第 1~6章 ): 基础知识</h1><h2 id="第-1-章-功能测试协助安装Django"><a href="#第-1-章-功能测试协助安装Django" class="headerlink" title="第 1 章 功能测试协助安装Django"></a>第 1 章 功能测试协助安装Django</h2><p>测试山羊: “先测试,先测试,先测试”(重要的事说三遍)<br>测试山羊: “没有测试什么也别做”<br>这一章主要讲的是编写一个简单的测试查看Django是否安装正确,没有什么问题.</p>
+<h2 id="第-2-章-使用unittest模块扩展功能测试"><a href="#第-2-章-使用unittest模块扩展功能测试" class="headerlink" title="第 2 章 使用unittest模块扩展功能测试"></a>第 2 章 使用unittest模块扩展功能测试</h2><h3 id="注释"><a href="#注释" class="headerlink" title="注释"></a>注释</h3><p>书中有一部分说到了注释.注释是有用的, 可以添加上下文,说明代码的目的,但是简单而重复的注释<br>是毫无意义的.而且有一定风险,如果更新了代码后没有修改注释,会误导别人.例如:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"># 把wibble的值增加 1</span><br><span class="line">wibble += 1</span><br></pre></td></tr></table></figure></p>
+<h3 id="unittest模块"><a href="#unittest模块" class="headerlink" title="unittest模块"></a>unittest模块</h3><ol>
+<li>以test_开头的方法都是测试方法</li>
+<li>测试方法的名称应该有意义</li>
+<li>setUp和tearDown在该测试类的各个测试方法运行前和运行后执行</li>
+<li>预期失败,应该预期测试方法的失败和失败方式</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">class XXTest(unittest.TestCase):</span><br><span class="line">    def setUp(self):</span><br><span class="line">        &apos;&apos;&apos;测试开始前执行&apos;&apos;&apos;</span><br><span class="line">        self.browser = webdriver.Chrome() # 设置浏览器驱动</span><br><span class="line">        self.browser.implicitly_wait(3) # 隐式等待,在页面加载的时候让Selenium先等待</span><br><span class="line"></span><br><span class="line">    def tearDown(self):</span><br><span class="line">        &apos;&apos;&apos;测试结束后执行&apos;&apos;&apos;</span><br><span class="line">        self.browser.quit() # 设置退出浏览器</span><br><span class="line"></span><br><span class="line">    def testxxx(self):</span><br><span class="line">        self.asserIn(&apos;XX&apos;, self.browser.title) # 测试浏览器标题是不是包含XX</span><br><span class="line"></span><br><span class="line">if __name__ == &apos;main&apos;:</span><br><span class="line">    # 启动unittest测试程序,禁止抛出ResourceWarning异常</span><br><span class="line">    unittest.main(warnings=&apos;ignore&apos;)</span><br></pre></td></tr></table></figure>
+<h2 id="第-3-章-使用单元测试测试简单的首页"><a href="#第-3-章-使用单元测试测试简单的首页" class="headerlink" title="第 3 章 使用单元测试测试简单的首页"></a>第 3 章 使用单元测试测试简单的首页</h2><h3 id="单元测试和功能测试的区别"><a href="#单元测试和功能测试的区别" class="headerlink" title="单元测试和功能测试的区别"></a>单元测试和功能测试的区别</h3><p>单元测试: 站在程序员的角度从内部测试应用<br>功能测试: 站在用户的角度从外部测试应用</p>
+<h4 id="单元测试和功能测试的工作流程"><a href="#单元测试和功能测试的工作流程" class="headerlink" title="单元测试和功能测试的工作流程"></a>单元测试和功能测试的工作流程</h4><ol>
+<li>先写功能测试, 从用户的角度描述应用的新功能</li>
+<li>功能测试失败后,想办法编写代码让它通过(至少通过当前失败).使用一个或多个单元测试定义希望代<br>码实现的效果,尽量覆盖每一行代码(至少一个)</li>
+<li>单元测试失败后,写最少的应用代码让单元测试通过.直到功能测试有进展.</li>
+<li>再次运行功能测试,然后根据新的测试结果编写新的单元测试和代码.</li>
+</ol>
+<h3 id="单元测试代码"><a href="#单元测试代码" class="headerlink" title="单元测试代码"></a>单元测试代码</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"># tests.py</span><br><span class="line">class HomePageTest(TestCase):</span><br><span class="line">    def test_root_page_resolve(self):</span><br><span class="line">        &quot;&quot;&quot;路径解析测试&quot;&quot;&quot;</span><br><span class="line">        found = resolve(&apos;/&apos;)</span><br><span class="line">        self.assertEqual(found.func, home_page)</span><br><span class="line"></span><br><span class="line">    def test_home_page_returns_html(self):</span><br><span class="line">        &quot;&quot;&quot;页面HTML解析&quot;&quot;&quot;</span><br><span class="line">        request = HttpRequest()</span><br><span class="line">        response = home_page(request)</span><br><span class="line">        self.assertTrue(response.content.startswith(b&apos;&lt;html&gt;&apos;))</span><br><span class="line">        self.assertIn(b&apos;&lt;title&gt;To-Do lists&lt;/title&gt;&apos;, response.content)</span><br><span class="line">        self.assertTrue(response.content.endswith(b&apos;&lt;/html&gt;&apos;))</span><br><span class="line"></span><br><span class="line"># lists/views.py</span><br><span class="line">def home_page(request):</span><br><span class="line">    return HttpResponse(&apos;&lt;html&gt;&lt;title&gt;To-Do lists&lt;/title&gt;&lt;/html&gt;)</span><br><span class="line"></span><br><span class="line"># superlists/urls.py</span><br><span class="line">urlpatterns = [</span><br><span class="line">    url(r&apos;^admin/&apos;, admin.site.urls),</span><br><span class="line">    url(r&apos;^$&apos;, view=views.home_page, name=&apos;home_page&apos;),</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
+<h3 id="单元测试时的问题"><a href="#单元测试时的问题" class="headerlink" title="单元测试时的问题"></a>单元测试时的问题</h3><p>在django 1.11.7中resolve的导入是<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">from django.urls import resolve</span><br></pre></td></tr></table></figure></p>
+<p>resolve()中的path路径是在urls的路径加根目录<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">found = resolve(&apos;/lists/&apos;)</span><br><span class="line"></span><br><span class="line">urls:</span><br><span class="line">url(r&apos;^lists/&apos;, view=views.home_page, name=&apos;home_page&apos;),</span><br></pre></td></tr></table></figure></p>
+<h2 id="第-4-章-编写这些测试有什么用"><a href="#第-4-章-编写这些测试有什么用" class="headerlink" title="第 4 章 编写这些测试有什么用"></a>第 4 章 编写这些测试有什么用</h2><ol>
+<li>测试有点多了?是不是太琐细了?<br>我们并不是大神,也不是大牛,我们没办法避免错误,哪怕是大神可能也会出现简单的错误.TDD可以记录<br>我们编码的进程,让我们不会反复的犯同一个错误.测试可能会很简单,但是有占位作用,当函数变复杂后就<br>可能没那么容易测试了.在学习新框架的时候TDD也能帮助学习,排除错误.</li>
+</ol>
+<img src="/Python-Web开发测试驱动方法笔记/单元测试TDD流程.jpg" title="单元测试TDD流程">
+<img src="/Python-Web开发测试驱动方法笔记/功能测试TDD流程.jpg" title="功能测试TDD流程">
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">def test_home_page_returns_html(self):</span><br><span class="line">    &quot;&quot;&quot;页面HTML解析&quot;&quot;&quot;</span><br><span class="line">    request = HttpRequest()</span><br><span class="line">    response = home_page(request)</span><br><span class="line">    expected_html = render_to_string(&apos;home.html&apos;)</span><br><span class="line">    self.assertEqual(response.content.decode(), expected_html)</span><br></pre></td></tr></table></figure>
+<h2 id="第-5-章-保存用户输入"><a href="#第-5-章-保存用户输入" class="headerlink" title="第 5 章 保存用户输入"></a>第 5 章 保存用户输入</h2><h1 id="单元测试规则"><a href="#单元测试规则" class="headerlink" title="单元测试规则"></a>单元测试规则</h1><ol>
+<li>不测试常量</li>
+</ol>
+<h1 id="assert语句"><a href="#assert语句" class="headerlink" title="assert语句"></a>assert语句</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">assertIn(xx, yy) yy中有没有xx</span><br><span class="line">assertEqual(xx,yy) xx和yy是不是一样</span><br><span class="line">assertTrue(xx) xx结果是不是True</span><br></pre></td></tr></table></figure>
+<h1 id="find-element-by-语句"><a href="#find-element-by-语句" class="headerlink" title="find_element_by 语句"></a>find_element_by 语句</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">find_element_by_id(xx)</span><br><span class="line">find_element_by_tag_name(xx)</span><br><span class="line"></span><br><span class="line">find_elements_by_tag_name(xx)</span><br></pre></td></tr></table></figure>
 
       
     </div>
@@ -444,9 +475,11 @@
       
         <div class="post-tags">
           
-            <a href="/tags/Nginx/" rel="tag"># Nginx</a>
+            <a href="/tags/Python/" rel="tag"># Python</a>
           
-            <a href="/tags/HTTP/" rel="tag"># HTTP</a>
+            <a href="/tags/Django/" rel="tag"># Django</a>
+          
+            <a href="/tags/TDD/" rel="tag"># TDD</a>
           
         </div>
       
@@ -459,8 +492,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/02/16/Nginx-HTTPS-配置/" rel="next" title="Nginx HTTPS 的简单配置">
-                <i class="fa fa-chevron-left"></i> Nginx HTTPS 的简单配置
+              <a href="/在aws-创建git-仓库.html" rel="next" title="在aws 创建git 仓库">
+                <i class="fa fa-chevron-left"></i> 在aws 创建git 仓库
               </a>
             
           </div>
@@ -469,8 +502,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2018/02/16/Django-HTTPS配置/" rel="prev" title="Django HTTPS配置">
-                Django HTTPS配置 <i class="fa fa-chevron-right"></i>
+              <a href="/流畅的python.html" rel="prev" title="流畅的Python">
+                流畅的Python <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -530,8 +563,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -686,6 +728,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#第一部分-第-1-6章-基础知识"><span class="nav-text">第一部分 (第 1~6章 ): 基础知识</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#第-1-章-功能测试协助安装Django"><span class="nav-text">第 1 章 功能测试协助安装Django</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第-2-章-使用unittest模块扩展功能测试"><span class="nav-text">第 2 章 使用unittest模块扩展功能测试</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#注释"><span class="nav-text">注释</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#unittest模块"><span class="nav-text">unittest模块</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第-3-章-使用单元测试测试简单的首页"><span class="nav-text">第 3 章 使用单元测试测试简单的首页</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#单元测试和功能测试的区别"><span class="nav-text">单元测试和功能测试的区别</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#单元测试和功能测试的工作流程"><span class="nav-text">单元测试和功能测试的工作流程</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#单元测试代码"><span class="nav-text">单元测试代码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#单元测试时的问题"><span class="nav-text">单元测试时的问题</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第-4-章-编写这些测试有什么用"><span class="nav-text">第 4 章 编写这些测试有什么用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第-5-章-保存用户输入"><span class="nav-text">第 5 章 保存用户输入</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#单元测试规则"><span class="nav-text">单元测试规则</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#assert语句"><span class="nav-text">assert语句</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#find-element-by-语句"><span class="nav-text">find_element_by 语句</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
@@ -860,9 +918,9 @@
   
     <script type="text/javascript">
       var disqus_config = function () {
-        this.page.url = 'http://luguohuas.online/2018/02/16/Nginx-HTTP-配置/';
-        this.page.identifier = '2018/02/16/Nginx-HTTP-配置/';
-        this.page.title = 'Nginx-HTTP-配置';
+        this.page.url = 'http://luguohuas.online/Python-Web开发测试驱动方法笔记.html';
+        this.page.identifier = 'Python-Web开发测试驱动方法笔记.html';
+        this.page.title = 'Python Web开发测试驱动方法 笔记';
       };
       function loadComments () {
         var d = document, s = d.createElement('script');

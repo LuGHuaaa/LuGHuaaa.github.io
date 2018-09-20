@@ -100,28 +100,28 @@
 
 
   
-  <meta name="keywords" content="MySQL,存储过程," />
+  <meta name="keywords" content="ELK,ElasticSsearch," />
 
 
-<meta name="description" content="MySQL 存储过程的一些例子,添加了一些注释">
-<meta name="keywords" content="MySQL,存储过程">
+<meta name="description" content="https://www.elastic.co/blog/logstash_lesson_elasticsearch_mapping">
+<meta name="keywords" content="ELK,ElasticSsearch">
 <meta property="og:type" content="article">
-<meta property="og:title" content="MySQL 存储过程实例">
-<meta property="og:url" content="http://luguohuas.online/2018/02/16/MySQL-存储过程实例/index.html">
+<meta property="og:title" content="ElasticSearch 修改 mapping">
+<meta property="og:url" content="http://luguohuas.online/ElasticSearch 修改 mapping.html">
 <meta property="og:site_name" content="Corner.Today">
-<meta property="og:description" content="MySQL 存储过程的一些例子,添加了一些注释">
+<meta property="og:description" content="https://www.elastic.co/blog/logstash_lesson_elasticsearch_mapping">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-02-15T21:46:44.000Z">
+<meta property="og:updated_time" content="2018-08-29T02:56:50.807Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="MySQL 存储过程实例">
-<meta name="twitter:description" content="MySQL 存储过程的一些例子,添加了一些注释">
+<meta name="twitter:title" content="ElasticSearch 修改 mapping">
+<meta name="twitter:description" content="https://www.elastic.co/blog/logstash_lesson_elasticsearch_mapping">
 
 
 
 
 
 
-  <link rel="canonical" href="http://luguohuas.online/2018/02/16/MySQL-存储过程实例/"/>
+  <link rel="canonical" href="http://luguohuas.online/ElasticSearch 修改 mapping.html"/>
 
 
 
@@ -130,7 +130,7 @@
     sidebar: "",
   };
 </script>
-  <title>MySQL 存储过程实例 | Corner.Today</title>
+  <title>ElasticSearch 修改 mapping | Corner.Today</title>
   
 
 
@@ -329,7 +329,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://luguohuas.online/2018/02/16/MySQL-存储过程实例/">
+    <link itemprop="mainEntityOfPage" href="http://luguohuas.online/ElasticSearch 修改 mapping.html">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="LuGuoHuas">
@@ -346,7 +346,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">MySQL 存储过程实例</h1>
+          <h1 class="post-title" itemprop="name headline">ElasticSearch 修改 mapping</h1>
         
 
         <div class="post-meta">
@@ -358,7 +358,7 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-02-16T13:22:15+08:00">2018-02-16</time>
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-08-28T16:07:34+08:00">2018-08-28</time>
             
 
             
@@ -379,7 +379,7 @@
                 <span class="post-meta-item-text">In</span>
               
               
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/MySQL/" itemprop="url" rel="index"><span itemprop="name">MySQL</span></a></span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/ELK/" itemprop="url" rel="index"><span itemprop="name">ELK</span></a></span>
 
                 
                 
@@ -394,9 +394,9 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2018/02/16/MySQL-存储过程实例/#comments" itemprop="discussionUrl">
+                <a href="/ElasticSearch 修改 mapping.html#comments" itemprop="discussionUrl">
                   <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="2018/02/16/MySQL-存储过程实例/" itemprop="commentCount"></span>
+                        data-disqus-identifier="ElasticSearch 修改 mapping.html" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -424,9 +424,9 @@
       
 
       
-        <p>MySQL 存储过程的一些例子,添加了一些注释<br><a id="more"></a></p>
-<h1 id="1-存储过程"><a href="#1-存储过程" class="headerlink" title="1. 存储过程"></a>1. 存储过程</h1><h2 id="存储过程1"><a href="#存储过程1" class="headerlink" title="存储过程1"></a>存储过程1</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br></pre></td><td class="code"><pre><span class="line">CREATE  PROCEDURE `SP_eco_stat`(IN report_type VARCHAR(100), IN start_datetime DATETIME, IN end_datetime DATETIME)      # 存储过程名称（传入参数）</span><br><span class="line">    COMMENT &apos;计算经济系统数据&apos;      # 备注信息</span><br><span class="line">BEGIN       # 存储过程开始</span><br><span class="line"></span><br><span class="line">    DECLARE `from` VARCHAR(100);        #变量声明，要在前面</span><br><span class="line">    DECLARE `detail` VARCHAR(100);</span><br><span class="line">    DECLARE `country` VARCHAR(100);</span><br><span class="line">    DECLARE `change` VARCHAR(100);</span><br><span class="line">    DECLARE `count` VARCHAR(100);</span><br><span class="line">    DECLARE `user` VARCHAR(100);</span><br><span class="line">    DECLARE `stop_flag` INT DEFAULT 0;       # DEFAULT设置默认值，没有则为null</span><br><span class="line">    DECLARE `date` DATE;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    DECLARE _Cursor CURSOR FOR SELECT           # 声明光标   XX 光标名 XX</span><br><span class="line">                                 a.`from`                AS `from`,</span><br><span class="line">                                 a.detail                AS `detail`,</span><br><span class="line">                                 a.country               AS `country`,</span><br><span class="line">                                 SUM(a.`change`)         AS `change`,</span><br><span class="line">                                 SUM(1)                  AS `count`,</span><br><span class="line">                                 count(DISTINCT (a.uid)) AS `user`</span><br><span class="line">                               FROM credits a</span><br><span class="line">                               WHERE</span><br><span class="line">                                 a.`time` BETWEEN start_datetime AND end_datetime AND a.`change` &gt; 0</span><br><span class="line">                               GROUP BY a.`from`, a.`change`, a.country;</span><br><span class="line"></span><br><span class="line">    DECLARE CONTINUE HANDLER FOR SQLSTATE &apos;02000&apos; SET stop_flag = 1;        # 声明停止时stop_flag=1</span><br><span class="line"></span><br><span class="line">    SET `date` = CURDATE() + INTERVAL -(1) DAY;     # 变量赋值</span><br><span class="line"></span><br><span class="line">    # 调试开关</span><br><span class="line">    SET @__logCallDebug = 1;</span><br><span class="line"></span><br><span class="line">    CALL SP_LogCall(&apos;SP_eco_stat&apos;,      # 调用存储过程</span><br><span class="line">                    CONCAT_WS(&apos;,&apos;,</span><br><span class="line">                              QUOTE(report_type),</span><br><span class="line">                              QUOTE(start_datetime),</span><br><span class="line">                              QUOTE(end_datetime)),</span><br><span class="line">                    &apos;begin...&apos;);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    OPEN _Cursor;       #打开光标</span><br><span class="line"></span><br><span class="line">    FETCH _Cursor INTO `from`, `detail`, `country`, `change`, `count`, `user`;      # 调用光标并赋值</span><br><span class="line"></span><br><span class="line">    WHILE `stop_flag`&lt;&gt;1 DO     # while循环</span><br><span class="line"></span><br><span class="line">            IF `country` IS NULL        # if 判断</span><br><span class="line">      THEN SET `country` = &apos;&apos;;</span><br><span class="line">      END IF;</span><br><span class="line">            IF `change` IS NULL</span><br><span class="line">      THEN SET `change` = &apos;&apos;;</span><br><span class="line">      END IF;</span><br><span class="line">            IF `detail` IS NULL</span><br><span class="line">      THEN SET `detail` = &apos;&apos;;</span><br><span class="line">      END IF;</span><br><span class="line">            IF `from` IS NULL</span><br><span class="line">      THEN SET `from` = &apos;&apos;;</span><br><span class="line">      END IF;</span><br><span class="line">            IF `count` IS NULL</span><br><span class="line">      THEN SET `count` = &apos;&apos;;</span><br><span class="line">      END IF;</span><br><span class="line"></span><br><span class="line">      REPLACE INTO day_amounts(type1, type2, type3, type4, type5, DATE, amount) VALUES (report_type, `from`, `detail`, `country`, &apos;change&apos;, `date`, `change`), (report_type, `from`, `detail`, `country`, &apos;count&apos;, `date`, `count`), (report_type, `from`, `detail`, `country`, &apos;user&apos;, `date`, `user`);        # INSERT INTO的强化版，如果有存在相同的主键时对该行进行更新</span><br><span class="line"></span><br><span class="line">      FETCH _Cursor INTO `from`, `detail`, `country`, `change`, `count`, `user`;</span><br><span class="line"></span><br><span class="line">    END WHILE;</span><br><span class="line"></span><br><span class="line">CLOSE _Cursor;      # 关闭光标</span><br><span class="line"></span><br><span class="line">CALL SP_LogCallDebug(&apos;end.&apos;);</span><br><span class="line"></span><br><span class="line">END     # 存储过程结束</span><br></pre></td></tr></table></figure>
-<h2 id="存储过程2"><a href="#存储过程2" class="headerlink" title="存储过程2"></a>存储过程2</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br></pre></td><td class="code"><pre><span class="line">CREATE PROCEDURE SP_day_n_retention(IN calcdate_offset INT)</span><br><span class="line">  COMMENT &apos;日留存计算&apos;</span><br><span class="line">  BEGIN</span><br><span class="line">    DECLARE yesterday DATE;</span><br><span class="line"></span><br><span class="line">    # 调试开关</span><br><span class="line">    SET @__logCallDebug = 1;</span><br><span class="line"></span><br><span class="line">    CALL SP_LogCall(&apos;SP_day_n_retention&apos;,</span><br><span class="line">                    CONCAT_WS(&apos;,&apos;,</span><br><span class="line">                              calcdate_offset),</span><br><span class="line">                    &apos;begin...&apos;);</span><br><span class="line"></span><br><span class="line">    # day0安装</span><br><span class="line">    CALL SP_LogCallDebug(&apos;day0...&apos;);</span><br><span class="line">    SET yesterday = adddate(date(NOW()), INTERVAL calcdate_offset DAY); # 获取当前【输入数字】天前的时间 date(NOW()) 现在时间 adddate 【DATE_ADD()的同义词】 获取【输入数字】天前的时间</span><br><span class="line">    # 安装量(去重)</span><br><span class="line">    SET @_install_user_count = (</span><br><span class="line">      SELECT amount</span><br><span class="line">      FROM day_amounts</span><br><span class="line">      WHERE type1 = &apos;user&apos; AND type3 = &apos;new&apos; AND</span><br><span class="line">            date BETWEEN CONCAT(yesterday, &apos; 00:00:00&apos;) AND CONCAT(yesterday, &apos; 23:59:59&apos;) # BETWEEN 多少和多少之间 CONCAT 连接字符串</span><br><span class="line">    );</span><br><span class="line">    # 插入或者更新day0</span><br><span class="line">    REPLACE INTO day_amounts</span><br><span class="line">    (</span><br><span class="line">      type1,</span><br><span class="line">      type2,</span><br><span class="line">      type3,</span><br><span class="line">      type4,</span><br><span class="line">      type5,</span><br><span class="line">      date,</span><br><span class="line">      amount</span><br><span class="line">    )</span><br><span class="line">    VALUES</span><br><span class="line">      (</span><br><span class="line">        &apos;user&apos;,</span><br><span class="line">        &apos; &apos;,</span><br><span class="line">        &apos;retention&apos;,</span><br><span class="line">        &apos; &apos;,</span><br><span class="line">        &apos;day0&apos;,</span><br><span class="line">        yesterday,</span><br><span class="line">        @_install_user_count</span><br><span class="line">      );</span><br><span class="line"></span><br><span class="line">    IF calcdate_offset &lt; 0 # 判断【输入数字】是否小于0</span><br><span class="line">    THEN</span><br><span class="line">      BEGIN</span><br><span class="line">        # exec执行错误</span><br><span class="line">        DECLARE errStr VARCHAR(10240);</span><br><span class="line"></span><br><span class="line">        DROP TABLE IF EXISTS tmp_uuid; # 如果临时表存在则删除</span><br><span class="line">        CREATE TEMPORARY TABLE tmp_uuid ( # 创建临时表，只在当前连接有效</span><br><span class="line">          uuid VARCHAR(64) NOT NULL,</span><br><span class="line">          PRIMARY KEY (uuid)</span><br><span class="line">        )</span><br><span class="line">          ENGINE = MYISAM # 数据库存储引擎 和InnoDB相比更注重性能但功能也较少</span><br><span class="line">          CHARACTER SET latin1</span><br><span class="line">          COLLATE latin1_general_ci;</span><br><span class="line"></span><br><span class="line">        INSERT tmp_uuid SELECT a.uid FROM users_active a</span><br><span class="line">                        WHERE a.act_time BETWEEN CONCAT(yesterday, &apos; 00:00:00&apos;) AND CONCAT(yesterday, &apos;  23:59:59&apos;);</span><br><span class="line"></span><br><span class="line">        SET @days = &apos;1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,35,42,49,56,60,63,70,77,84,90&apos;;</span><br><span class="line">        WHILE CHAR_LENGTH(@days) &gt; 0 DO # while 循环</span><br><span class="line"></span><br><span class="line">          SET @dayN = SUBSTRING_INDEX(@days, &apos;,&apos;, 1); # 截取在第一个【,】之前的字符</span><br><span class="line"></span><br><span class="line">          CALL SP_LogCallDebug(concat(&apos;day&apos;, @dayN, &apos;...&apos;));</span><br><span class="line"></span><br><span class="line">          # 日期偏移(例如: day1 = 1, day2 = 2, ...)</span><br><span class="line">          SET @_dayOffset = (SELECT -CAST(@dayN AS SIGNED)); # CAST 获取一个类型的值并产生另一个类型的值 还有CONVERT(value, type)</span><br><span class="line">          # 在用户表和日志表里找N天前安装的用户的留存量</span><br><span class="line">          DROP TEMPORARY TABLE IF EXISTS day_n_retention;</span><br><span class="line">          SET @_execStr = CONCAT(</span><br><span class="line">              &apos;REPLACE INTO day_amounts(type1,type2,type3,type4,type5,date,amount) &apos;,</span><br><span class="line">              &apos;SELECT &quot;user&quot;, &quot;day&quot;, &quot;retention&quot;, &quot; &quot;, &quot;day&apos;, @dayN, &apos;&quot;, &quot;&apos;, adddate(yesterday, @`_dayOffset`),</span><br><span class="line">              &apos;&quot;, count(DISTINCT(u.uid))&apos;,</span><br><span class="line">              &apos;FROM users u, tmp_uuid a &apos;,</span><br><span class="line">              &apos;WHERE u.uid = a.uuid AND &apos;,</span><br><span class="line">              &apos;u.reg_time BETWEEN &quot;&apos;, adddate(yesterday, @`_dayOffset`), &apos; 00:00:00&quot; AND &quot;&apos;,</span><br><span class="line">              adddate(yesterday, @`_dayOffset`), &apos; 23:59:59&quot;&apos;</span><br><span class="line">          );</span><br><span class="line">          CALL SP_LogCallDebug(@_execStr);</span><br><span class="line">          CALL SP_Exec(@_execStr, errStr);</span><br><span class="line"></span><br><span class="line">          SET @days = RIGHT(@days, LENGTH(@days) - LENGTH(@dayN) - 1);</span><br><span class="line">        END WHILE;</span><br><span class="line">      END;</span><br><span class="line">      END IF ;</span><br><span class="line">      CALL SP_LogCallDebug(&apos;end.&apos;);</span><br><span class="line">    END;</span><br></pre></td></tr></table></figure>
+        <p><a href="https://www.elastic.co/blog/logstash_lesson_elasticsearch_mapping" target="_blank" rel="noopener">https://www.elastic.co/blog/logstash_lesson_elasticsearch_mapping</a></p>
+<a id="more"></a>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">POST imore-2018.07.25/doc/_search</span><br><span class="line">&#123;</span><br><span class="line"> &quot;query&quot;:&#123;&quot;match_all&quot;: &#123;&#125;&#125;,</span><br><span class="line"> &quot;aggs&quot;: &#123;</span><br><span class="line">   &quot;e_terms&quot;: &#123;</span><br><span class="line">     &quot;terms&quot;: &#123;&quot;field&quot;: &quot;e.keyword&quot;&#125;,</span><br><span class="line">     &quot;aggs&quot;: &#123;</span><br><span class="line">       &quot;f_terms&quot;: &#123;</span><br><span class="line">         &quot;terms&quot;: &#123;&quot;field&quot;: &quot;f.keyword&quot;&#125;,</span><br><span class="line">         &quot;aggs&quot;: &#123;</span><br><span class="line">           &quot;g_terms&quot;: &#123;</span><br><span class="line">             &quot;terms&quot;: &#123;&quot;field&quot;: &quot;g.keyword&quot;&#125;</span><br><span class="line">           &#125;</span><br><span class="line">         &#125;  </span><br><span class="line">       &#125;</span><br><span class="line">     &#125;</span><br><span class="line">   &#125;</span><br><span class="line"> &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
       
     </div>
@@ -444,9 +444,9 @@
       
         <div class="post-tags">
           
-            <a href="/tags/MySQL/" rel="tag"># MySQL</a>
+            <a href="/tags/ELK/" rel="tag"># ELK</a>
           
-            <a href="/tags/存储过程/" rel="tag"># 存储过程</a>
+            <a href="/tags/ElasticSsearch/" rel="tag"># ElasticSsearch</a>
           
         </div>
       
@@ -459,8 +459,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/02/16/SSL证书生成命令/" rel="next" title="SSL证书生成命令">
-                <i class="fa fa-chevron-left"></i> SSL证书生成命令
+              <a href="/cluster-block-exception.html" rel="next" title="cluster_block_exception">
+                <i class="fa fa-chevron-left"></i> cluster_block_exception
               </a>
             
           </div>
@@ -469,8 +469,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2018/02/16/在aws-创建git-仓库/" rel="prev" title="在aws 创建git 仓库">
-                在aws 创建git 仓库 <i class="fa fa-chevron-right"></i>
+              <a href="/我一直不理解 JavaScript 的闭包.html" rel="prev" title="我一直不理解 JavaScript 的闭包是什么">
+                我一直不理解 JavaScript 的闭包是什么 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -530,17 +530,8 @@
       
 
       
-        <ul class="sidebar-nav motion-element">
-          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
-            Table of Contents
-          </li>
-          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
-            Overview
-          </li>
-        </ul>
-      
 
-      <section class="site-overview-wrap sidebar-panel">
+      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -695,22 +686,6 @@
         </div>
       </section>
 
-      
-      <!--noindex-->
-        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
-          <div class="post-toc">
-
-            
-              
-            
-
-            
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1-存储过程"><span class="nav-text">1. 存储过程</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#存储过程1"><span class="nav-text">存储过程1</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#存储过程2"><span class="nav-text">存储过程2</span></a></li></ol></li></ol></div>
-            
-
-          </div>
-        </section>
-      <!--/noindex-->
       
 
       
@@ -885,9 +860,9 @@
   
     <script type="text/javascript">
       var disqus_config = function () {
-        this.page.url = 'http://luguohuas.online/2018/02/16/MySQL-存储过程实例/';
-        this.page.identifier = '2018/02/16/MySQL-存储过程实例/';
-        this.page.title = 'MySQL 存储过程实例';
+        this.page.url = 'http://luguohuas.online/ElasticSearch 修改 mapping.html';
+        this.page.identifier = 'ElasticSearch 修改 mapping.html';
+        this.page.title = 'ElasticSearch 修改 mapping';
       };
       function loadComments () {
         var d = document, s = d.createElement('script');

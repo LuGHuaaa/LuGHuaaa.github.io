@@ -100,28 +100,28 @@
 
 
   
-  <meta name="keywords" content="Nginx," />
+  <meta name="keywords" content="Linux,Command," />
 
 
-<meta name="description" content="Nginx 配置的记录，和一些解析注释。">
-<meta name="keywords" content="Nginx">
+<meta name="description" content="df命令是linux系统以磁盘分区为单位查看文件系统，可以加上参数查看磁盘剩余空间信息，命令格式：df -hl显示格式为：12345678910文件系统 容量 已用 可用 已用% 挂载点Filesystem Size Used Avail Use% Mounted on/dev/hda2 45G 19G 24G 44% //dev/hda1 494M 19M 450M 4% /boot/dev/h">
+<meta name="keywords" content="Linux,Command">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Nginx HTTPS 的简单配置">
-<meta property="og:url" content="http://luguohuas.online/2018/02/16/Nginx-HTTPS-配置/index.html">
+<meta property="og:title" content="硬盘使用情况查看">
+<meta property="og:url" content="http://luguohuas.online/硬盘使用情况查看.html">
 <meta property="og:site_name" content="Corner.Today">
-<meta property="og:description" content="Nginx 配置的记录，和一些解析注释。">
+<meta property="og:description" content="df命令是linux系统以磁盘分区为单位查看文件系统，可以加上参数查看磁盘剩余空间信息，命令格式：df -hl显示格式为：12345678910文件系统 容量 已用 可用 已用% 挂载点Filesystem Size Used Avail Use% Mounted on/dev/hda2 45G 19G 24G 44% //dev/hda1 494M 19M 450M 4% /boot/dev/h">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-02-15T20:01:28.000Z">
+<meta property="og:updated_time" content="2018-08-28T08:11:30.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Nginx HTTPS 的简单配置">
-<meta name="twitter:description" content="Nginx 配置的记录，和一些解析注释。">
+<meta name="twitter:title" content="硬盘使用情况查看">
+<meta name="twitter:description" content="df命令是linux系统以磁盘分区为单位查看文件系统，可以加上参数查看磁盘剩余空间信息，命令格式：df -hl显示格式为：12345678910文件系统 容量 已用 可用 已用% 挂载点Filesystem Size Used Avail Use% Mounted on/dev/hda2 45G 19G 24G 44% //dev/hda1 494M 19M 450M 4% /boot/dev/h">
 
 
 
 
 
 
-  <link rel="canonical" href="http://luguohuas.online/2018/02/16/Nginx-HTTPS-配置/"/>
+  <link rel="canonical" href="http://luguohuas.online/硬盘使用情况查看.html"/>
 
 
 
@@ -130,7 +130,7 @@
     sidebar: "",
   };
 </script>
-  <title>Nginx HTTPS 的简单配置 | Corner.Today</title>
+  <title>硬盘使用情况查看 | Corner.Today</title>
   
 
 
@@ -329,7 +329,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://luguohuas.online/2018/02/16/Nginx-HTTPS-配置/">
+    <link itemprop="mainEntityOfPage" href="http://luguohuas.online/硬盘使用情况查看.html">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="LuGuoHuas">
@@ -346,7 +346,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">Nginx HTTPS 的简单配置</h1>
+          <h1 class="post-title" itemprop="name headline">硬盘使用情况查看</h1>
         
 
         <div class="post-meta">
@@ -358,7 +358,7 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-02-16T11:17:12+08:00">2018-02-16</time>
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-07-26T16:02:10+08:00">2018-07-26</time>
             
 
             
@@ -379,7 +379,7 @@
                 <span class="post-meta-item-text">In</span>
               
               
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Nginx/" itemprop="url" rel="index"><span itemprop="name">Nginx</span></a></span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Linux/" itemprop="url" rel="index"><span itemprop="name">Linux</span></a></span>
 
                 
                 
@@ -394,9 +394,9 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2018/02/16/Nginx-HTTPS-配置/#comments" itemprop="discussionUrl">
+                <a href="/硬盘使用情况查看.html#comments" itemprop="discussionUrl">
                   <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="2018/02/16/Nginx-HTTPS-配置/" itemprop="commentCount"></span>
+                        data-disqus-identifier="硬盘使用情况查看.html" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -424,9 +424,16 @@
       
 
       
-        <p>Nginx 配置的记录，和一些解析注释。</p>
-<a id="more"></a>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line">user LuGH LuGH;    # 主模块指令，指定nginx worker进程运行用户以及用户组</span><br><span class="line">worker_processes  2;    # 指定了nginx要开启的进程数</span><br><span class="line">error_log  /home/LuGH/logs/nginx_log/error.log crit;    # 用来定义全局错误日志文件</span><br><span class="line">pid        /usr/local/nginx/logs/nginx.pid;   # 用来指定进程id的存储文件位置</span><br><span class="line"></span><br><span class="line">events &#123;    # 用来指定nginx的工作模式及连接数上限</span><br><span class="line">    worker_connections  1024;    # 定义nginx每个进程的最大连接数</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">http &#123;</span><br><span class="line">    include       mime.types;    # 对配置文件所包含的文件设定</span><br><span class="line">    default_type  application/octet-stream;    # 为标准MIME映射未指定任何内容的文件指定默认的MIME类型。</span><br><span class="line">    sendfile        on;    # 用于开启高效文件传输模式</span><br><span class="line">    keepalive_timeout  65;    # 指定了客户端与服务器长连接的超时时间</span><br><span class="line">    upstream sserver &#123;    # 提供一个简单方法来实现在轮询和客户端IP之间的后端服务器负荷平衡</span><br><span class="line">        server 127.0.0.1:9000;    # 后端服务器ip</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    server &#123;</span><br><span class="line">        listen          443;    # 监听端口</span><br><span class="line">        server_name     local.com;    # 服务器名称</span><br><span class="line">        ssl             on;    # 开启ssl</span><br><span class="line">        ssl_certificate /home/LuGH/key/server.crt;    # ssl证书</span><br><span class="line">        ssl_certificate_key     /home/LuGH/key/server.key;    # ssl证书密匙</span><br><span class="line">        ssl_session_timeout     5m;    # 分配客户端可以重复使用存储在缓存中的会话参数的时间。</span><br><span class="line">        ssl_protocols   SSLv2 SSLv3 TLSv1;    # 指令启用指定的协议</span><br><span class="line">        ssl_ciphers     ALL:!ADH:!EXPORT56:RC4+RSA:+HIGH:+MEDIUM:+LOW:+SSLv2+EXP;    # 指令描述允许的密码。密码以OpenSSL支持的格式分配</span><br><span class="line">        ssl_prefer_server_ciphers       on;    # 需要协议SSLv3和TLSv1服务器密码优于客户端的密码</span><br><span class="line">        location / &#123;</span><br><span class="line">                proxy_set_header X-Forwarded-Proto https;    # 重新定义或添加字段传递给代理服务器的请求头 只允许https访问</span><br><span class="line">                proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;    # 识别通过HTTP代理或负载均衡方式连接到Web服务器的客户端最原始的IP地址的HTTP请求头字段是不是https</span><br><span class="line">                proxy_set_header Host $http_host;    # 设置Host</span><br><span class="line">                proxy_redirect off;    # 关闭重定向</span><br><span class="line">                proxy_pass http://sserver;    # 忽略代理</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+        <p>df命令是linux系统以磁盘分区为单位查看文件系统，可以加上参数查看磁盘剩余空间信息，命令格式：<br>df -hl<br>显示格式为：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">文件系统 容量 已用 可用 已用% 挂载点</span><br><span class="line">Filesystem Size Used Avail Use% Mounted on</span><br><span class="line">/dev/hda2 45G 19G 24G 44% /</span><br><span class="line">/dev/hda1 494M 19M 450M 4% /boot</span><br><span class="line">/dev/hda6 4.9G 2.2G 2.5G 47% /home</span><br><span class="line">/dev/hda5 9.7G 2.9G 6.4G 31% /opt</span><br><span class="line">none 1009M 0 1009M 0% /dev/shm</span><br><span class="line">/dev/hda3 9.7G 7.2G 2.1G 78% /usr/local</span><br><span class="line">/dev/hdb2 75G 75G 0 100% /</span><br><span class="line">/dev/hdb2 75G 75G 0 100% /</span><br></pre></td></tr></table></figure></p>
+<p>以上面的输出为例，表示的意思为：</p>
+<p>HD硬盘接口的第二个硬盘（b），第二个分区（2），容量是75G，用了75G，可用是0，因此利用率是100%， 被挂载到根分区目录上（/）。</p>
+<p>下面是相关命令的解释：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">df -hl 查看磁盘剩余空间</span><br><span class="line">df -h 查看每个根路径的分区大小</span><br><span class="line">du -sh [目录名] 返回该目录的大小</span><br><span class="line">du -sm [文件夹] 返回该文件夹总M数</span><br></pre></td></tr></table></figure></p>
+<p>更多功能可以输入一下命令查看：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">df --help</span><br><span class="line">du --help</span><br></pre></td></tr></table></figure></p>
+<p>查看linux文件目录的大小和文件夹包含的文件数</p>
+<p>统计总数大小<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">du -sh xmldb/</span><br><span class="line">du -sm * | sort -n //统计当前目录大小 并安大小 排序</span><br><span class="line">du -sk * | sort -n</span><br><span class="line">du -sk * | grep guojf //看一个人的大小</span><br><span class="line">du -m | cut -d &quot;/&quot; -f 2 //看第二个/ 字符前的文字</span><br></pre></td></tr></table></figure></p>
+<p>查看此文件夹有多少文件 /<em>/</em>/* 有多少文件<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">du xmldb/</span><br><span class="line">du xmldb/*/*/* |wc -l</span><br><span class="line">40752</span><br></pre></td></tr></table></figure></p>
+<p>解释：<br>wc [-lmw]<br>参数说明：-l :多少行；-m:多少字符；-w:多少字<br>两个命令df 、du结合比较直观<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">df    -h                     查看整台服务器的硬盘使用情况</span><br><span class="line">cd    /                       进入根目录</span><br><span class="line">du   -sh    *              查看每个文件夹的大小</span><br></pre></td></tr></table></figure></p>
+<p>这样的组合可以快速定位大文件和分区满了</p>
 
       
     </div>
@@ -444,7 +451,9 @@
       
         <div class="post-tags">
           
-            <a href="/tags/Nginx/" rel="tag"># Nginx</a>
+            <a href="/tags/Linux/" rel="tag"># Linux</a>
+          
+            <a href="/tags/Command/" rel="tag"># Command</a>
           
         </div>
       
@@ -457,14 +466,18 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
+              <a href="/ELK-ELK-配置.html" rel="next" title="ELK: ELK 配置">
+                <i class="fa fa-chevron-left"></i> ELK: ELK 配置
+              </a>
+            
           </div>
 
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2018/02/16/Nginx-HTTP-配置/" rel="prev" title="Nginx-HTTP-配置">
-                Nginx-HTTP-配置 <i class="fa fa-chevron-right"></i>
+              <a href="/cluster-block-exception.html" rel="prev" title="cluster_block_exception">
+                cluster_block_exception <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -854,9 +867,9 @@
   
     <script type="text/javascript">
       var disqus_config = function () {
-        this.page.url = 'http://luguohuas.online/2018/02/16/Nginx-HTTPS-配置/';
-        this.page.identifier = '2018/02/16/Nginx-HTTPS-配置/';
-        this.page.title = 'Nginx HTTPS 的简单配置';
+        this.page.url = 'http://luguohuas.online/硬盘使用情况查看.html';
+        this.page.identifier = '硬盘使用情况查看.html';
+        this.page.title = '硬盘使用情况查看';
       };
       function loadComments () {
         var d = document, s = d.createElement('script');
