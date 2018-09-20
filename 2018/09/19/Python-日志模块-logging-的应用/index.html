@@ -111,7 +111,7 @@
 <meta property="og:site_name" content="Corner.Today">
 <meta property="og:description" content="日志是程序员工具箱中非常有用的工具.它可以帮助你更好地理解程序的流程,并在开发过程中发现你可能没有想到的场景. 日志为开发人员提供了一双额外的眼睛,这些眼睛不断关注应用程序正在执行的流程.它们可以存储信息,例如访问应用程序的用户或IP.如果发生错误,那么日志可以告诉你程序在到达发生错误的代码行之前的状态,它们可以提供比内存堆栈跟踪更多的信息. 通过从正确的位置记录有用的数据,你不仅可以轻松地调试错">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-09-19T13:02:07.816Z">
+<meta property="og:updated_time" content="2018-09-20T01:47:54.219Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Python 日志模块 logging 的应用">
 <meta name="twitter:description" content="日志是程序员工具箱中非常有用的工具.它可以帮助你更好地理解程序的流程,并在开发过程中发现你可能没有想到的场景. 日志为开发人员提供了一双额外的眼睛,这些眼睛不断关注应用程序正在执行的流程.它们可以存储信息,例如访问应用程序的用户或IP.如果发生错误,那么日志可以告诉你程序在到达发生错误的代码行之前的状态,它们可以提供比内存堆栈跟踪更多的信息. 通过从正确的位置记录有用的数据,你不仅可以轻松地调试错">
@@ -439,7 +439,7 @@
 <h1 id="Logging-模块"><a href="#Logging-模块" class="headerlink" title="Logging 模块"></a>Logging 模块</h1><p>Python 中的 logging 模块是一个随时可用且功能强大的模块,旨在满足初学者和企业团队的需求.它被大多数第三方Python库使用,因此你可以将日志消息与这些库中的日志消息集成,以便为你的应用程序生成同类日志.</p>
 <p>将记录添加到Python程序就像这样简单: </p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">import logging</span><br></pre></td></tr></table></figure>
-<p>导入 logging 模块后,你可以使用被称为 “logger” 来记录你要查看的消息.默认情况下,有5个标准级别说明事件的严重性.每个都有一个相应的方法,可用于记录该严重级别的事件.按严重程度增加的顺序定义的级别如下: </p>
+<p>导入 logging 模块后,你可以使用被称为 “logger” 来记录你要查看的消息.默认情况下有5个标准级别说明事件的严重性.每个都有一个相应的方法,可用于记录该严重级别的事件.按严重程度增加的顺序定义的级别如下: </p>
 <ul>
 <li>DEBUG</li>
 <li>INFO</li>
@@ -452,23 +452,23 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">import logging</span><br><span class="line"></span><br><span class="line">logging.debug(&apos;This is a debug message&apos;)</span><br><span class="line">logging.info(&apos;This is an info message&apos;)</span><br><span class="line">logging.warning(&apos;This is a warning message&apos;)</span><br><span class="line">logging.error(&apos;This is an error message&apos;)</span><br><span class="line">logging.critical(&apos;This is a critical message&apos;)</span><br></pre></td></tr></table></figure>
 <p>上述程序的输出如下所示: </p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">WARNING: root: This is a warning message</span><br><span class="line">ERROR: root: This is an error message</span><br><span class="line">CRITICAL: root: This is a critical message</span><br></pre></td></tr></table></figure>
-<p>输出显示每条消息的严重性级别后面的 root,即 logging 模块为其默认 logger 提供的名称.（ Loggers 将在后面的章节中详细讨论.）此格式显示由冒号（: ）分隔的级别,名称和消息,是默认输出格式,可配置为包括时间戳,行号等内容细节.</p>
-<p>请注意,并没有记录 debug() 和 info() 消息.这是因为,默认情况下 logging 模块会记录严重性级别为WARNING或超过的消息.你可以通过将 logging 模块配置为根据需要记录所有级别的事件来更改它.你还可以通过更改配置来定义自己的严重性级别,但通常不建议这样做,因为它可能会导致你可能正在使用的某些第三方库的日志混淆.</p>
+<p>每条输出消息显示的严重性级别后面的 root,即 logging 模块为其默认 logger 提供的名称.（ Loggers 将在后面的章节中详细讨论.）此格式显示由冒号（: ）分隔的级别,名称和消息,这是默认输出格式,可配置的内容包括时间戳,行号等内容细节.</p>
+<p>请注意,这里没有记录 debug() 和 info() 消息.这是因为默认情况下 logging 模块会记录严重性级别为 WARNING 或超过 WARNING 的信息.你可以通过根据需要将 logging 模块配置为记录所有级别的事件.你还可以通过更改配置来定义自己的严重性级别,但通常不建议这样做,因为它可能会导致你可能正在使用的某些第三方库的日志混淆.</p>
 <h1 id="基本配置"><a href="#基本配置" class="headerlink" title="基本配置"></a>基本配置</h1><p>你可以使用该方法配置 logging: <code>basicConfig(**kwargs)</code></p>
 <blockquote>
 <p>“你会注意到 logging 模块会破坏PEP8规范并使用 camelCase 命名约定.这是因为它是参考 Java 的 logging 库 Log4j.这是这个包中的一个已知问题,但在决定将它添加到标准库时,它已经被用户接受并且修改这个问题以满足PEP8规范导致向后兼容性问题.“  <a href="https: //wiki.python.org/moin/LoggingPackage" target="_blank" rel="noopener">(Source)</a></p>
 </blockquote>
 <p>一些常用的参数 <code>basicConfig()</code> 如下: </p>
-<p>level: 将 root logger设置为指定的严重性级别.<br>filename: 指定日志输出文件.<br>filemode: 如果给定 filename,则以此模式打开文件.默认值为a,表示追加.<br>format: 这是日志消息的格式.<br>通过使用修改 level 参数,你可以设置要记录的日志消息级别.这可以通过传递类中可用的一个常量来完成,这将允许记录该级别或更高级别的所有 logging 调用.这是一个例子:</p>
+<p>level: 为 root logger 设置指定的严重性级别.<br>filename: 指定日志输出文件.<br>filemode: 如果 filename 存在,则以此模式打开文件.默认值为a,表示追加.<br>format: 这里设置日志消息的格式.<br>通过使用修改 level 参数,你可以设置要记录的日志消息级别.这可以通过传递类中的一个可用常量来完成,这将允许记录该级别或更高级别的所有 logging 调用.举个例子:</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">import logging</span><br><span class="line"></span><br><span class="line">logging.basicConfig(level=logging.DEBUG)</span><br><span class="line">logging.debug(&apos;This will get logged&apos;)</span><br></pre></td></tr></table></figure>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">DEBUG: root: This will get logged</span><br></pre></td></tr></table></figure>
 <p>现在将记录所有级别或者比DEBUG更高级别的事件.</p>
-<p>同样,对于记录到文件而不是控制台,需要启用 filename 和 filemode,你可以使用format确定消息的格式.以下示例显示了几个的用法:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">import logging</span><br><span class="line"></span><br><span class="line">logging.basicConfig(filename=&apos;app.log&apos;, filemode=&apos;w&apos;, format=&apos;%(name)s - %(levelname)s - %(message)s&apos;)</span><br><span class="line">logging.warning(&apos;This will get logged to a file&apos;)</span><br></pre></td></tr></table></figure></p>
+<p>同样,对于记录信息到文件而不是控制台,需要启用 filename 和 filemode,你可以使用 format 确定消息的格式.以下示例显示了几个用法:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">import logging</span><br><span class="line"></span><br><span class="line">logging.basicConfig(filename=&apos;app.log&apos;, filemode=&apos;w&apos;, format=&apos;%(name)s - %(levelname)s - %(message)s&apos;)</span><br><span class="line">logging.warning(&apos;This will get logged to a file&apos;)</span><br></pre></td></tr></table></figure></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">root - ERROR - This will get logged to a file</span><br></pre></td></tr></table></figure>
-<p>消息将如下所示,但将写入名为 app.log 的文件而不是控制台.filemode 设置为 w,这意味着每次 basicConfig() 调用日志文件都以“写入模式”打开,程序的每次运行都将重写该文件. filemode 的默认配置 a 是 append 追加.</p>
-<p>你可以使用更多参数进一步自定义根 logger basicConfig(),可在此处找到.</p>
-<p>应该注意的是 basicConfig()只有在之前没有配置 root logger 的情况下,调用方法配置 root logger 才有效.基本上,这个函数只能调用一次.</p>
-<p>debug(),info(),warning(),error(),和 critical() 也称 basicConfig() 如果它之前没有调用, 默认没有参数.这意味着在第一次调用上述函数之一后,你无法再配置 root logger,因为它们会在 basicConfig() 内部调用该函数.</p>
+<p>消息将如下所示,但日志将写入名为 app.log 的文件而不是控制台.filemode 设置为 w,这意味着每次 basicConfig() 调用日志文件都以“写入模式”打开,程序的每次运行都将重写该文件. filemode 的默认配置 a 是 append 追加.</p>
+<p>你可以使用更多参数在 basicConfig() 进一步自定义root logger.</p>
+<p>需要注意的是 basicConfig() 只有在之前没有配置 root logger 的情况下,才能调用方法配置 root logger.基本上这个函数只能调用一次.</p>
+<p>debug(),info(),warning(),error(),和 critical() 也调用 basicConfig() 如果它之前没有调用, 默认没有参数.这意味着在第一次调用上述函数之一后,你无法再配置 root logger,因为它们会在 basicConfig() 内部调用该函数.</p>
 <p>basicConfig() 是默认将 logger 设置为以下列格式写入控制台:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ERROR: root: This is an error message</span><br></pre></td></tr></table></figure></p>
 <h1 id="格式化输出"><a href="#格式化输出" class="headerlink" title="格式化输出"></a>格式化输出</h1><p>虽然你可以将任何可以表示为字符串的变量作为消息传递给你的日志,但是有些基本元素已经是其中的一部分,LogRecord 可以轻松添加到输出格式中.如果要将进程ID与级别和消息一起记录,可以执行以下操作:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">import logging</span><br><span class="line"></span><br><span class="line">logging.basicConfig(format=&apos;%(process)d-%(levelname)s-%(message)s&apos;)</span><br><span class="line">logging.warning(&apos;This is a Warning&apos;)</span><br></pre></td></tr></table></figure></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">18472-WARNING-This is a Warning</span><br></pre></td></tr></table></figure>
@@ -508,7 +508,7 @@
 <blockquote>
 <p>“我们建议使用模块级 loggers 时传递 <strong>name</strong> 作为 name 参数给 getLogger() 来创建一个 logger 对象,因为 logger 本身的名称会告诉我们记录事件的位置.<strong>name</strong> 是Python中一个特殊的内置变量,它会返回当前模块的名称.“ <a href="https: //docs.python.org/3/library/logging.html#logger-objects" target="_blank" rel="noopener">（来源）</a></p>
 </blockquote>
-<h1 id="使用-Handlers"><a href="#使用-Handlers" class="headerlink" title="使用 Handlers"></a>使用 Handlers</h1><p>当你想要配置自己的 logger 并在生成日志时将日志发送到多个位置时, Handlers 就会出现. Handlers 将日志消息发送到已配置的目标（如标准输出流或文件或HTTP）或通过SMTP发送到你的电子邮件.</p>
+<h1 id="使用-Handlers"><a href="#使用-Handlers" class="headerlink" title="使用 Handlers"></a>使用 Handlers</h1><p>当你想要配置自己的 logger 并在生成日志时将日志发送到多个位置时,就会用到 Handlers. Handlers 将日志消息发送到已配置的目标（如标准输出流或文件或HTTP）或通过SMTP发送到你的电子邮件.</p>
 <p>你创建的 logger 可以有多个 Handlers ,这意味着你可以将其设置为保存到日志文件并通过电子邮件发送.</p>
 <p>与 logger 一样,你也可以在 Handlers 中设置严重性级别.如果要为同一 logger 设置多个 Handlers 但希望每个 Handlers 具有不同的严重性级别,这将非常有用.例如,你可能希望将具有级别 WARNING 及更高级别的 logging 到控制台,但是具有级别 ERROR 及更高级别的所有内容也应保存到文件中.这是一个执行此操作的程序: </p>
 <p>#logging_example.py<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"># logging_example.py</span><br><span class="line"></span><br><span class="line">import logging</span><br><span class="line"></span><br><span class="line"># Create a custom logger</span><br><span class="line">logger = logging.getLogger(__name__)</span><br><span class="line"></span><br><span class="line"># Create handlers</span><br><span class="line">c_handler = logging.StreamHandler()</span><br><span class="line">f_handler = logging.FileHandler(&apos;file.log&apos;)</span><br><span class="line">c_handler.setLevel(logging.WARNING)</span><br><span class="line">f_handler.setLevel(logging.ERROR)</span><br><span class="line"></span><br><span class="line"># Create formatters and add it to handlers</span><br><span class="line">c_format = logging.Formatter(&apos;%(name)s - %(levelname)s - %(message)s&apos;)</span><br><span class="line">f_format = logging.Formatter(&apos;%(asctime)s - %(name)s - %(levelname)s - %(message)s&apos;)</span><br><span class="line">c_handler.setFormatter(c_format)</span><br><span class="line">f_handler.setFormatter(f_format)</span><br><span class="line"></span><br><span class="line"># Add handlers to the logger</span><br><span class="line">logger.addHandler(c_handler)</span><br><span class="line">logger.addHandler(f_handler)</span><br><span class="line"></span><br><span class="line">logger.warning(&apos;This is a warning&apos;)</span><br><span class="line">logger.error(&apos;This is an error&apos;)</span><br></pre></td></tr></table></figure></p>
@@ -562,8 +562,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/09/09/Flask 源码阅读 请求流程/" rel="next" title="Flask 源码阅读: 请求流程">
-                <i class="fa fa-chevron-left"></i> Flask 源码阅读: 请求流程
+              <a href="/2018/08/29/我一直不理解 JavaScript 的闭包/" rel="next" title="我一直不理解 JavaScript 的闭包是什么">
+                <i class="fa fa-chevron-left"></i> 我一直不理解 JavaScript 的闭包是什么
               </a>
             
           </div>
@@ -658,7 +658,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">16</span>
+                    <span class="site-state-item-count">15</span>
                     <span class="site-state-item-name">posts</span>
                   </a>
                 </div>
@@ -691,7 +691,7 @@
                     
                       
                     
-                    <span class="site-state-item-count">10</span>
+                    <span class="site-state-item-count">9</span>
                     <span class="site-state-item-name">categories</span>
                   </a>
                 </div>
@@ -754,7 +754,7 @@
                     
                       
                     
-                    <span class="site-state-item-count">25</span>
+                    <span class="site-state-item-count">23</span>
                     <span class="site-state-item-name">tags</span>
                   </a>
                 </div>
