@@ -62,8 +62,8 @@
       </categories>
       <tags>
         <tag>ELK</tag>
-        <tag>Kibana</tag>
         <tag>ElasticSsearch</tag>
+        <tag>Kibana</tag>
         <tag>LogStash</tag>
       </tags>
   </entry>
