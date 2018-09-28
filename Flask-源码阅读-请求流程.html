@@ -100,23 +100,28 @@
 
 
   
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="Flask,Python,源码," />
 
 
-<meta property="og:type" content="website">
-<meta property="og:title" content="Corner.Today">
-<meta property="og:url" content="http://luguohuas.online/tags/TDD/index.html">
+<meta name="description" content="阅读 Flask 源码的系列笔记, 这一篇说的是 Flask 的请求流程">
+<meta name="keywords" content="Flask,Python,源码">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Flask 源码阅读: 请求流程">
+<meta property="og:url" content="http://luguohuas.online/Flask-源码阅读-请求流程.html">
 <meta property="og:site_name" content="Corner.Today">
+<meta property="og:description" content="阅读 Flask 源码的系列笔记, 这一篇说的是 Flask 的请求流程">
 <meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2018-09-28T10:28:20.806Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Corner.Today">
+<meta name="twitter:title" content="Flask 源码阅读: 请求流程">
+<meta name="twitter:description" content="阅读 Flask 源码的系列笔记, 这一篇说的是 Flask 的请求流程">
 
 
 
 
 
 
-  <link rel="canonical" href="http://luguohuas.online/tags/TDD/"/>
+  <link rel="canonical" href="http://luguohuas.online/Flask-源码阅读-请求流程.html"/>
 
 
 
@@ -125,7 +130,7 @@
     sidebar: "",
   };
 </script>
-  <title>Tag: TDD | Corner.Today</title>
+  <title>Flask 源码阅读: 请求流程 | Corner.Today</title>
   
 
 
@@ -181,7 +186,7 @@
     
   
 
-  <div class="container sidebar-position-left ">
+  <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -308,58 +313,251 @@
           <div id="content" class="content">
             
 
-  
-  
-  
-  <div class="post-block tag">
+  <div id="posts" class="posts-expand">
+    
 
-    <div id="posts" class="posts-collapse">
-      <div class="collection-title">
-        <h1>TDD<small>Tag</small>
-        </h1>
-      </div>
+  
 
-      
-        
+  
+  
+  
+
+  
 
   <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://luguohuas.online/Flask-源码阅读-请求流程.html">
 
-      <h2 class="post-title">
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="LuGuoHuas">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Corner.Today">
+    </span>
+
+    
+      <header class="post-header">
+
         
-            <a class="post-title-link" href="/Python-Web开发测试驱动方法笔记.html" itemprop="url">
-              
-                <span itemprop="name">Python Web开发测试驱动方法 笔记</span>
-              
-            </a>
         
-      </h2>
+          <h1 class="post-title" itemprop="name headline">Flask 源码阅读: 请求流程</h1>
+        
 
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2018-02-26T15:52:11+08:00"
-              content="2018-02-26" >
-          02-26
-        </time>
-      </div>
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-09-09T14:58:15+08:00">2018-09-09</time>
+            
 
-    </header>
-  </article>
+            
+            
 
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Flask/" itemprop="url" rel="index"><span itemprop="name">Flask</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/Flask-源码阅读-请求流程.html#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="Flask-源码阅读-请求流程.html" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>阅读 <code>Flask</code> 源码的系列笔记, 这一篇说的是 <code>Flask</code> 的请求流程</p>
+<a id="more"></a>
+<blockquote>
+<p>这里是用 Debug 模式运行所以出现的会是 DebugApplication 对于其他情况都会调用不同的 Application. 例如, 多线程是 ThreadedWSGIServer, fork 是 ForkingWSGIServer等, 但是除了具体等 多线程 和 fork 操作不一样之外, 其他等流程大致也是一样的. 就不详细写了.</p>
+<p>以后有时间在看看要不要上图之类的.</p>
+</blockquote>
+<h1 id="Flask-请求流程"><a href="#Flask-请求流程" class="headerlink" title="Flask 请求流程"></a>Flask 请求流程</h1><h2 id="启动代码"><a href="#启动代码" class="headerlink" title="启动代码"></a>启动代码</h2>   <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> flask <span class="keyword">import</span> Flask</span><br><span class="line"></span><br><span class="line">app = Flask(__name__)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="meta">@app.route('/')</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">hello_world</span><span class="params">()</span>:</span></span><br><span class="line">    <span class="keyword">return</span> <span class="string">'Hello World!'</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">'__main__'</span>:</span><br><span class="line">    app.run(port=<span class="number">8000</span>, debug=<span class="keyword">True</span>)</span><br></pre></td></tr></table></figure>
+<h2 id="正文"><a href="#正文" class="headerlink" title="正文"></a>正文</h2><ol>
+<li>首先线程被唤醒, 调用 <code>Thread.run</code> 方法, 然后由 <code>ThreadedWSGIServer</code> 处理该线程的请求.<blockquote>
+<p> <code>ThreadedWSGIServer</code> 是一个执行线程的 WSGI 服务器, 在启动服务的时候如果选择了多线程就会初始化并返回这个的实例</p>
+</blockquote>
+</li>
+<li>调用 <code>ThreadedWSGIServer</code> 的父类 <code>ThreadingMixIn</code> 的 <code>process_request_thread</code> 方法.<blockquote>
+<p>这是一个用于处理新线程中的每个请求的混合类, 而 <code>process_request_thread</code> 和 <code>BaseServer</code> 一样, 但是不同的是它是请求线程里的, 而且做了异常处理.</p>
+</blockquote>
+</li>
+<li><code>process_request_thread</code> 首先会调用 <code>BaseServer.finish_request</code> 方法, 使用 <code>self.RequestHandlerClass</code> (即 <code>BaseRequestHandler</code>)开始实例化一个 <code>request</code><blockquote>
+<p><code>ThreadedWSGIServer</code> 继承了 <code>ThreadingMixIn</code> 和 <code>BaseWSGIServer</code>, 而 <code>BaseWSGIServer</code> -继承-&gt; <code>HTTPServer</code> -继承-&gt; <code>TCPServer</code> -继承-&gt; <code>BaseServer</code>.<br><code>ThreadedWSGIServer</code> 是 <code>BaseServer</code> 的子类, 所以能调用 <code>BaseServer</code> 的方法,它也是服务器类的超级父类.</p>
+</blockquote>
+</li>
+<li>在实例化 <code>BaseRequestHandler</code> 的时候, 会执行 <code>BaseRequestHandler.handle</code> 完成后执行 <code>BaseRequestHandler.finish</code> </li>
+<li>因为在初始化包<code>werkzeug.serving</code> 的时候, 会将 <code>WSGIRequestHandler</code> 类赋值给<code>BaseRequestHandler</code> , 所以现在会执行 <code>WSGIRequestHandler</code> 的 <code>handle</code> 方法.</li>
+<li><code>WSGIRequestHandler.handle</code> 会调用父类 <code>BaseHTTPRequestHandler</code> 的 <code>handle</code> 方法. <code>BaseHTTPRequestHandler.handle</code> 会调用 <code>WSGIRequestHandler.handle_one_request</code> 方法处理单个的 http 请求, 如果有多个请求也会由这里处理. 使用 while 循环执行 <code>handle_one_request</code> 直到连接关闭.</li>
+<li>在 <code>WSGIRequestHandler.handle_one_request</code> 中会获取原始请求行, 然后调用<code>BaseHTTPRequestHandler.parse_request</code> 去解析一个 http 请求的请求行, 请求头, 请求路径等. 然后再调用 <code>WSGIRequestHandler.run_wsgi</code></li>
+<li>在 <code>WSGIRequestHandler.run_wsgi</code> 中会调用内部方法 <code>execute</code> , 在 <code>execute</code> 中就会实例化 werkzeug 的 Application. 首先会初始化 <code>BaseRequest</code> 和 将 <code>DebuggedApplication.debug_application</code> 方法分配给 response ,给 request 并根据 request 的参数调整 response, 再返回 response 方法结果的迭代器.<blockquote>
+<p>在实例化的时候会初始化 <code>BaseRequest</code>, <code>BaseRequest</code> 是非常基本的请求对象。它不会实现实体标记解析或缓存控制等高级内容。除非它是使用<code>populate_request</code>设置为False创建的, 不然它会使用WSGI环境作为第一个参数创建请求对象，并将自己添加到WSGI环境中作为 <code>werkzeug.request</code>.<br><code>DebuggedApplication.debug_application</code> 会运行 Application 并保存跟踪信息</p>
+</blockquote>
+</li>
+<li>Application 会调用 Flask 实例, 在 <strong>call</strong> 方法中, WSGI 服务器会调用 Flask Application 对象到 WSGI Application.在 <strong>call</strong> 方法中会调用的 wsgi_app, 它可以包装到应用中间件。</li>
+<li>在 <code>wsgi_app</code> 刚开始就会通过 <code>Flask.request_context</code> 构建 <code>请求上下文</code>, <code>Flask.request_context</code> 会初始化 <code>RequestContext</code> , 然后将 <code>请求上下文</code> 推入应用上下文, 然后调用 <code>Flask.full_dispatch_request</code>.<blockquote>
+<p>在初始化的时候 <code>RequestContext</code> 会提供一个 <code>match_request</code> 方法, 这个方法可以被子类重写以挂钩到请求的匹配。</p>
+</blockquote>
+</li>
+<li><code>Flask.full_dispatch_request</code> 会调度请求，最重要的是执行请求前后处理以及HTTP异常捕获和错误处理。<ol>
+<li>首先调用 <code>try_trigger_before_first_request_functions</code> 方法, 这个方法会调用装饰了 before_first_request 这个装饰器的方法.并确保只调用一次.</li>
+<li>调用向 Application 和当前蓝图注册的 <code>url_value_preprocessors</code>。然后调用在 Application 和蓝图中注册的<code>before_request_funcs</code>。 如果任何<code>before_request()</code> 处理程序返回非None值，则处理该值就好像它是视图中的返回值一样，并且停止进一步的请求处理。</li>
+<li>调用 <code>dispatch_request</code> 进行请求调度, 执行请求的方法.</li>
+</ol>
+</li>
+<li>执行请求方法</li>
+<li>请求方法返回结果给 <code>dispatch_request</code>, <code>dispatch_request</code> 返回结果给 <code>full_dispatch_request</code>.</li>
+<li><code>full_dispatch_request</code> 继续执行 <code>finalize_request</code> 方法. 它会通过将请求转换为响应并调用后处理函数来最终确定响应。 <code>finalize_request</code> 调用 <code>make_response</code> 将结果转换为 response. 然后调用 <code>process_response</code> 方法执行装饰了 <code>after_request</code> 的方法, 在响应发送到 WSGI 服务器之前修改响应. </li>
+<li>然后将结果返回到 <code>wsgi_app</code>, 它会继续返回, 并将请求上下文弹出应用上下文.</li>
+<li>结果返回到 <code>DebuggedApplication.debug_application</code> 它会返回一个迭代器迭代返回的结果. 然后 <code>execute</code> 方法会调用 <code>write</code> 方法将结果发送回客户端<blockquote>
+<p> <code>write</code> 方法会先后返回响应行, 响应头, 响应体</p>
+</blockquote>
+</li>
+<li>在响应回客户端后会一直返回并且 close, 等待下一个请求.</li>
+</ol>
 
       
     </div>
+    
+    
+    
 
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Flask/" rel="tag"># Flask</a>
+          
+            <a href="/tags/Python/" rel="tag"># Python</a>
+          
+            <a href="/tags/源码/" rel="tag"># 源码</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/我一直不理解 JavaScript 的闭包.html" rel="next" title="我一直不理解 JavaScript 的闭包是什么">
+                <i class="fa fa-chevron-left"></i> 我一直不理解 JavaScript 的闭包是什么
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/Flask-源码阅读-启动流程.html" rel="prev" title="Flask 源码阅读: 启动流程">
+                Flask 源码阅读: 启动流程 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
   </div>
   
   
   
+  </article>
 
-  
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
 
 
           </div>
           
+
+  
+    <div class="comments" id="comments">
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    </div>
+
+  
+
+
 
         </div>
         
@@ -380,8 +578,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -537,6 +744,22 @@
       </section>
 
       
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Flask-请求流程"><span class="nav-text">Flask 请求流程</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#启动代码"><span class="nav-text">启动代码</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#正文"><span class="nav-text">正文</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
 
       
 
@@ -689,6 +912,10 @@
 
 
   
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.0.3"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.0.3"></script>
+
+
 
   
 
@@ -703,6 +930,23 @@
     <script id="dsq-count-scr" src="https://cornertodays.disqus.com/count.js" async></script>
   
 
+  
+    <script type="text/javascript">
+      var disqus_config = function () {
+        this.page.url = 'http://luguohuas.online/Flask-源码阅读-请求流程.html';
+        this.page.identifier = 'Flask-源码阅读-请求流程.html';
+        this.page.title = 'Flask 源码阅读: 请求流程';
+      };
+      function loadComments () {
+        var d = document, s = d.createElement('script');
+        s.src = 'https://cornertodays.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', '' + +new Date());
+        (d.head || d.body).appendChild(s);
+      }
+      
+        loadComments();
+      
+    </script>
   
 
 

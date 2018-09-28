@@ -100,23 +100,28 @@
 
 
   
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="Flask,Python,源码," />
 
 
-<meta property="og:type" content="website">
-<meta property="og:title" content="Corner.Today">
-<meta property="og:url" content="http://luguohuas.online/tags/TDD/index.html">
+<meta name="description" content="阅读 Flask 源码的系列笔记, 这一篇说的是 Flask 的启动流程">
+<meta name="keywords" content="Flask,Python,源码">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Flask 源码阅读: 启动流程">
+<meta property="og:url" content="http://luguohuas.online/Flask-源码阅读-启动流程.html">
 <meta property="og:site_name" content="Corner.Today">
+<meta property="og:description" content="阅读 Flask 源码的系列笔记, 这一篇说的是 Flask 的启动流程">
 <meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2018-09-28T10:24:34.757Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Corner.Today">
+<meta name="twitter:title" content="Flask 源码阅读: 启动流程">
+<meta name="twitter:description" content="阅读 Flask 源码的系列笔记, 这一篇说的是 Flask 的启动流程">
 
 
 
 
 
 
-  <link rel="canonical" href="http://luguohuas.online/tags/TDD/"/>
+  <link rel="canonical" href="http://luguohuas.online/Flask-源码阅读-启动流程.html"/>
 
 
 
@@ -125,7 +130,7 @@
     sidebar: "",
   };
 </script>
-  <title>Tag: TDD | Corner.Today</title>
+  <title>Flask 源码阅读: 启动流程 | Corner.Today</title>
   
 
 
@@ -181,7 +186,7 @@
     
   
 
-  <div class="container sidebar-position-left ">
+  <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -308,58 +313,270 @@
           <div id="content" class="content">
             
 
-  
-  
-  
-  <div class="post-block tag">
+  <div id="posts" class="posts-expand">
+    
 
-    <div id="posts" class="posts-collapse">
-      <div class="collection-title">
-        <h1>TDD<small>Tag</small>
-        </h1>
-      </div>
+  
 
-      
-        
+  
+  
+  
+
+  
 
   <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://luguohuas.online/Flask-源码阅读-启动流程.html">
 
-      <h2 class="post-title">
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="LuGuoHuas">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Corner.Today">
+    </span>
+
+    
+      <header class="post-header">
+
         
-            <a class="post-title-link" href="/Python-Web开发测试驱动方法笔记.html" itemprop="url">
-              
-                <span itemprop="name">Python Web开发测试驱动方法 笔记</span>
-              
-            </a>
         
-      </h2>
+          <h1 class="post-title" itemprop="name headline">Flask 源码阅读: 启动流程</h1>
+        
 
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2018-02-26T15:52:11+08:00"
-              content="2018-02-26" >
-          02-26
-        </time>
-      </div>
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-09-09T14:58:15+08:00">2018-09-09</time>
+            
 
-    </header>
-  </article>
+            
+            
 
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Flask/" itemprop="url" rel="index"><span itemprop="name">Flask</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/Flask-源码阅读-启动流程.html#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="Flask-源码阅读-启动流程.html" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>阅读 <code>Flask</code> 源码的系列笔记, 这一篇说的是 <code>Flask</code> 的启动流程</p>
+<a id="more"></a>
+<blockquote>
+<p>这里是用 Debug 模式运行所以出现的会是 DebugApplication 对于其他情况都会调用不同的 Application. 例如, 多线程是 ThreadedWSGIServer, fork 是 ForkingWSGIServer等, 但是除了具体等 多线程 和 fork 操作不一样之外, 其他等流程大致也是一样的. 就不详细写了.</p>
+<p>以后有时间在看看要不要上图之类的.</p>
+</blockquote>
+<h1 id="Flask-启动流程"><a href="#Flask-启动流程" class="headerlink" title="Flask 启动流程"></a>Flask 启动流程</h1><h2 id="启动代码"><a href="#启动代码" class="headerlink" title="启动代码"></a>启动代码</h2>   <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> flask <span class="keyword">import</span> Flask</span><br><span class="line"></span><br><span class="line">app = Flask(__name__)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="meta">@app.route('/')</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">hello_world</span><span class="params">()</span>:</span></span><br><span class="line">    <span class="keyword">return</span> <span class="string">'Hello World!'</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">'__main__'</span>:</span><br><span class="line">    app.run(port=<span class="number">8000</span>, debug=<span class="keyword">True</span>)</span><br></pre></td></tr></table></figure>
+<h2 id="Cli-启动"><a href="#Cli-启动" class="headerlink" title="Cli 启动"></a>Cli 启动</h2><ol>
+<li><p>开始启动后, 首先执行 flask/<strong>main</strong>.py 文件<br>这个文件是 Flask.run 在命令行中等别名, 它会导入 flask.cli 并执行 cli.main 方法</p>
+</li>
+<li><p>cli.main 方法会重写参数方便重启, 然后执行 FlaskGroup 实例等 main 方法<br>在进入 cli.py 后会实例 FlaskGroup 赋值给全局变量 cli .然后执行 cli 的 main 方法.<br>FlaskGroup 是 AppGrooup 的特殊子类, 一般不会用到, 但是有些用例需要用到.<br>AppGroup 是 Click.Group 的子类重新封装了 command 装饰器以便将函数封装到 with_appcontext</p>
+</li>
+<li><p>cli.main 会设置一个全局标志, 然后启动命令</p>
+<ol>
+<li>cli.main 设置一个全局标志 FLASK_RUN_FROM_CLI 为 ‘true’, 表明是从命令行调用到.<br>这个标志是被 Flask.run 检测, 使调用进入无操作状态.当这里当加载脚本也尝试启动服务器使, 可以避免一些错误.</li>
+<li>cli.main 还会在这里检测是否加载 dotenv. 设置系统变量 FLASK_SKIP_DOTENV 判断是否加载.</li>
+<li>这个时候会创建 ScriptInfo 实例.<br>ScriptInfo 是帮助处理 Flask applications 的对象. 但是通常是可以忽略的的,因为它在调度中用于内部 click.<br>在以后的版本可能会变得重要. 一般是由 FlaskGroup 创建, 但是也可以手动创建并作为 click 对象传递.</li>
+<li>会调用父类 BaseCommand 的 main 方法, 执行 Flask.cli.run_command 方法启动服务器.<br>BaseCommand 是 click 实现的的最小 API 命令契约. 通过 Click 调用 Flask.cli.run_command 方法.<br>ScriptInfo 实例将作为参数 info 传递进 run_command 方法, 其他一些运行参数也会被传递进 run_command 方法里,<br>例如: host, port, reload, debugger, eager_loading, with_threads, cert等.<br>其中 cert 是用于指定 HTTPS 证书, eager_loading 是控制是否快速加载的, with_threads 是用于是否启用多线程的.<br>cert -&gt; –cert<br>eager_loading -&gt; –eager-loading/–lazy-loader<br>with_threads -&gt; –with-threads/–withour-threads</li>
+</ol>
+</li>
+<li><p>run_command 方法会创建一个本地开发服务器.</p>
+<ol>
+<li>设置第一次运行服务器时显示的额外启动信息</li>
+<li>实例化 cli.DispathingApp 赋值给 app, 在实例化 Flask 的过程中会初始化 Request、Response、config 等配置给 app<br>DispathingApp 是一个在后台线程中通过 name 导入模块, 然后分发到 Flask Application 到特殊应用。<br>如果发生错误，它会被记录并显示未 WSGI handling 的一部分。<ol>
+<li>首先获取多线程锁 threding.Lock()</li>
+<li>根据是否启用快速加载(–eager-loading/–lazy-loader)来选择不同的加载方式 Flask_APP -&gt; export FLASK_APP=xxx.py<br>如果启用则使用 _load_unlocker() 加载, 否则则使用 _load_in_background() 加载<ul>
+<li>_load_unlocker()<ol>
+<li>_load_unlocker 会调用 self.loader() -&gt; ScriptInfo.load_app<br>这个方法会加载 Flask app 并返回, 重复调用这个方法会返回已加载的 app</li>
+</ol>
+</li>
+<li>_load_in_background<ol>
+<li>_load_in_background 会使用多线程的方式调用 _load_app 在获得线程锁的时候再通过 _load_unlocker</li>
+</ol>
+</li>
+</ul>
+</li>
+</ol>
+</li>
+<li>导入 werkzeug.serving.run_simple 方法创建服务器.</li>
+</ol>
+</li>
+<li><p>werkzeug.serving.run_simple 启动一个 WSGI application</p>
+<ol>
+<li>debug 模式和静态文件加载是在这里被添加进 application</li>
+<li>如果允许模块修改时自动重启 Python 进程, 会提前创建 socket 保证端口可用.</li>
+<li>最后都是调用 inner 方法创建服务器</li>
+</ol>
+</li>
+<li><p>inner</p>
+<ol>
+<li>调用 make_server 创建一个新的 server 实例 srv<ol>
+<li>make_server 可以创建阻塞、多线程、多进程等多种实例</li>
+<li>在创建 WSGI server 的时候会初始化 HTTPServer</li>
+</ol>
+</li>
+<li>通过 srv.serve_forever 启动服务</li>
+</ol>
+</li>
+</ol>
+<h2 id="app-run-启动"><a href="#app-run-启动" class="headerlink" title="app.run 启动"></a>app.run 启动</h2><ol>
+<li><p>与 Cli 启动不同的是 app.run 启动会在先初始化 Flask 给 app.在初始化 Flask 的过程中会和 Cli 启动一样会初始化配置.</p>
+</li>
+<li><p>app.run() 启动一个本地服务器</p>
+<ol>
+<li>在 app.run() 里面会用到 cli.load_dotenv() 加载 dotenv,这个 cli 是在初始化时 通过 from . import cli 导入的.</li>
+</ol>
+</li>
+</ol>
 
       
     </div>
+    
+    
+    
 
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Flask/" rel="tag"># Flask</a>
+          
+            <a href="/tags/Python/" rel="tag"># Python</a>
+          
+            <a href="/tags/源码/" rel="tag"># 源码</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/Flask-源码阅读-请求流程.html" rel="next" title="Flask 源码阅读: 请求流程">
+                <i class="fa fa-chevron-left"></i> Flask 源码阅读: 请求流程
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/Python-日志模块-logging-的应用.html" rel="prev" title="Python 日志模块 logging 的应用">
+                Python 日志模块 logging 的应用 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
   </div>
   
   
   
+  </article>
 
-  
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
 
 
           </div>
           
+
+  
+    <div class="comments" id="comments">
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    </div>
+
+  
+
+
 
         </div>
         
@@ -380,8 +597,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -537,6 +763,22 @@
       </section>
 
       
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Flask-启动流程"><span class="nav-text">Flask 启动流程</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#启动代码"><span class="nav-text">启动代码</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Cli-启动"><span class="nav-text">Cli 启动</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#app-run-启动"><span class="nav-text">app.run 启动</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
 
       
 
@@ -689,6 +931,10 @@
 
 
   
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.0.3"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.0.3"></script>
+
+
 
   
 
@@ -703,6 +949,23 @@
     <script id="dsq-count-scr" src="https://cornertodays.disqus.com/count.js" async></script>
   
 
+  
+    <script type="text/javascript">
+      var disqus_config = function () {
+        this.page.url = 'http://luguohuas.online/Flask-源码阅读-启动流程.html';
+        this.page.identifier = 'Flask-源码阅读-启动流程.html';
+        this.page.title = 'Flask 源码阅读: 启动流程';
+      };
+      function loadComments () {
+        var d = document, s = d.createElement('script');
+        s.src = 'https://cornertodays.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', '' + +new Date());
+        (d.head || d.body).appendChild(s);
+      }
+      
+        loadComments();
+      
+    </script>
   
 
 
